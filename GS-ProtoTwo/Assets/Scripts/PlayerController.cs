@@ -1,83 +1,97 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
+public enum PlayerAction
+{
+    wait,
+    goToStart,
+    goToEnemy,
+}
 
 public class PlayerController : MonoBehaviour
 {
-    public EnemyController enemy;
-    private Vector3 startPosition;
-    public float speed;
+    [Header("PlayerStats")]
     public float damage;
-    public bool attacking = false;
-    public bool finishedAnim = false;
+    [Header("Debug")]
+    public EnemyController enemy;
 
+    // Private Variables
+    private Vector3 startPosition;
+    private NavMeshAgent navAgent;
+    private Animator animator;
+    private PlayerAction currentAction;
 
-    private void Start()
+    private void Awake()
     {
+        navAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+
         startPosition = transform.position;
     }
 
     private void Update()
     {
+        // Test Attack
         if (Input.GetKeyDown(KeyCode.F))
-        {
-            attacking = true;
-        }
-
-
-
-        if (attacking)
         {
             MoveToTarget(enemy);
         }
-        else if (finishedAnim)
+
+        // Path Completed && Not Waiting for Turn/Instruction
+        if (!navAgent.pathPending && !navAgent.hasPath && currentAction != PlayerAction.wait)
         {
-            MoveToStart();
+            CheckAction(currentAction);
         }
     }
 
+    public void CheckAction(PlayerAction _action)
+    {
+        switch (_action)
+        {
+            case PlayerAction.goToEnemy:
+            {
+                Punch();
+                currentAction = PlayerAction.wait;
+                break;
+            }
+            case PlayerAction.goToStart:
+            {
+                currentAction = PlayerAction.wait;
+                break;
+            }
+
+            default:
+            {
+                break;
+            }
+        }
+    }
 
     public void MoveToStart()
     {
-        float dist = Vector3.Distance(startPosition, transform.position);
-
-        if (dist > 1.0f)
-        {
-            Vector3 dir = Vector3.Normalize(startPosition - transform.position);
-
-            transform.Translate(dir * speed, Space.World);
-        }
-        else
-        {
-            finishedAnim = false;
-        }
+        currentAction = PlayerAction.goToStart;
+        navAgent.SetDestination(startPosition);
     }
 
 
     public void MoveToTarget(EnemyController _enemy)
     {
-        float dist = Vector3.Distance(transform.position, _enemy.transform.position);
+        Vector3 dist = (_enemy.transform.position - transform.position) * 0.2f;
+        navAgent.SetDestination(_enemy.transform.position - dist);
 
-        if (dist > 1.0f)
-        {
-            Vector3 dir = Vector3.Normalize(_enemy.transform.position - transform.position);
-
-            transform.Translate(dir * speed, Space.World);
-        }
-        else
-        {
-            // Play Anim
-            attacking = false;
-            DamageEnemy(_enemy);
-        }
+        currentAction = PlayerAction.goToEnemy;
     }
 
-    public void DamageEnemy(EnemyController _enemy)
+    public void Punch()
     {
-        // Take in Enemy
-        // Damage Enemy
-        _enemy.TakeDamage(damage);
-        finishedAnim = true;
+        animator.SetTrigger("Punch");
+    }
+
+    public void DamageEnemy()
+    {
+        enemy.TakeDamage(damage);
     }
     
 }

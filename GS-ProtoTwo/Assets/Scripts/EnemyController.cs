@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
+        Debug.Log("Took " + _damage + " damage!");
         health -= _damage;
     }
 }
