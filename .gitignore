@@ -61,3 +61,13 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+GS-ProtoOne/.idea/
+
+GS-ProtoOne/obj/
+
+GS-ProtoOne/Library/
+
+GS-ProtoOne/Temp/UnityLockfile
+
+GS-ProtoOne/Temp/
