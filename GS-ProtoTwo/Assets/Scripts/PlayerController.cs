@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("PlayerStats")]
     public float damage;
+    public int id;
     [Header("Debug")]
     public EnemyController enemy;
 
@@ -37,6 +38,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             MoveToTarget(enemy);
+        }
+
+        // Test Turns
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            EventHandler.instance.ToggleTurn(id);
+        }
+        // Test Turns
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            EventHandler.instance.ToggleTurn(10);
         }
 
         // Path Completed && Not Waiting for Turn/Instruction
