@@ -5,7 +5,6 @@ using UnityEngine;
 public class ActionScript : MonoBehaviour
 {
     // Menu Function Calls Go Here
-
     public void Attack()
     {
         CombatController.instance.Attack();

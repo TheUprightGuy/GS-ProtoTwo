@@ -31,6 +31,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     [HideInInspector] public NavMeshAgent navAgent;
     [HideInInspector] public Animator animator;
 
+    public delegate void ActionMethod();
+
     #region Setup
     private void Awake()
     {
@@ -144,9 +146,14 @@ public abstract class BaseCharacterClass : MonoBehaviour
         if (activeTurn && characterType == CharacterType.Enemy)
         {
             // temp
+            CombatController.instance.ChangeState(CombatState.enemyState);
             turnIndicator.Toggle(false);
 
             Attack(target);
+        }
+        else if (activeTurn && characterType == CharacterType.Player)
+        {
+            CombatController.instance.ChangeState(CombatState.menuState);
         }
     }
 
@@ -183,8 +190,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     {
         inAction = true;
 
-        CombatController.instance.combatState = CombatState.targetState;
-        CombatController.instance.currentTarget = 0;
+        CombatController.instance.combatState = CombatState.targetingState;
         CombatController.instance.SetTarget(CombatController.instance.currentTarget);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetBillboard : Billboard
 {
-    private void Start()
+    /*private void Start()
     {
         CombatController.instance.toggleTarget += ToggleTarget;
     }
@@ -14,8 +14,8 @@ public class TargetBillboard : Billboard
         CombatController.instance.toggleTarget -= ToggleTarget;
     }
 
-    public void ToggleTarget()
+    public void ToggleTarget(bool _toggle)
     {
-        Toggle(false);
-    }
+        Toggle(_toggle);
+    }*/
 }

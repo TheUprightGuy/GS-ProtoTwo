@@ -6,8 +6,8 @@ using UnityEngine;
 public enum CombatState
 { 
     menuState,
-    targetState,
-    playState,
+    targetingState,
+    actionState,
     enemyState,
 }
 
@@ -37,7 +37,8 @@ public class CombatController : MonoBehaviour
     public GameObject enemyPrefab;
 
     private int activeTurn = 0;
-    public int currentTarget;
+    public int currentTarget = 0;
+    public int prevTarget = 0;
 
     //[HideInInspector] 
     public List<EnemyController> enemies;
@@ -59,7 +60,7 @@ public class CombatController : MonoBehaviour
     {
         switch (combatState)
         {
-            case CombatState.targetState:
+            case CombatState.targetingState:
             {
                 TargetNavigation();
                 break;
@@ -68,6 +69,34 @@ public class CombatController : MonoBehaviour
             {
                 break;
             }       
+        }
+    }
+
+    public void ChangeState(CombatState _state)
+    {
+        combatState = _state;
+
+        switch (combatState)
+        {
+            case CombatState.menuState:
+            {
+                ToggleActionCanvas(true);
+                break;
+            }
+            case CombatState.targetingState:
+            {
+                break;
+            }
+            case CombatState.actionState:
+            {
+                ToggleActionCanvas(false);
+                break;
+            }
+            default:
+            {
+                ToggleActionCanvas(false);
+                break;
+            }
         }
     }
 
@@ -107,7 +136,7 @@ public class CombatController : MonoBehaviour
         // Check Turn IDs
         for (int i = 0; i < turnOrder.Count; i++)
         {
-            Debug.Log(turnOrder[i].name + " turn is #" + i + " with " + turnOrder[i].speed + " speed.");
+            //Debug.Log(turnOrder[i].name + " turn is #" + i + " with " + turnOrder[i].speed + " speed.");
             turnOrder[i].id = i;
         }
     }
@@ -133,7 +162,9 @@ public class CombatController : MonoBehaviour
 
     public void Confirm()
     {
-        ToggleTarget();
+        ChangeState(CombatState.actionState);
+        // temp
+        SetTarget(-1);
     }
 
     public void TargetNavigation()
@@ -149,7 +180,6 @@ public class CombatController : MonoBehaviour
             SetTarget(enemies[currentTarget].id);
         }
     }
-
 
     #region Callbacks
     public event Action<int> setTurn;
@@ -170,12 +200,12 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    public event Action toggleTarget;
-    public void ToggleTarget()
+    public event Action<bool> toggleActionCanvas;
+    public void ToggleActionCanvas(bool _toggle)
     {
-        if (toggleTarget != null)
+        if (toggleActionCanvas != null)
         {
-            toggleTarget();
+            toggleActionCanvas(_toggle);
         }
     }
     #endregion Callbacks
