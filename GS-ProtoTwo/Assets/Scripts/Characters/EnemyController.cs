@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class EnemyController : BaseCharacterClass
 {
-    public void Punch(BaseCharacterClass _enemy)
+    public void Punch()
     {
         inAction = true;
-        target = _enemy;
 
         DamageEnemy();
         FinishedTask();
     }
 
-    public override void Attack(BaseCharacterClass _enemy)
+    public override void Attack()
     {
-        ActionsList(() => MoveToTarget(_enemy), () => Punch(_enemy), () => MoveToStart());
+        ActionsList(() => MoveToTarget(target), () => Punch(), () => MoveToStart());
     }
 }

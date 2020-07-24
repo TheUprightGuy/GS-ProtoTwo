@@ -6,16 +6,15 @@ using UnityEngine.AI;
 
 public class PlayerController : BaseCharacterClass
 {
-    public void Punch(BaseCharacterClass _enemy)
+    public void Punch()
     {
         inAction = true;
 
-        target = _enemy;
         animator.SetTrigger("Punch");
     }
 
-    public override void Attack(BaseCharacterClass _enemy)
+    public override void Attack()
     {
-        ActionsList(()=>ChooseTarget(), ()=>MoveToTarget(_enemy), ()=>Punch(_enemy), ()=>MoveToStart());
+        ActionsList(()=>ChooseTarget(), ()=>MoveToTarget(target), ()=>Punch(), ()=>MoveToStart());
     }
 }

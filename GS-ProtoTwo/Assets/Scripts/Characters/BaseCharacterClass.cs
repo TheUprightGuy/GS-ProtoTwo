@@ -149,7 +149,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
             CombatController.instance.ChangeState(CombatState.enemyState);
             turnIndicator.Toggle(false);
 
-            Attack(target);
+            Attack();
         }
         else if (activeTurn && characterType == CharacterType.Player)
         {
@@ -169,7 +169,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         health -= _damage;
     }
 
-    public virtual void Attack(BaseCharacterClass _enemy)
+    public virtual void Attack()
     {
         Debug.Log("using virtual for some reason");
     }

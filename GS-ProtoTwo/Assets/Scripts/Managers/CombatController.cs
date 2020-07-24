@@ -32,21 +32,15 @@ public class CombatController : MonoBehaviour
 
     [Header("Debug Fields")]
     public PlayerController player;
-    private EnemyController enemy;
-    public CombatState combatState;
     public GameObject enemyPrefab;
-
+    // Turn Tracking
+    public CombatState combatState;
     private int activeTurn = 0;
-    public int currentTarget = 0;
-    public int prevTarget = 0;
-
-    //[HideInInspector] 
-    public List<EnemyController> enemies;
-    //[HideInInspector] 
-    public List<PlayerController> players;
-
-    //[HideInInspector] 
-    public List<BaseCharacterClass> turnOrder;
+    // Target Navigation
+    [HideInInspector] public int currentTarget = 0;
+    [HideInInspector] public List<EnemyController> enemies;
+    [HideInInspector] public List<PlayerController> players;
+    [HideInInspector] public List<BaseCharacterClass> turnOrder;
 
     private void Start()
     {
@@ -58,6 +52,7 @@ public class CombatController : MonoBehaviour
 
     private void Update()
     {
+        // temp
         switch (combatState)
         {
             case CombatState.targetingState:
@@ -72,6 +67,7 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    // temp
     public void ChangeState(CombatState _state)
     {
         combatState = _state;
@@ -122,9 +118,6 @@ public class CombatController : MonoBehaviour
             n.target = players[0];
             turnOrder.Add(n);
         }
-        
-        // temp
-        enemy = enemies[0];
     }
 
     public void GetTurnOrder()
@@ -148,11 +141,10 @@ public class CombatController : MonoBehaviour
     }
 
     public void Attack()
-    {      
-        turnOrder[activeTurn].Attack(enemy);       
+    {
+        turnOrder[activeTurn].Attack();       
     }
 
-    // This will be used to manage turn order
     public void NextTurn()
     {
         activeTurn = (activeTurn < turnOrder.Count - 1) ? (activeTurn + 1) : 0;
@@ -163,6 +155,7 @@ public class CombatController : MonoBehaviour
     public void Confirm()
     {
         ChangeState(CombatState.actionState);
+        turnOrder[activeTurn].target = enemies[currentTarget];
         // temp
         SetTarget(-1);
     }
