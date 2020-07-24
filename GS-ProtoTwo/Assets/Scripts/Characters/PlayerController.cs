@@ -16,6 +16,6 @@ public class PlayerController : BaseCharacterClass
 
     public override void Attack(BaseCharacterClass _enemy)
     {
-        ActionsList(()=>MoveToTarget(_enemy), ()=>Punch(_enemy), ()=>MoveToStart());
+        ActionsList(()=>ChooseTarget(), ()=>MoveToTarget(_enemy), ()=>Punch(_enemy), ()=>MoveToStart());
     }
 }

@@ -25,7 +25,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public BaseCharacterClass target;
 
     // Public is necessary due to Inheritance
-    [HideInInspector] public Billboard turnIndicator;
+    [HideInInspector] public TurnBillboard turnIndicator;
+    [HideInInspector] public TargetBillboard targetIndicator;
     [HideInInspector] public Vector3 startPosition;
     [HideInInspector] public NavMeshAgent navAgent;
     [HideInInspector] public Animator animator;
@@ -34,7 +35,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     private void Awake()
     {
         myQueue = new List<Action>();
-        turnIndicator = GetComponentInChildren<Billboard>();
+        turnIndicator = GetComponentInChildren<TurnBillboard>();
+        targetIndicator = GetComponentInChildren<TargetBillboard>();
 
         navAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -74,18 +76,18 @@ public abstract class BaseCharacterClass : MonoBehaviour
         }
 
         myQueue.Add(() => EndTurn());
-        turnIndicator.ToggleTurn(false);
     }
     #endregion ActionQueuing
     #region Callbacks
     private void Start()
     {
-        
+        CombatController.instance.setTarget += ToggleTarget;
         CombatController.instance.setTurn += SetTurn;
     }
 
     private void OnDestroy()
     {
+        CombatController.instance.setTarget -= ToggleTarget;
         CombatController.instance.setTurn -= SetTurn;
     }
     #endregion Callbacks
@@ -124,16 +126,26 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
                 NextTask();
             }
+
+            // temp
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                CombatController.instance.Confirm();
+                turnIndicator.Toggle(false);
+                FinishedTask();
+            }
         }
     }
 
     public void SetTurn(int _id)
     {
         activeTurn = (id == _id) ? true : false;
-        turnIndicator.ToggleTurn(activeTurn);
-
+        turnIndicator.Toggle(activeTurn);
         if (activeTurn && characterType == CharacterType.Enemy)
         {
+            // temp
+            turnIndicator.Toggle(false);
+
             Attack(target);
         }
     }
@@ -153,5 +165,26 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public virtual void Attack(BaseCharacterClass _enemy)
     {
         Debug.Log("using virtual for some reason");
+    }
+
+    public void ToggleTarget(int _id)
+    {
+        if (id == _id)
+        {
+            targetIndicator.Toggle(true);
+        }
+        else
+        {
+            targetIndicator.Toggle(false);
+        }
+    }
+
+    public void ChooseTarget()
+    {
+        inAction = true;
+
+        CombatController.instance.combatState = CombatState.targetState;
+        CombatController.instance.currentTarget = 0;
+        CombatController.instance.SetTarget(CombatController.instance.currentTarget);
     }
 }

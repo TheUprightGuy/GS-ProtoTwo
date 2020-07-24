@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Billboard : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    //private bool active;
+    private bool active;
 
     #region Setup
     private void Awake()
@@ -18,13 +18,13 @@ public class Billboard : MonoBehaviour
 
     void Update()
     {
-        /*if (active)
-            transform.forward = new Vector3(Camera.main.transform.forward.x, transform.forward.y, Camera.main.transform.forward.z);*/
+        if (active)
+            transform.forward = new Vector3(Camera.main.transform.forward.x, transform.forward.y, Camera.main.transform.forward.z);
     }
 
-    public void ToggleTurn(bool _toggle)
+    public void Toggle(bool _toggle)
     {
-        //active = _toggle;
-        spriteRenderer.enabled = _toggle;
+        active = _toggle;
+        spriteRenderer.enabled = active;
     }
 }

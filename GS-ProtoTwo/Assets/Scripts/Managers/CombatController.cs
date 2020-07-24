@@ -1,8 +1,16 @@
 ﻿using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum CombatState
+{ 
+    menuState,
+    targetState,
+    playState,
+    enemyState,
+}
+
 
 public class CombatController : MonoBehaviour
 {
@@ -25,10 +33,19 @@ public class CombatController : MonoBehaviour
     [Header("Debug Fields")]
     public PlayerController player;
     private EnemyController enemy;
+    public CombatState combatState;
     public GameObject enemyPrefab;
 
     private int activeTurn = 0;
-    [HideInInspector] public List<BaseCharacterClass> turnOrder;
+    public int currentTarget;
+
+    //[HideInInspector] 
+    public List<EnemyController> enemies;
+    //[HideInInspector] 
+    public List<PlayerController> players;
+
+    //[HideInInspector] 
+    public List<BaseCharacterClass> turnOrder;
 
     private void Start()
     {
@@ -38,28 +55,59 @@ public class CombatController : MonoBehaviour
         Invoke("StartBattle", 0.1f);
     }
 
+    private void Update()
+    {
+        switch (combatState)
+        {
+            case CombatState.targetState:
+            {
+                TargetNavigation();
+                break;
+            }
+            default:
+            {
+                break;
+            }       
+        }
+    }
+
     // Instantiate Enemies
     public void SetupBattle()
     {
-        EnemyController temp = Instantiate(enemyPrefab,transform.position, transform.rotation).GetComponent<EnemyController>();
-        enemy = temp;
         // temp
-        enemy.target = player;
+        EnemyController temp = Instantiate(enemyPrefab,transform.position, transform.rotation).GetComponent<EnemyController>();
+        temp.speed = 3;
+        enemies.Add(temp);
+        EnemyController temp2 = Instantiate(enemyPrefab, transform.position, transform.rotation).GetComponent<EnemyController>();
+        enemies.Add(temp2);
 
-        turnOrder.Add(temp);
-        turnOrder.Add(player);
+        players.Add(player);
+
+        foreach (BaseCharacterClass n in players)
+        {
+            turnOrder.Add(n);
+        }
+        foreach (BaseCharacterClass n in enemies)
+        {
+            // temp
+            n.target = players[0];
+            turnOrder.Add(n);
+        }
+        
+        // temp
+        enemy = enemies[0];
     }
 
     public void GetTurnOrder()
     {
         // Sort by Speed
-        turnOrder.OrderBy(f => f.speed);
+        turnOrder.Sort((a, b) => { return a.speed.CompareTo(b.speed); });
         turnOrder.Reverse();
 
         // Check Turn IDs
         for (int i = 0; i < turnOrder.Count; i++)
         {
-            //Debug.Log(turnOrder[i].name + " turn is #" + i);
+            Debug.Log(turnOrder[i].name + " turn is #" + i + " with " + turnOrder[i].speed + " speed.");
             turnOrder[i].id = i;
         }
     }
@@ -83,6 +131,27 @@ public class CombatController : MonoBehaviour
         SetTurn(activeTurn);
     }
 
+    public void Confirm()
+    {
+        ToggleTarget();
+    }
+
+    public void TargetNavigation()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            currentTarget = (currentTarget > 0 ? currentTarget - 1 : enemies.Count - 1);
+            SetTarget(enemies[currentTarget].id);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            currentTarget = (currentTarget < enemies.Count - 1 ? currentTarget + 1 : 0);
+            SetTarget(enemies[currentTarget].id);
+        }
+    }
+
+
+    #region Callbacks
     public event Action<int> setTurn;
     public void SetTurn(int _id)
     {
@@ -92,4 +161,22 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    public event Action<int> setTarget;
+    public void SetTarget(int _id)
+    {
+        if (setTarget != null)
+        {
+            setTarget(_id);
+        }
+    }
+
+    public event Action toggleTarget;
+    public void ToggleTarget()
+    {
+        if (toggleTarget != null)
+        {
+            toggleTarget();
+        }
+    }
+    #endregion Callbacks
 }
