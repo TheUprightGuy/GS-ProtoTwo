@@ -6,24 +6,41 @@ public class ThirdPersonCamera : MonoBehaviour
 {
     public GameObject target;
 
+    
     public bool invertX = false;
     public bool invertY = false;
-
-    public float rotateSpeed = 5;
-    public float zoomSpeed = 5;
-
-    public float minYAngle = 0.0f;
-    public float maxYAngle = 45.0f;
-
-    public float camCollisionRadius = 1.0f;
 
     public bool ThirdPersonOnlyWhenLocked = true;
     [Tooltip("Press ` to enable/disable cursor locking.")]
     public bool UnlockCameraKeyBind = true;
+
+    public float rotateSpeed = 5;
+    public float zoomSpeed = 5;
+
+    [Range(0.0f, 0.25f), Tooltip("0.0f == Off")]
+    public float CamSmoothing = 0.5f;
+    [Range(0.0f, 1.0f)]
+    public float camCollisionRadius = 1.0f;
+
+    [HideInInspector]
+    public float minYAngle = 0.0f;
+    [HideInInspector]
+    public float maxYAngle = 45.0f;
+
+    [HideInInspector]
+    public float minZoomDist = 10.0f;
+    [HideInInspector]
+    public float maxZoomDist = 50.0f;
+
+    
+
+
     Vector3 offset;
 
     float storeYPos = 0.0f;
     // Start is called before the first frame update
+
+    private Vector3 velocity = Vector3.zero;
     void Start()
     {
         offset = target.transform.position - transform.position;
@@ -73,8 +90,10 @@ public class ThirdPersonCamera : MonoBehaviour
 	        
 	        Quaternion rotation = Quaternion.Euler(storeYPos, desiredAngleY, 0);
 	
-	        offset.z += zoom;
-	
+
+	        offset.z -= zoom;
+            offset.z = Mathf.Clamp(offset.z, minZoomDist, maxZoomDist);
+
 	        //Get a new position based on target rotation, offset, and stored y rotation
 	        Vector3 newPos = target.transform.position - (rotation * offset);
 	
@@ -85,20 +104,24 @@ public class ThirdPersonCamera : MonoBehaviour
 	        Vector3 raydirection = Vector3.Normalize(newPos - target.transform.position);
 	        float rayDist = Vector3.Distance(newPos, target.transform.position);
 	        RaycastHit hit;
-	
-	        /*If there is an object between the target and the camera, 
+
+            /*If there is an object between the target and the camera, 
 	         set the position to the closest point with nothing between the two*/
+
+            Vector3 nextPos;
 	        if (Physics.Raycast(target.transform.position, raydirection, out hit, rayDist))
 	        {
-	            transform.position = target.transform.position + (raydirection * (hit.distance - camCollisionRadius));
+                nextPos = target.transform.position + (raydirection * (hit.distance - camCollisionRadius));
 	        }
 	        else //If nothing, just set the point to the newPos
 	        {
-	            transform.position = target.transform.position - (rotation * offset);
+                nextPos = target.transform.position - (rotation * offset);
 	        }
-	
-	        //Finally, rotate camera so its forward looks towards the target
-	        transform.LookAt(target.transform);
+
+            //Smooth the camera movement
+            transform.position = Vector3.SmoothDamp(transform.position, nextPos, ref velocity, CamSmoothing);
+            //Finally, rotate camera so its forward looks towards the target
+            transform.LookAt(target.transform);
         }
     }
 
