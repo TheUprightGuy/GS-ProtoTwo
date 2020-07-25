@@ -83,12 +83,14 @@ public abstract class BaseCharacterClass : MonoBehaviour
     #region Callbacks
     private void Start()
     {
+        CombatController.instance.toggleTurn += TurnOffTurn;
         CombatController.instance.setTarget += ToggleTarget;
         CombatController.instance.setTurn += SetTurn;
     }
 
     private void OnDestroy()
     {
+        CombatController.instance.toggleTurn -= TurnOffTurn;
         CombatController.instance.setTarget -= ToggleTarget;
         CombatController.instance.setTurn -= SetTurn;
     }
@@ -128,14 +130,6 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
                 NextTask();
             }
-
-            // temp
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                CombatController.instance.Confirm();
-                turnIndicator.Toggle(false);
-                FinishedTask();
-            }
         }
     }
 
@@ -146,15 +140,20 @@ public abstract class BaseCharacterClass : MonoBehaviour
         if (activeTurn && characterType == CharacterType.Enemy)
         {
             // temp
-            CombatController.instance.ChangeState(CombatState.enemyState);
+            CombatController.instance.ChangeState(CombatState.ENEMYTURN);
             turnIndicator.Toggle(false);
 
-            Attack();
+            Attack(CombatController.instance.players[0]);
         }
         else if (activeTurn && characterType == CharacterType.Player)
         {
-            CombatController.instance.ChangeState(CombatState.menuState);
+            CombatController.instance.ChangeState(CombatState.PLAYERTURN);
         }
+    }
+
+    public void TurnOffTurn()
+    {
+        turnIndicator.Toggle(false);
     }
 
     public void DamageEnemy()
@@ -169,7 +168,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         health -= _damage;
     }
 
-    public virtual void Attack()
+    public virtual void Attack(BaseCharacterClass _tar)
     {
         Debug.Log("using virtual for some reason");
     }
@@ -184,13 +183,5 @@ public abstract class BaseCharacterClass : MonoBehaviour
         {
             targetIndicator.Toggle(false);
         }
-    }
-
-    public void ChooseTarget()
-    {
-        inAction = true;
-
-        CombatController.instance.combatState = CombatState.targetingState;
-        CombatController.instance.SetTarget(CombatController.instance.currentTarget);
     }
 }

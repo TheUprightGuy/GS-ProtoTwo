@@ -5,10 +5,9 @@ using UnityEngine;
 
 public enum CombatState
 { 
-    menuState,
-    targetingState,
-    actionState,
-    enemyState,
+    PLAYERTURN,
+    ACTION,
+    ENEMYTURN,
 }
 
 
@@ -50,23 +49,6 @@ public class CombatController : MonoBehaviour
         Invoke("StartBattle", 0.1f);
     }
 
-    private void Update()
-    {
-        // temp
-        switch (combatState)
-        {
-            case CombatState.targetingState:
-            {
-                TargetNavigation();
-                break;
-            }
-            default:
-            {
-                break;
-            }       
-        }
-    }
-
     // temp
     public void ChangeState(CombatState _state)
     {
@@ -74,17 +56,15 @@ public class CombatController : MonoBehaviour
 
         switch (combatState)
         {
-            case CombatState.menuState:
+            case CombatState.PLAYERTURN:
             {
                 ToggleActionCanvas(true);
+                StartTurn();
                 break;
             }
-            case CombatState.targetingState:
+            case CombatState.ACTION:
             {
-                break;
-            }
-            case CombatState.actionState:
-            {
+                ToggleTurn();
                 ToggleActionCanvas(false);
                 break;
             }
@@ -101,7 +81,8 @@ public class CombatController : MonoBehaviour
     {
         // temp
         EnemyController temp = Instantiate(enemyPrefab,transform.position, transform.rotation).GetComponent<EnemyController>();
-        temp.speed = 3;
+        //temp.speed = 3;
+        temp.transform.Translate(new Vector3(2, 0, 0));
         enemies.Add(temp);
         EnemyController temp2 = Instantiate(enemyPrefab, transform.position, transform.rotation).GetComponent<EnemyController>();
         enemies.Add(temp2);
@@ -117,6 +98,7 @@ public class CombatController : MonoBehaviour
             // temp
             n.target = players[0];
             turnOrder.Add(n);
+            // Change this to take in EnemyController once we have more info on there (eg. name)
         }
     }
 
@@ -132,17 +114,16 @@ public class CombatController : MonoBehaviour
             //Debug.Log(turnOrder[i].name + " turn is #" + i + " with " + turnOrder[i].speed + " speed.");
             turnOrder[i].id = i;
         }
+        foreach (BaseCharacterClass n in enemies)
+        {
+            AddEnemyButton(n.id);
+        }
     }
 
     public void StartBattle()
     {
         activeTurn = 0;
         SetTurn(activeTurn);
-    }
-
-    public void Attack()
-    {
-        turnOrder[activeTurn].Attack();       
     }
 
     public void NextTurn()
@@ -152,26 +133,10 @@ public class CombatController : MonoBehaviour
         SetTurn(activeTurn);
     }
 
-    public void Confirm()
+    // Need to Swap the Queued Action instead of Attack
+    public void Submit(int _id)
     {
-        ChangeState(CombatState.actionState);
-        turnOrder[activeTurn].target = enemies[currentTarget];
-        // temp
-        SetTarget(-1);
-    }
-
-    public void TargetNavigation()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            currentTarget = (currentTarget > 0 ? currentTarget - 1 : enemies.Count - 1);
-            SetTarget(enemies[currentTarget].id);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            currentTarget = (currentTarget < enemies.Count - 1 ? currentTarget + 1 : 0);
-            SetTarget(enemies[currentTarget].id);
-        }
+        turnOrder[activeTurn].Attack(turnOrder[_id]);
     }
 
     #region Callbacks
@@ -193,12 +158,39 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    public event Action toggleTurn;
+    public void ToggleTurn()
+    {
+        if (toggleTurn != null)
+        {
+            toggleTurn();
+        }
+    }
+
     public event Action<bool> toggleActionCanvas;
     public void ToggleActionCanvas(bool _toggle)
     {
         if (toggleActionCanvas != null)
         {
             toggleActionCanvas(_toggle);
+        }
+    }
+
+    public event Action<int> addEnemyButton;
+    public void AddEnemyButton(int _id)
+    {
+        if (addEnemyButton != null)
+        {
+            addEnemyButton(_id);
+        }
+    }
+
+    public event Action startTurn;
+    public void StartTurn()
+    {
+        if (startTurn != null)
+        {
+            startTurn();
         }
     }
     #endregion Callbacks

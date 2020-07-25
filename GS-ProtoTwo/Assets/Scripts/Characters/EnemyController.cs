@@ -12,8 +12,9 @@ public class EnemyController : BaseCharacterClass
         FinishedTask();
     }
 
-    public override void Attack()
+    public override void Attack(BaseCharacterClass _tar)
     {
+        target = _tar;
         ActionsList(() => MoveToTarget(target), () => Punch(), () => MoveToStart());
     }
 }

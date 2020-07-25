@@ -13,8 +13,9 @@ public class PlayerController : BaseCharacterClass
         animator.SetTrigger("Punch");
     }
 
-    public override void Attack()
+    public override void Attack(BaseCharacterClass _tar)
     {
-        ActionsList(()=>ChooseTarget(), ()=>MoveToTarget(target), ()=>Punch(), ()=>MoveToStart());
+        target = _tar;
+        ActionsList(()=>MoveToTarget(target), ()=>Punch(), ()=>MoveToStart());
     }
 }
