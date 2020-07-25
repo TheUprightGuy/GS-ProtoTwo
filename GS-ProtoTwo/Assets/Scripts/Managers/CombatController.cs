@@ -43,6 +43,12 @@ public class CombatController : MonoBehaviour
 
     private void Start()
     {
+        // temp - REQUIRED CURRENTLY
+        Invoke("Setup", 0.01f);
+    }
+
+    public void Setup()
+    {
         SetupBattle();
         GetTurnOrder();
 

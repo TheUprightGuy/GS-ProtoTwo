@@ -1313,6 +1313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca08aa606d1368b478a4aed2bd12284a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
 --- !u!224 &304521036 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6631612300157622039, guid: b813cda58615b6c44a96507b656c0c19,
@@ -1371,7 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -2218,6 +2219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca08aa606d1368b478a4aed2bd12284a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
 --- !u!1 &583112756
 GameObject:
   m_ObjectHideFlags: 0
@@ -5302,6 +5304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca08aa606d1368b478a4aed2bd12284a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
 --- !u!1 &1415105842
 GameObject:
   m_ObjectHideFlags: 0
@@ -6873,6 +6876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca08aa606d1368b478a4aed2bd12284a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
 --- !u!224 &1901773988 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6631612300157622039, guid: b813cda58615b6c44a96507b656c0c19,
