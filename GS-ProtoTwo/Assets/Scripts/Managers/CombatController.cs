@@ -236,5 +236,14 @@ public class CombatController : MonoBehaviour
             updateStatus(_player);
         }
     }
+
+    public event Action<BaseCharacterClass> passPriority;
+    public void PassPriority()
+    {
+        if (passPriority != null)
+        {
+            passPriority(turnOrder[activeTurn]);
+        }
+    }
     #endregion Callbacks
 }

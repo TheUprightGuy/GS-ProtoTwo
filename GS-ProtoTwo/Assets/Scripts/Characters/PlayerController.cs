@@ -26,7 +26,7 @@ public class PlayerController : BaseCharacterClass
         //Debug.Log("used magic on " + _tar.name);
 
         target = _tar;
-        ActionsList();
+        ActionsList(()=>HoldPriority(this));
     }
     public override void Ability(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
@@ -42,7 +42,7 @@ public class PlayerController : BaseCharacterClass
         target = _tar;
         ActionsList();
     }
-
+    
     public override void TakeDamage(int _damage)
     {
         //Debug.Log(name + " took " + _damage + " damage!");

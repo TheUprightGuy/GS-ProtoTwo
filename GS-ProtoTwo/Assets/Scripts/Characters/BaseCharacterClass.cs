@@ -97,6 +97,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         CombatController.instance.toggleTurn += TurnOffTurn;
         CombatController.instance.setTarget += ToggleTarget;
         CombatController.instance.setTurn += SetTurn;
+        CombatController.instance.passPriority += PassPriority;
     }
 
     private void OnDestroy()
@@ -104,6 +105,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         CombatController.instance.toggleTurn -= TurnOffTurn;
         CombatController.instance.setTarget -= ToggleTarget;
         CombatController.instance.setTurn -= SetTurn;
+        CombatController.instance.passPriority -= PassPriority;
     }
     #endregion Callbacks
     #region Navigation
@@ -183,6 +185,22 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public virtual void SpendMana(int _mana)
     {
         //Debug.Log(name + " spent " + _mana + " mana.");
+    }
+
+    public void HoldPriority(BaseCharacterClass _character)
+    {
+        if (this == _character)
+        {
+            inAction = true;
+        }
+    }
+
+    public void PassPriority(BaseCharacterClass _character)
+    {
+        if (this == _character)
+        {
+            FinishedTask();
+        }
     }
 
     public virtual void Attack(BaseCharacterClass _user, BaseCharacterClass _tar)
