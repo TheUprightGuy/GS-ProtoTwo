@@ -38,6 +38,7 @@ public class ThirdPersonCamera : MonoBehaviour
     Vector3 offset;
 
     float storeYPos = 0.0f;
+    float storedXPos = 0.0f;
     // Start is called before the first frame update
 
     private Vector3 velocity = Vector3.zero;
@@ -78,17 +79,25 @@ public class ThirdPersonCamera : MonoBehaviour
 	        /*********************/
 	
 	        //Rotate Target
-	        target.transform.Rotate(0, horizontal, 0);
 	
-	        
 	        float desiredAngleY = target.transform.eulerAngles.y;
 	
 	        //Get the current stored Y angle and add mouse axis to it
 	        storeYPos += vertical;
 	        storeYPos = Mathf.Clamp(storeYPos, minYAngle, maxYAngle);
-	
-	        
-	        Quaternion rotation = Quaternion.Euler(storeYPos, desiredAngleY, 0);
+
+            storedXPos += horizontal;
+
+            if (!Input.GetKey(KeyCode.Mouse1)) //right mouseclick
+            {
+	            target.transform.Rotate(0, horizontal, 0);
+            }
+            if (Input.GetKeyUp(KeyCode.Mouse1))
+            {
+                storedXPos = target.transform.eulerAngles.y;
+            }
+
+            Quaternion rotation = Quaternion.Euler(storeYPos, storedXPos, 0);
 	
 
 	        offset.z -= zoom;

@@ -319,3 +319,7 @@ C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\obj\Debug\Assembly-CSharp.csproj
 C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\obj\Debug\Assembly-CSharp.dll
 C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\nunit.framework.pdb
+C:\Users\Jack\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\nunit.framework.xml
