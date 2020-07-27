@@ -13,6 +13,7 @@ public class EventHandler : MonoBehaviour
 
     private void Awake()
     {
+        gameInfo = ScriptableObject.CreateInstance<GameInfo>();
         if (Instance != null)
         {
             Debug.Log("More than one EventHandler in scene!");
@@ -21,7 +22,7 @@ public class EventHandler : MonoBehaviour
         }
 
         Instance = this;
-        isPaused = false;
+        gameInfo.paused = false;
         SceneManager.activeSceneChanged += OnSceneChanged;
         DontDestroyOnLoad(this.gameObject);
     }
@@ -29,18 +30,19 @@ public class EventHandler : MonoBehaviour
     private void OnSceneChanged(Scene current, Scene next)
     {
         Debug.Log(current.name + " changed to " + next.name);
-        isPaused = false;
+        gameInfo.paused = false;
     }
 
     #endregion
     
-    public bool isPaused;
+    public GameInfo gameInfo;
     public Action<bool> onPaused;
+    public bool settingsOpen;
     public Action<bool> toggleSettingsMenu;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape) && !settingsOpen)
         {
             TogglePaused();
         }
@@ -48,7 +50,7 @@ public class EventHandler : MonoBehaviour
 
     public void TogglePaused()
     {
-        isPaused = !isPaused;
-        onPaused(isPaused);
+        gameInfo.paused = !gameInfo.paused;
+        onPaused(gameInfo.paused);
     }
 }

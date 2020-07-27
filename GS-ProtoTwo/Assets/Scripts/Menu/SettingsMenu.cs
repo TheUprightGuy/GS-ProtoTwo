@@ -12,7 +12,8 @@ public class SettingsMenu : MonoBehaviour
 
     public void Back()
     {
-        //Trigger toggle settings menu action which disables settings menu and enable pause menu 
+        //Trigger toggle settings menu action which disables settings menu and enable pause menu
+        EventHandler.Instance.settingsOpen = false; 
         EventHandler.Instance.toggleSettingsMenu(false);
     }
 

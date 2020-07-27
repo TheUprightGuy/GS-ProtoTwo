@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenSettings()
     {
+        EventHandler.Instance.settingsOpen = true;
         EventHandler.Instance.toggleSettingsMenu(true);
     }
 
