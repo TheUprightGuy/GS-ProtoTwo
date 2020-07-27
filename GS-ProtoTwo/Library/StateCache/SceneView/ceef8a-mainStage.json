@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":0.5002267360687256,"y":0.6605438590049744,"z":-1.6655373573303223},"rotation":{"x":0.21971073746681214,"y":0.5477209091186523,"z":-0.15177372097969056,"w":0.7929340600967407},"size":1.3697187900543213,"orthographic":false}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":-2.408949375152588,"y":3.1766233444213869,"z":-1.5758209228515626},"rotation":{"x":-0.2674082815647125,"y":-0.31298547983169558,"z":0.09231235831975937,"w":-0.9066482186317444},"size":4.507394790649414,"orthographic":false}
+>>>>>>> JacobsBranch
