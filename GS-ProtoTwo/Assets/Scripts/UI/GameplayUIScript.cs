@@ -21,6 +21,7 @@ public class GameplayUIScript : MonoBehaviour
     #endregion Singleton
 
     public GameObject victoryCanvas;
+    public GameObject gameOverCanvas;
 
     public GameObject actionCanvasPrefab;
     public SetupStatusBar statusBars;
@@ -35,6 +36,7 @@ public class GameplayUIScript : MonoBehaviour
         CombatController.instance.turnOffTarget += TurnOff;
 
         ToggleVictory(false);
+        ToggleGameOver(false);
     }
 
     private void OnDestroy()
@@ -92,5 +94,10 @@ public class GameplayUIScript : MonoBehaviour
     public void ToggleVictory(bool _toggle)
     {
         victoryCanvas.SetActive(_toggle);
+    }
+
+    public void ToggleGameOver(bool _toggle)
+    {
+        gameOverCanvas.SetActive(_toggle);
     }
 }

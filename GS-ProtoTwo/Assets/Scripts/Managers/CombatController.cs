@@ -81,8 +81,7 @@ public class CombatController : MonoBehaviour
                 break;
             }
             case CombatState.BATTLEEND:
-            {
-                DisplayVictory();
+            {              
                 ToggleTurn();
                 ToggleActionCanvas(turnOrder[activeTurn], false);
                 break;
@@ -99,6 +98,14 @@ public class CombatController : MonoBehaviour
     {
         // Probably add action bars to this cleanup function.
         GameplayUIScript.instance.ToggleVictory(true);
+        CleanUpUI();
+        victoryScreenBlur.SetActive(true);
+    }
+
+    public void DisplayGameOver()
+    {
+        // Probably add action bars to this cleanup function.
+        GameplayUIScript.instance.ToggleGameOver(true);
         CleanUpUI();
         victoryScreenBlur.SetActive(true);
     }
@@ -214,12 +221,17 @@ public class CombatController : MonoBehaviour
         if (CheckPlayers())
         {
             // GameOver Sequence
+            ChangeState(CombatState.BATTLEEND);
+            DisplayGameOver();
+            encounter.EndEncounter();
             Debug.Log("All players dead");
         }
         if (CheckEnemies())
         {
             // Move to Win Battle
-            ChangeState(CombatState.BATTLEEND);
+            ChangeState(CombatState.BATTLEEND); 
+            DisplayVictory();
+            encounter.EndEncounter();
             Debug.Log("All enemies dead");
         }
     }

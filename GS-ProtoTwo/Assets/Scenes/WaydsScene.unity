@@ -422,6 +422,12 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!1 &917917709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7187947355875782393, guid: 92ddde150317e634482d6b62f8798e0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2705186743260918788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1483408348
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +565,7 @@ GameObject:
   - component: {fileID: 1636337710}
   - component: {fileID: 1636337709}
   m_Layer: 0
-  m_Name: EndScreen
+  m_Name: VictoryBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -998,10 +1004,20 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2705186743287512937, guid: 92ddde150317e634482d6b62f8798e0b,
+        type: 3}
+      propertyPath: gameOverCanvas
+      value: 
+      objectReference: {fileID: 917917709}
     - target: {fileID: 2705186743287512940, guid: 92ddde150317e634482d6b62f8798e0b,
         type: 3}
       propertyPath: m_Name
       value: GameplayUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3121091167274647873, guid: 92ddde150317e634482d6b62f8798e0b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 445.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92ddde150317e634482d6b62f8798e0b, type: 3}
@@ -1186,7 +1202,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5500
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 1.6306e-41, z: 0, w: 20.75}
+  m_BoundingSphereOverride: {x: 0, y: 3.9141e-41, z: 0, w: 2.484375}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0.53
