@@ -17,11 +17,11 @@ public class SetupEnemies : MonoBehaviour
         CombatController.instance.addEnemyButton -= AddEnemyButton;
     }
 
-
-    public void AddEnemyButton(int _id)//EnemyController _enemy)
+    public void AddEnemyButton(EnemyController _enemy)
     {
         TargetScript temp = Instantiate(enemyButtonPrefab, this.transform).GetComponent<TargetScript>();
-        temp.id = _id;        
+        temp.Setup(_enemy);
+        GameplayUIScript.instance.targets.Add(temp);
     }
     #endregion Callbacks
 }

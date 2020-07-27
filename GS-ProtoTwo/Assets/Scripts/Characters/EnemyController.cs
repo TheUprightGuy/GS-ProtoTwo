@@ -18,12 +18,6 @@ public class EnemyController : BaseCharacterClass
         ActionsList(() => MoveToTarget(target), () => Punch(), () => MoveToStart());
     }
 
-    public override void TakeDamage(int _damage)
-    {
-        //Debug.Log(name + " took " + _damage + " damage!");
-        stats.health -= _damage;
-        //CombatController.instance.UpdateStatus()
-    }
     public override void SpendMana(int _mana)
     {
         //Debug.Log(name + " spent " + _mana + " mana.");

@@ -106,10 +106,23 @@ public class CombatController : MonoBehaviour
         foreach (BaseCharacterClass n in enemies)
         {
             // temp
-            n.target = players[0];
+            if (!CheckPlayers())
+            {
+                n.target = GetTarget();
+            }
             turnOrder.Add(n);
             // Change this to take in EnemyController once we have more info on there (eg. name)
         }
+    }
+
+    public BaseCharacterClass GetTarget()
+    {
+        int rand = UnityEngine.Random.Range(0, players.Count);
+        while (!players[rand].alive)
+        {
+            rand = UnityEngine.Random.Range(0, players.Count);
+        }
+        return players[rand];
     }
 
     public void GetTurnOrder()
@@ -126,7 +139,7 @@ public class CombatController : MonoBehaviour
         // Add a Button for each Target
         foreach (BaseCharacterClass n in enemies)
         {
-            AddEnemyButton(n.id);
+            AddEnemyButton((EnemyController)n);
         }
     }
 
@@ -141,7 +154,53 @@ public class CombatController : MonoBehaviour
         activeTurn = (activeTurn < turnOrder.Count - 1) ? (activeTurn + 1) : 0;
 
         SetTurn(activeTurn);
+
+        if (!turnOrder[activeTurn].alive)
+        {
+            NextTurn();
+        }
     }
+
+    public bool CheckPlayers()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].alive)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public bool CheckEnemies()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].alive)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void CheckRemainingCharacters()
+    {
+        if (CheckPlayers())
+        {
+            // GameOver Sequence
+            Debug.Log("All players dead");
+        }
+        if (CheckEnemies())
+        {
+            // Move to Win Battle
+            Debug.Log("All enemies dead");
+        }
+    }
+
 
     // Need to Swap the Queued Action instead of Attack
     public void Submit(int _id)
@@ -186,12 +245,12 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    public event Action<int> addEnemyButton;
-    public void AddEnemyButton(int _id)
+    public event Action<EnemyController> addEnemyButton;
+    public void AddEnemyButton(EnemyController _enemy)
     {
         if (addEnemyButton != null)
         {
-            addEnemyButton(_id);
+            addEnemyButton(_enemy);
         }
     }
 
@@ -248,5 +307,15 @@ public class CombatController : MonoBehaviour
             passPriority(turnOrder[activeTurn]);
         }
     }
+
+    public event Action<int> turnOffTarget;
+    public void TurnOffTarget(int _id)
+    {
+        if (turnOffTarget != null)
+        {
+            turnOffTarget(_id);
+        }
+    }
+
     #endregion Callbacks
 }

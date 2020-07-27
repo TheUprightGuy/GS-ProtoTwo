@@ -6,7 +6,18 @@ using UnityEngine.EventSystems;
 
 public class TargetScript : MonoBehaviour, ISelectHandler
 {
+    public EnemyController enemy;
     public int id;
+
+    public TMPro.TextMeshProUGUI text;
+
+    public void Setup(EnemyController _enemy)
+    {
+        enemy = _enemy;
+        id = enemy.id;
+        text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        text.SetText(enemy.stats.name);
+    }
 
     public void OnSelect(BaseEventData eventData)
     {
@@ -19,4 +30,5 @@ public class TargetScript : MonoBehaviour, ISelectHandler
         CombatController.instance.SetTarget(-1);
         CombatController.instance.ChangeState(CombatState.ACTION);
     }
+
 }

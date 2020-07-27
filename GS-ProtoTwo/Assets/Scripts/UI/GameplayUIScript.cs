@@ -4,20 +4,40 @@ using UnityEngine;
 
 public class GameplayUIScript : MonoBehaviour
 {
+    #region Singleton
+    public static GameplayUIScript instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogError("Another GameplayUI Script already exists!");
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion Singleton
+
     public GameObject actionCanvasPrefab;
     public SetupStatusBar statusBars;
     public List<ActionScript> playerUI;
+
+    public List<TargetScript> targets;
 
     private void Start()
     {
         CombatController.instance.toggleActionCanvas += ToggleActionCanvas;
         CombatController.instance.setupCanvas += SetupCanvas;
+        CombatController.instance.turnOffTarget += TurnOff;
     }
 
     private void OnDestroy()
     {
         CombatController.instance.toggleActionCanvas -= ToggleActionCanvas;
         CombatController.instance.setupCanvas -= SetupCanvas;
+        CombatController.instance.turnOffTarget -= TurnOff;
     }
 
     public void SetupCanvas(PlayerController _player)
@@ -49,6 +69,19 @@ public class GameplayUIScript : MonoBehaviour
             else
             {
                 n.gameObject.SetActive(false);
+            }
+        }
+    }
+
+
+    public void TurnOff(int _id)
+    {
+        for (int i = targets.Count - 1; i >= 0; i--)
+        {
+            if (targets[i].id == _id)
+            {
+                Destroy(targets[i].gameObject);
+                targets.RemoveAt(i);
             }
         }
     }

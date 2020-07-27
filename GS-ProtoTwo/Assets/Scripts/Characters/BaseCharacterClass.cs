@@ -18,6 +18,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     [Header("Character Stats")]
     public Stats stats;
     // Debug
+    public bool alive = true;
     [HideInInspector] public int id;
     [HideInInspector] public bool activeTurn = false;
     [HideInInspector] public BaseCharacterClass target;
@@ -147,7 +148,14 @@ public abstract class BaseCharacterClass : MonoBehaviour
             CombatController.instance.ChangeState(CombatState.ENEMYTURN);
             turnIndicator.Toggle(false);
 
-            Attack(this, CombatController.instance.players[0]);
+            if (!CombatController.instance.CheckPlayers())
+            {
+                Attack(this, CombatController.instance.GetTarget());
+            }
+            else
+            {
+                Debug.Log("No Players Left to Target");
+            }
         }
         else if (activeTurn && stats.characterType == CharacterType.Player)
         {
@@ -166,12 +174,33 @@ public abstract class BaseCharacterClass : MonoBehaviour
         target.TakeDamage(stats.damage);
     }
 
-    public virtual void TakeDamage(int _damage)
+    public void TakeDamage(int _damage)
     {
         //Debug.Log(name + " took " + _damage + " damage!");
         stats.health -= _damage;
-        //CombatController.instance.UpdateStatus()
+
+        if (stats.characterType == CharacterType.Player)
+        {
+            CombatController.instance.UpdateStatus((PlayerController)this);
+        }
+        if (stats.health <= 0)
+        {
+            Die();
+        }
     }
+
+    public void Die()
+    {
+        alive = false;
+        // Do death stuff here
+        // TEMP PLEASE REPLACE THIS
+        navAgent.enabled = false;
+        transform.Translate(new Vector3(0, -1000, 0));
+
+        CombatController.instance.TurnOffTarget(id);
+        CombatController.instance.CheckRemainingCharacters();
+    }
+
 
     public virtual void SpendMana(int _mana)
     {

@@ -107,7 +107,14 @@ public class ActionScript : MonoBehaviour
     }
     public void SelectFirst()
     {
-        EventSystem.current.SetSelectedGameObject(curMenu.GetComponentInChildren<Button>().gameObject);
+        if (curMenu == targetMenu && CombatController.instance.CheckEnemies())
+        {
+            Debug.Log("No more enemies");
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(curMenu.GetComponentInChildren<Button>().gameObject);
+        }
     }
 
     public void ResetMenu(PlayerController _player)

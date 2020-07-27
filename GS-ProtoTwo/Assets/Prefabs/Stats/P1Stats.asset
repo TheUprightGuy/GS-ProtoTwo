@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gosu
   characterType: 1
-  maxHealth: 100
+  maxHealth: 50
   maxMana: 100
   speed: 10
   damage: 10
@@ -25,4 +25,4 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
   mana: 100
-  health: 100
+  health: 50

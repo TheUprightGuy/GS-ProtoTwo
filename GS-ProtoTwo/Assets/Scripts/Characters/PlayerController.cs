@@ -42,13 +42,6 @@ public class PlayerController : BaseCharacterClass
         target = _tar;
         ActionsList();
     }
-    
-    public override void TakeDamage(int _damage)
-    {
-        //Debug.Log(name + " took " + _damage + " damage!");
-        stats.health -= _damage;
-        CombatController.instance.UpdateStatus(this);
-    }
 
     public override void SpendMana(int _mana)
     {
