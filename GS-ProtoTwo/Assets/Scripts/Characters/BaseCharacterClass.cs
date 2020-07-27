@@ -16,20 +16,11 @@ public delegate void ActionDelegate(BaseCharacterClass _user, BaseCharacterClass
 public abstract class BaseCharacterClass : MonoBehaviour
 {
     [Header("Character Stats")]
-    public int speed;
-    public int health;
-    public int maxHealth;
-    public int mana;
-    public int maxMana;
-    // temp
-    public int damage;
-    public List<Magic> spells;
-    public List<Ability> abilities;
-    public CharacterType characterType;
-    [Header("Debug")]
-    public int id;
-    public bool activeTurn = false;
-    public BaseCharacterClass target;
+    public Stats stats;
+    // Debug
+    [HideInInspector] public int id;
+    [HideInInspector] public bool activeTurn = false;
+    [HideInInspector] public BaseCharacterClass target;
 
 
     public ActionDelegate actionDelegate;
@@ -91,8 +82,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     #region Callbacks
     private void Start()
     {
-        mana = maxMana;
-        health = maxHealth;
+        stats.mana = stats.maxMana;
+        stats.health = stats.maxHealth;
 
         CombatController.instance.toggleTurn += TurnOffTurn;
         CombatController.instance.setTarget += ToggleTarget;
@@ -150,7 +141,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     {
         activeTurn = (id == _id) ? true : false;
         turnIndicator.Toggle(activeTurn);
-        if (activeTurn && characterType == CharacterType.Enemy)
+        if (activeTurn && stats.characterType == CharacterType.Enemy)
         {
             // temp
             CombatController.instance.ChangeState(CombatState.ENEMYTURN);
@@ -158,7 +149,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
             Attack(this, CombatController.instance.players[0]);
         }
-        else if (activeTurn && characterType == CharacterType.Player)
+        else if (activeTurn && stats.characterType == CharacterType.Player)
         {
             CombatController.instance.ChangeState(CombatState.PLAYERTURN);
         }
@@ -172,13 +163,13 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void DamageEnemy()
     {
         // This will be switched w/ ability damage or a range or something idk
-        target.TakeDamage(damage);
+        target.TakeDamage(stats.damage);
     }
 
     public virtual void TakeDamage(int _damage)
     {
         //Debug.Log(name + " took " + _damage + " damage!");
-        health -= _damage;
+        stats.health -= _damage;
         //CombatController.instance.UpdateStatus()
     }
 

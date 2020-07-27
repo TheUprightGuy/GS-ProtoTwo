@@ -33,14 +33,14 @@ public class PlayerStatusBar : MonoBehaviour
 
     public void UpdateHealth()
     {
-        health.fillAmount = (float)player.health / (float)player.maxHealth;
-        healthText.SetText(player.health + "/" + player.maxHealth);       
+        health.fillAmount = (float)player.stats.health / (float)player.stats.maxHealth;
+        healthText.SetText(player.stats.health + "/" + player.stats.maxHealth);       
     }
 
     public void UpdateMana()
     {
-        mana.fillAmount = (float)player.mana / (float)player.maxMana;
-        manaText.SetText(player.mana + "/" + player.maxMana);
+        mana.fillAmount = (float)player.stats.mana / (float)player.stats.maxMana;
+        manaText.SetText(player.stats.mana + "/" + player.stats.maxMana);
     }
 
     public void UpdateValues(PlayerController _player)

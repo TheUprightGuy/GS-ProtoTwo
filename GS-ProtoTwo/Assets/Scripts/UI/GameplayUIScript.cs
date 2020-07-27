@@ -26,11 +26,11 @@ public class GameplayUIScript : MonoBehaviour
         temp.PlayerRef(_player);
         playerUI.Add(temp);
 
-        foreach (Ability n in _player.abilities)
+        foreach (Ability n in _player.stats.abilities)
         {
             temp.abilityMenu.GetComponent<SetupAbility>().AddAbilityButton(_player, n);
         }
-        foreach (Magic n in _player.spells)
+        foreach (Magic n in _player.stats.spells)
         {
             temp.magicMenu.GetComponent<SetupMagic>().AddMagicButton(_player, n);
         }

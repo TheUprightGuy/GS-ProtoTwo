@@ -14,6 +14,8 @@ public class ActionScript : MonoBehaviour
     public GameObject itemMenu;
 
     // temp
+    public TMPro.TextMeshProUGUI playerName;
+    // temp
     public GameObject curMenu;
     public GameObject prevMenu;
 
@@ -40,6 +42,7 @@ public class ActionScript : MonoBehaviour
     public void PlayerRef(BaseCharacterClass _player)
     {
         player = _player;
+        playerName.SetText(player.stats.name);
     }
 
     // Menu Function Calls Go Here

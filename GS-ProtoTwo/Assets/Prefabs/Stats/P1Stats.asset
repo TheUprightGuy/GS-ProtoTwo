@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
+  m_Name: P1Stats
+  m_EditorClassIdentifier: 
+  name: Gosu
+  characterType: 1
+  maxHealth: 100
+  maxMana: 100
+  speed: 10
+  damage: 10
+  spells:
+  - {fileID: 11400000, guid: 1183d642a09b0d340ba590b4a82638fd, type: 2}
+  - {fileID: 11400000, guid: 09c4a640bb9b93e459eba72c77e532eb, type: 2}
+  - {fileID: 11400000, guid: bda1907e4176fb9408e1e90c7bf84a24, type: 2}
+  abilities:
+  - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
+  mana: 100
+  health: 100

@@ -21,7 +21,7 @@ public class EnemyController : BaseCharacterClass
     public override void TakeDamage(int _damage)
     {
         //Debug.Log(name + " took " + _damage + " damage!");
-        health -= _damage;
+        stats.health -= _damage;
         //CombatController.instance.UpdateStatus()
     }
     public override void SpendMana(int _mana)

@@ -239,6 +239,18 @@ PrefabInstance:
       propertyPath: speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2702286820036634690, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
+        type: 3}
+      propertyPath: dummyStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ab30f904ecad044a97878adc604eac1,
+        type: 2}
+    - target: {fileID: 2702286820036634690, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
+        type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ab30f904ecad044a97878adc604eac1,
+        type: 2}
     - target: {fileID: 2702286820036634691, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
         type: 3}
       propertyPath: m_Name
@@ -527,8 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 4954117128745212439}
   player2: {fileID: 243380687}
-  enemyPrefab: {fileID: 4340916835608135355, guid: debd452ce72f6de45ac20956d7181f51,
-    type: 3}
+  encounter: {fileID: 11400000, guid: 359a1c14575d5f446bd816342e95b43a, type: 2}
   combatState: 0
   activeTurn: 0
   currentTarget: 0
@@ -1107,7 +1118,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5500
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 2.533e-41, z: 0, w: NaN}
+  m_BoundingSphereOverride: {x: 0, y: 2.0055e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0.53
@@ -1196,6 +1207,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2702286820036634690, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
+        type: 3}
+      propertyPath: dummyStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 26a48013abea47a49bf7a3ce639dcf23,
+        type: 2}
+    - target: {fileID: 2702286820036634690, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
+        type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 26a48013abea47a49bf7a3ce639dcf23,
+        type: 2}
     - target: {fileID: 2702286820036634691, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
         type: 3}
       propertyPath: m_Name

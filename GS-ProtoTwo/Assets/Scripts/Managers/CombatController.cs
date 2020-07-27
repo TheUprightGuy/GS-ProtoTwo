@@ -32,7 +32,8 @@ public class CombatController : MonoBehaviour
     [Header("Debug Fields")]
     public PlayerController player;
     public PlayerController player2;
-    public GameObject enemyPrefab;
+
+    public Encounter encounter;
     // Turn Tracking
     public CombatState combatState;
     [HideInInspector] public int activeTurn = 0;
@@ -85,12 +86,14 @@ public class CombatController : MonoBehaviour
     // Instantiate Enemies
     public void SetupBattle()
     {
-        // temp - randomise most likely
-        EnemyController temp = Instantiate(enemyPrefab,transform.position, transform.rotation).GetComponent<EnemyController>();
-        temp.transform.Translate(new Vector3(2, 0, 0));
-        enemies.Add(temp);
-        EnemyController temp2 = Instantiate(enemyPrefab, transform.position, transform.rotation).GetComponent<EnemyController>();
-        enemies.Add(temp2);
+        foreach(GameObject n in encounter.enemyPrefabs)
+        {
+            EnemyController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<EnemyController>();           
+            enemies.Add(temp);
+        }
+
+        // temp
+        enemies[0].transform.Translate(new Vector3(2, 0, 0));
 
         players.Add(player);
         players.Add(player2);
@@ -112,7 +115,7 @@ public class CombatController : MonoBehaviour
     public void GetTurnOrder()
     {
         // Sort by Speed
-        turnOrder.Sort((a, b) => { return a.speed.CompareTo(b.speed); });
+        turnOrder.Sort((a, b) => { return a.stats.speed.CompareTo(b.stats.speed); });
         turnOrder.Reverse();
 
         // Check Turn IDs

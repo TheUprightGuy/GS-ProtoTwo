@@ -15,7 +15,7 @@ public class PlayerController : BaseCharacterClass
 
     public override void Attack(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
-        Debug.Log(_user.name + " attacked " + _tar.name + " dealing " + damage + " damage.");
+        Debug.Log(_user.name + " attacked " + _tar.name + " dealing " + stats.damage + " damage.");
 
         target = _tar;
         ActionsList(()=>MoveToTarget(target), ()=>Punch(), ()=>MoveToStart());
@@ -46,14 +46,14 @@ public class PlayerController : BaseCharacterClass
     public override void TakeDamage(int _damage)
     {
         //Debug.Log(name + " took " + _damage + " damage!");
-        health -= _damage;
+        stats.health -= _damage;
         CombatController.instance.UpdateStatus(this);
     }
 
     public override void SpendMana(int _mana)
     {
         //Debug.Log(name + " spent " + _mana + " mana.");
-        mana -= _mana;
+        stats.mana -= _mana;
         CombatController.instance.UpdateStatus(this);
     }
 }

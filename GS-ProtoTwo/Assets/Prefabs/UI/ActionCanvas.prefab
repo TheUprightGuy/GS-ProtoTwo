@@ -1126,6 +1126,7 @@ MonoBehaviour:
   abilityMenu: {fileID: 4370805965034514684}
   magicMenu: {fileID: 4370805966613148967}
   itemMenu: {fileID: 4370805965303727209}
+  playerName: {fileID: 4370805965084809213}
   curMenu: {fileID: 0}
   prevMenu: {fileID: 0}
   player: {fileID: 0}

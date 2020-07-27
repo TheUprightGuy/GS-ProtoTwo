@@ -246,15 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16302fa9fe92650459a275f6df472076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  health: 100
-  maxHealth: 100
-  mana: 0
-  maxMana: 0
-  damage: 10
-  spells: []
-  abilities: []
-  characterType: 0
+  stats: {fileID: 11400000, guid: 5aee7fc85bb8a2b418a6d6767923a63b, type: 2}
   id: 0
   activeTurn: 0
   target: {fileID: 0}
