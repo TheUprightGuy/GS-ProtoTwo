@@ -8,6 +8,7 @@ public enum CombatState
     PLAYERTURN,
     ACTION,
     ENEMYTURN,
+    BATTLEEND,
 }
 
 
@@ -34,6 +35,8 @@ public class CombatController : MonoBehaviour
     public PlayerController player2;
 
     public Encounter encounter;
+    [Header("Scene Stuff")]
+    public GameObject victoryScreenBlur;
     // Turn Tracking
     public CombatState combatState;
     [HideInInspector] public int activeTurn = 0;
@@ -47,6 +50,8 @@ public class CombatController : MonoBehaviour
     {
         // temp - REQUIRED CURRENTLY
         Invoke("Setup", 0.01f);
+        victoryScreenBlur.transform.position = Camera.main.transform.position;
+        victoryScreenBlur.SetActive(false);
     }
 
     public void Setup()
@@ -75,12 +80,27 @@ public class CombatController : MonoBehaviour
                 ToggleActionCanvas(turnOrder[activeTurn], false);
                 break;
             }
+            case CombatState.BATTLEEND:
+            {
+                DisplayVictory();
+                ToggleTurn();
+                ToggleActionCanvas(turnOrder[activeTurn], false);
+                break;
+            }
             default:
             {
                 ToggleActionCanvas(turnOrder[activeTurn], false);
                 break;
             }
         }
+    }
+
+    public void DisplayVictory()
+    {
+        // Probably add action bars to this cleanup function.
+        GameplayUIScript.instance.ToggleVictory(true);
+        CleanUpUI();
+        victoryScreenBlur.SetActive(true);
     }
 
     // Instantiate Enemies
@@ -111,7 +131,6 @@ public class CombatController : MonoBehaviour
                 n.target = GetTarget();
             }
             turnOrder.Add(n);
-            // Change this to take in EnemyController once we have more info on there (eg. name)
         }
     }
 
@@ -151,13 +170,16 @@ public class CombatController : MonoBehaviour
 
     public void NextTurn()
     {
-        activeTurn = (activeTurn < turnOrder.Count - 1) ? (activeTurn + 1) : 0;
-
-        SetTurn(activeTurn);
-
-        if (!turnOrder[activeTurn].alive)
+        if (combatState != CombatState.BATTLEEND)
         {
-            NextTurn();
+            activeTurn = (activeTurn < turnOrder.Count - 1) ? (activeTurn + 1) : 0;
+
+            SetTurn(activeTurn);
+
+            if (!turnOrder[activeTurn].alive)
+            {
+                NextTurn();
+            }
         }
     }
 
@@ -197,6 +219,7 @@ public class CombatController : MonoBehaviour
         if (CheckEnemies())
         {
             // Move to Win Battle
+            ChangeState(CombatState.BATTLEEND);
             Debug.Log("All enemies dead");
         }
     }
@@ -314,6 +337,15 @@ public class CombatController : MonoBehaviour
         if (turnOffTarget != null)
         {
             turnOffTarget(_id);
+        }
+    }
+
+    public event Action cleanUp;
+    public void CleanUpUI()
+    {
+        if (cleanUp != null)
+        {
+            cleanUp();
         }
     }
 

@@ -20,6 +20,8 @@ public class GameplayUIScript : MonoBehaviour
     }
     #endregion Singleton
 
+    public GameObject victoryCanvas;
+
     public GameObject actionCanvasPrefab;
     public SetupStatusBar statusBars;
     public List<ActionScript> playerUI;
@@ -31,6 +33,8 @@ public class GameplayUIScript : MonoBehaviour
         CombatController.instance.toggleActionCanvas += ToggleActionCanvas;
         CombatController.instance.setupCanvas += SetupCanvas;
         CombatController.instance.turnOffTarget += TurnOff;
+
+        ToggleVictory(false);
     }
 
     private void OnDestroy()
@@ -73,7 +77,6 @@ public class GameplayUIScript : MonoBehaviour
         }
     }
 
-
     public void TurnOff(int _id)
     {
         for (int i = targets.Count - 1; i >= 0; i--)
@@ -84,5 +87,10 @@ public class GameplayUIScript : MonoBehaviour
                 targets.RemoveAt(i);
             }
         }
+    }
+
+    public void ToggleVictory(bool _toggle)
+    {
+        victoryCanvas.SetActive(_toggle);
     }
 }

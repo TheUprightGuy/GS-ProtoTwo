@@ -17,11 +17,13 @@ public class PlayerStatusBar : MonoBehaviour
     private void Awake()
     {
         CombatController.instance.updateStatus += UpdateValues;
+        CombatController.instance.cleanUp += CleanUp;
     }
 
     private void OnDestroy()
     {
         CombatController.instance.updateStatus -= UpdateValues;
+        CombatController.instance.cleanUp -= CleanUp;
     }
 
     public void Setup(PlayerController _player)
@@ -50,5 +52,10 @@ public class PlayerStatusBar : MonoBehaviour
             UpdateHealth();
             UpdateMana();
         }
+    }
+
+    public void CleanUp()
+    {
+        Destroy(gameObject);
     }
 }
