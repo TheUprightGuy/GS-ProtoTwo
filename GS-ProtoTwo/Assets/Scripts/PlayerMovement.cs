@@ -29,12 +29,14 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 newPos = transform.position
-            + ((transform.forward * PlayerSpeed) * vertical)
-            + ((transform.right * PlayerSpeed) * horizontal);
+        Vector3 moveVec = (((transform.forward) * vertical)
+            + ((transform.right) * horizontal)) * PlayerSpeed;
         
-        transform.position = Vector3.SmoothDamp(transform.position, CheckCollisions(newPos), ref velocity, MoveSmoothing);
+
+        rb.AddForce(moveVec);
+        //transform.position = Vector3.SmoothDamp(transform.position, CheckCollisions(newPos), ref velocity, MoveSmoothing);
     }
+
     Vector3 CheckCollisions(Vector3 nextPos)
     {
         Vector3 raydirection = Vector3.Normalize(nextPos - transform.position);

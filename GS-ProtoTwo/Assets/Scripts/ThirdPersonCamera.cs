@@ -5,7 +5,7 @@ using UnityEngine;
 public class ThirdPersonCamera : MonoBehaviour
 {
     public GameObject target;
-
+    public GameObject PlayerObj;
     
     public bool invertX = false;
     public bool invertY = false;
@@ -32,8 +32,6 @@ public class ThirdPersonCamera : MonoBehaviour
     [HideInInspector]
     public float maxZoomDist = 50.0f;
 
-    
-
 
     Vector3 offset;
 
@@ -50,7 +48,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("`"))
+         if (Input.GetKeyDown("`"))
         {
             if (Cursor.lockState == CursorLockMode.Locked)
             {
@@ -61,10 +59,7 @@ public class ThirdPersonCamera : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
         }
-    }
 
-    void LateUpdate()
-    {
         if (!ThirdPersonOnlyWhenLocked || Cursor.lockState == CursorLockMode.Locked)
         {
 	        //Get Mouse Axis
@@ -90,7 +85,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
             if (!Input.GetKey(KeyCode.Mouse1)) //right mouseclick
             {
-	            target.transform.Rotate(0, horizontal, 0);
+	            PlayerObj.transform.Rotate(0, horizontal, 0);
             }
             if (Input.GetKeyUp(KeyCode.Mouse1))
             {
@@ -134,6 +129,11 @@ public class ThirdPersonCamera : MonoBehaviour
         }
     }
 
+    private void OnGUI() 
+    {
+        
+    }
+    
     private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.Locked;
