@@ -71,8 +71,8 @@ public class ActionScript : MonoBehaviour
     public void Item()
     {
         prevMenu = curMenu;
-        //curMenu = itemMenu;
-        curMenu = enemyTargetMenu;
+        curMenu = itemMenu;
+        //curMenu = enemyTargetMenu;
         player.actionDelegate = player.Item;
     }
 

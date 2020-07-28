@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,6 +61,10 @@ public class GameplayUIScript : MonoBehaviour
         {
             temp.magicMenu.GetComponent<SetupMagic>().AddMagicButton(_player, n);
         }
+        foreach (Item n in _player.stats.items)
+        {
+            temp.itemMenu.GetComponent<SetupItems>().AddItemButton(_player, n);
+        }
 
         statusBars.Setup(_player);
     }
@@ -99,5 +104,14 @@ public class GameplayUIScript : MonoBehaviour
     public void ToggleGameOver(bool _toggle)
     {
         gameOverCanvas.SetActive(_toggle);
+    }
+
+    public event Action<Item> updateItemQuantity;
+    public void UpdateItemQuantity(Item _item)
+    {
+        if (updateItemQuantity != null)
+        {
+            updateItemQuantity(_item);
+        }
     }
 }
