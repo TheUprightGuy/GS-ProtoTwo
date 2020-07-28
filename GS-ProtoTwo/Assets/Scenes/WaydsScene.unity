@@ -251,6 +251,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5ab30f904ecad044a97878adc604eac1,
         type: 2}
+    - target: {fileID: 2702286820036634690, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 11400000, guid: e94a18b7749770e4199d0d7bf6f333d7,
+        type: 2}
     - target: {fileID: 2702286820036634691, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
         type: 3}
       propertyPath: m_Name
@@ -1202,7 +1208,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5500
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 3.9141e-41, z: 0, w: 2.484375}
+  m_BoundingSphereOverride: {x: 0, y: 4.2476e-41, z: 0, w: 9.403955e-38}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0.53
@@ -1302,6 +1308,12 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 26a48013abea47a49bf7a3ce639dcf23,
+        type: 2}
+    - target: {fileID: 2702286820036634690, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 11400000, guid: e94a18b7749770e4199d0d7bf6f333d7,
         type: 2}
     - target: {fileID: 2702286820036634691, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
         type: 3}

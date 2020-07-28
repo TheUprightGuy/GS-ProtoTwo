@@ -61,7 +61,7 @@ public class GameplayUIScript : MonoBehaviour
         {
             temp.magicMenu.GetComponent<SetupMagic>().AddMagicButton(_player, n);
         }
-        foreach (Item n in _player.stats.items)
+        foreach (Item n in _player.inventory.items)
         {
             temp.itemMenu.GetComponent<SetupItems>().AddItemButton(_player, n);
         }

@@ -17,8 +17,6 @@ public class Stats : ScriptableObject
     [Header("Skills List")]
     public List<Magic> spells;
     public List<Ability> abilities;
-    [Header("Item List")]
-    public List<Item> items;
 
     [HideInInspector] public int mana;
     [HideInInspector] public int health;

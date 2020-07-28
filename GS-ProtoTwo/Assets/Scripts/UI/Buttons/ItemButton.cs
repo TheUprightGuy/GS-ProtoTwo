@@ -15,6 +15,13 @@ public class ItemButton : MonoBehaviour
         quantityText.SetText(_item.quantity.ToString());
         player = _player;
         item = _item;
+
+        GameplayUIScript.instance.updateItemQuantity += UpdateQuantity;
+    }
+
+    private void OnDestroy()
+    {
+        GameplayUIScript.instance.updateItemQuantity -= UpdateQuantity;
     }
 
     public void OnUse()
@@ -26,7 +33,7 @@ public class ItemButton : MonoBehaviour
     {
         if (item == _item)
         {
-            quantityText.SetText(_item.quantity.ToString());
+            quantityText.SetText(item.quantity.ToString());
         }
     }
 }

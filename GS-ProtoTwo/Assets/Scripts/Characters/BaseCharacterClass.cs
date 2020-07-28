@@ -17,6 +17,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
 {
     [Header("Character Stats")]
     public Stats stats;
+    public Inventory inventory;
     // Debug
     public bool alive = true;
     [HideInInspector] public int id;

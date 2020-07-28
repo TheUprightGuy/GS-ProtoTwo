@@ -699,19 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9b2d97c963af1458f9ec11444424b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  health: 100
-  maxHealth: 100
-  mana: 100
-  maxMana: 100
-  damage: 10
-  spells:
-  - {fileID: 11400000, guid: 1183d642a09b0d340ba590b4a82638fd, type: 2}
-  - {fileID: 11400000, guid: 09c4a640bb9b93e459eba72c77e532eb, type: 2}
-  - {fileID: 11400000, guid: bda1907e4176fb9408e1e90c7bf84a24, type: 2}
-  abilities:
-  - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
-  characterType: 1
+  stats: {fileID: 0}
+  alive: 1
   id: 1
   activeTurn: 0
   target: {fileID: 0}
@@ -2430,7 +2419,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eb76f52dc128f2a4f9c705594e91f4c7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7aa20488d11ff184dbe6567fb677ae7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

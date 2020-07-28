@@ -15,4 +15,4 @@ MonoBehaviour:
   healthRestored: 1000
   manaRestored: 1000
   offensive: 0
-  quantity: 1
+  quantity: 10
