@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    private Element element;
     public Transform target;
     public float projectileSpeed = 20.0f;
-    public int damage;
+    private int damage;
+
+    public void Setup(Magic _magic)
+    {
+        damage = _magic.damage;
+        element = _magic.element;
+    }
 
     // Set Target to Seek
     public void Seek(BaseCharacterClass _target)

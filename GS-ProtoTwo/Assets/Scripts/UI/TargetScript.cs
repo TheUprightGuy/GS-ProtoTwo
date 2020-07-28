@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class TargetScript : MonoBehaviour, ISelectHandler
 {
     public EnemyController enemy;
+    public PlayerController player;
     public int id;
 
     public TMPro.TextMeshProUGUI text;
@@ -17,6 +18,14 @@ public class TargetScript : MonoBehaviour, ISelectHandler
         id = enemy.id;
         text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
         text.SetText(enemy.stats.name);
+    }
+
+    public void Setup(PlayerController _player)
+    {
+        player = _player;
+        id = player.id;
+        text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        text.SetText(player.stats.name);
     }
 
     public void OnSelect(BaseEventData eventData)

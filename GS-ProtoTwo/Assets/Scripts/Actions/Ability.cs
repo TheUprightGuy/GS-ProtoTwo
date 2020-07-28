@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Ability", menuName = "Actions/Ability")]
 public class Ability : ScriptableObject
 {
+    public bool offensive;
     public int damage;
   
     public void Use(BaseCharacterClass _user, BaseCharacterClass _tar)

@@ -20,6 +20,7 @@ MonoBehaviour:
   damage: 50
   spells:
   - {fileID: 11400000, guid: 1183d642a09b0d340ba590b4a82638fd, type: 2}
+  - {fileID: 11400000, guid: 4d80e5fdbb6155445be11fc70f1f999e, type: 2}
   abilities:
   - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
   mana: 50

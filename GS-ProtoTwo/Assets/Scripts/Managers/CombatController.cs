@@ -167,6 +167,10 @@ public class CombatController : MonoBehaviour
         {
             AddEnemyButton((EnemyController)n);
         }
+        foreach (BaseCharacterClass n in players)
+        {
+            AddAllyButton((PlayerController)n);
+        }
     }
 
     public void StartBattle()
@@ -289,6 +293,15 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    public event Action<PlayerController> addAllyButton;
+    public void AddAllyButton(PlayerController _player)
+    {
+        if (addAllyButton != null)
+        {
+            addAllyButton(_player);
+        }
+    }
+
     public event Action<PlayerController> startTurn;
     public void StartTurn(PlayerController _player)
     {
@@ -298,12 +311,12 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    public event Action<PlayerController, ActionDelegate> chooseTarget;
-    public void ChooseTarget(PlayerController _player, ActionDelegate _action)
+    public event Action<PlayerController, ActionDelegate, bool> chooseTarget;
+    public void ChooseTarget(PlayerController _player, ActionDelegate _action, bool _offensive)
     {
         if (chooseTarget != null)
         {
-            chooseTarget(_player, _action);
+            chooseTarget(_player, _action, _offensive);
         }
     }
 

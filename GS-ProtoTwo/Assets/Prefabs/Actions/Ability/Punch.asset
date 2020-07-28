@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b236b54abda734f43b48e90ee8a39581, type: 3}
   m_Name: Punch
   m_EditorClassIdentifier: 
+  offensive: 1
   damage: 33

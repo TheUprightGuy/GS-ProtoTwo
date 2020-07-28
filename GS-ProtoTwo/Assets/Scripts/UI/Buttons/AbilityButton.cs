@@ -17,6 +17,6 @@ public class AbilityButton : MonoBehaviour
 
     public void OnUse()
     {
-        CombatController.instance.ChooseTarget(player, ability.Use);
+        CombatController.instance.ChooseTarget(player, ability.Use, ability.offensive);
     }
 }

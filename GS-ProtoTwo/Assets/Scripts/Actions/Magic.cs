@@ -6,7 +6,8 @@ public enum Element
 {
     Fire,
     Water,
-    Lightning
+    Lightning,
+    Holy
 }
 
 [CreateAssetMenu(fileName = "Magic", menuName = "Actions/Magic")]
@@ -14,6 +15,7 @@ public class Magic : ScriptableObject
 {
     public int damage;
     public int manaCost;
+    public bool offensive;
     public Element element;
     public Projectile spellPrefab;
 
@@ -30,11 +32,12 @@ public class Magic : ScriptableObject
         if (spellPrefab)
         {
             Projectile temp = Instantiate<Projectile>(spellPrefab, _user.transform.position, _user.transform.rotation);
+            temp.Setup(this);
             temp.Seek(_tar);
         }
         else
         {
-            Debug.Log(_user.name + " spent " + manaCost + " mana to cast " + this.name + " on " + _tar.name + " dealing " + damage + " " + element.ToString() + " damage.");
+            Debug.Log(_user.name + " spent " + manaCost + " mana to cast " + this.name + " on " + _tar.name);
             _tar.TakeDamage(damage);
         }
     }

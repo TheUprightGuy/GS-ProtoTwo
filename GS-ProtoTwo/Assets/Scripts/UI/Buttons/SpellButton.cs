@@ -17,6 +17,6 @@ public class SpellButton : MonoBehaviour
 
     public void OnUse()
     {
-        CombatController.instance.ChooseTarget(player, spell.Use);
+        CombatController.instance.ChooseTarget(player, spell.Use, spell.offensive);
     }
 }
