@@ -247,6 +247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 5aee7fc85bb8a2b418a6d6767923a63b, type: 2}
+  inventory: {fileID: 0}
+  alive: 1
   id: 0
   activeTurn: 0
   target: {fileID: 0}
@@ -256,6 +258,7 @@ MonoBehaviour:
   navAgent: {fileID: 0}
   animator: {fileID: 0}
   inAction: 0
+  rewardItem: {fileID: 11400000, guid: 38648dade75e08f47a3c5f6e76f9022e, type: 2}
 --- !u!1 &7248321810727564719
 GameObject:
   m_ObjectHideFlags: 0

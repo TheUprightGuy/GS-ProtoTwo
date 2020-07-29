@@ -677,7 +677,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   victoryCanvas: {fileID: 1010517213758275164}
-  gameOverCanvas: {fileID: 0}
+  gameOverCanvas: {fileID: 7187947355875782393}
+  rewardsText: {fileID: 5050005574379097920}
   actionCanvasPrefab: {fileID: 4370805965057913998, guid: 46b75de85a9612940bdd0a9c68fa0ba3,
     type: 3}
   statusBars: {fileID: 2705186744512136345}
@@ -1070,8 +1071,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 300
-  m_fontSizeBase: 300
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

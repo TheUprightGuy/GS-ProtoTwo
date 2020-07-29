@@ -54,8 +54,11 @@ public class CombatController : MonoBehaviour
         victoryScreenBlur.transform.position = Camera.main.transform.position;
         victoryScreenBlur.SetActive(false);
 
+
+        // For Debug purposes make clones of everything
         encounter = Instantiate(encounter);
         inventory = Instantiate(inventory);
+        inventory.Setup();
     }
 
     public void Setup()
@@ -73,28 +76,28 @@ public class CombatController : MonoBehaviour
         switch (combatState)
         {
             case CombatState.PLAYERTURN:
-            {
-                ToggleActionCanvas(turnOrder[activeTurn], true);
-                StartTurn((PlayerController)turnOrder[activeTurn]);
-                break;
-            }
+                {
+                    ToggleActionCanvas(turnOrder[activeTurn], true);
+                    StartTurn((PlayerController)turnOrder[activeTurn]);
+                    break;
+                }
             case CombatState.ACTION:
-            {
-                ToggleTurn();
-                ToggleActionCanvas(turnOrder[activeTurn], false);
-                break;
-            }
+                {
+                    ToggleTurn();
+                    ToggleActionCanvas(turnOrder[activeTurn], false);
+                    break;
+                }
             case CombatState.BATTLEEND:
-            {              
-                ToggleTurn();
-                ToggleActionCanvas(turnOrder[activeTurn], false);
-                break;
-            }
+                {
+                    ToggleTurn();
+                    ToggleActionCanvas(turnOrder[activeTurn], false);
+                    break;
+                }
             default:
-            {
-                ToggleActionCanvas(turnOrder[activeTurn], false);
-                break;
-            }
+                {
+                    ToggleActionCanvas(turnOrder[activeTurn], false);
+                    break;
+                }
         }
     }
 
@@ -117,9 +120,9 @@ public class CombatController : MonoBehaviour
     // Instantiate Enemies
     public void SetupBattle()
     {
-        foreach(GameObject n in encounter.enemyPrefabs)
+        foreach (GameObject n in encounter.enemyPrefabs)
         {
-            EnemyController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<EnemyController>();           
+            EnemyController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<EnemyController>();
             enemies.Add(temp);
         }
 
@@ -238,11 +241,26 @@ public class CombatController : MonoBehaviour
         if (CheckEnemies())
         {
             // Move to Win Battle
-            ChangeState(CombatState.BATTLEEND); 
+            ChangeState(CombatState.BATTLEEND);
+            GetRewards();
             DisplayVictory();
             encounter.EndEncounter();
             Debug.Log("All enemies dead");
         }
+    }
+
+    public void GetRewards()
+    {
+        Inventory rewards = ScriptableObject.CreateInstance<Inventory>();
+        rewards.Setup();
+
+        foreach (GameObject n in encounter.enemyPrefabs)
+        {
+            inventory.AddItem(n.GetComponent<EnemyController>().GiveReward());
+            rewards.AddItem(n.GetComponent<EnemyController>().GiveReward());
+        }
+
+        GameplayUIScript.instance.SetRewardText(rewards);
     }
 
 

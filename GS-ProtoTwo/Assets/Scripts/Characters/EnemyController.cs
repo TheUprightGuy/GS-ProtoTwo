@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : BaseCharacterClass
 {
+    public Item rewardItem;
+
     public void Punch()
     {
         inAction = true;
@@ -21,5 +23,17 @@ public class EnemyController : BaseCharacterClass
     public override void SpendMana(int _mana)
     {
         //Debug.Log(name + " spent " + _mana + " mana.");
+    }
+
+    public Item GiveReward()
+    {
+        if (rewardItem)
+        {
+            Item temp = Instantiate(rewardItem);
+            temp.quantity = 1;
+            return (temp);
+        }
+
+        return (null);
     }
 }

@@ -23,6 +23,7 @@ public class GameplayUIScript : MonoBehaviour
 
     public GameObject victoryCanvas;
     public GameObject gameOverCanvas;
+    public TMPro.TextMeshProUGUI rewardsText;
 
     public GameObject actionCanvasPrefab;
     public SetupStatusBar statusBars;
@@ -104,6 +105,18 @@ public class GameplayUIScript : MonoBehaviour
     public void ToggleGameOver(bool _toggle)
     {
         gameOverCanvas.SetActive(_toggle);
+    }
+
+    public void SetRewardText(Inventory _items)
+    {
+        string test = "";
+
+        foreach (Item n in _items.items)
+        {
+            test += n.name + " " + n.quantity + "\n";
+        }
+
+        rewardsText.SetText(test);
     }
 
     public event Action<Item> updateItemQuantity;
