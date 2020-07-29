@@ -8,17 +8,17 @@ public class PauseMenu : MonoBehaviour
 {
     private void Awake()
     {
-        ToggleMenu(false);
+        TogglePauseMenu(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        EventHandler.Instance.onPaused += ToggleMenu;
+        EventHandler.Instance.onTogglePauseMenu += TogglePauseMenu;
         EventHandler.Instance.toggleSettingsMenu += ToggleSettingsMenu;
     }
 
-    private void ToggleMenu(bool isPaused)
+    private void TogglePauseMenu(bool isPaused)
     {
         transform.GetChild(0).gameObject.SetActive(isPaused);
     }
@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        EventHandler.Instance.TogglePaused();
+        EventHandler.Instance.TogglePauseMenu();
     }
 
     public void ReturnToMenu()
@@ -41,7 +41,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        EventHandler.Instance.settingsOpen = true;
+        EventHandler.Instance.settingsMenuOpen = true;
         EventHandler.Instance.toggleSettingsMenu(true);
     }
 

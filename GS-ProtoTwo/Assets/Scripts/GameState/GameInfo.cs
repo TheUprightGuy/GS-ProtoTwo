@@ -6,4 +6,5 @@ using UnityEngine;
 public class GameInfo : ScriptableObject
 {
    public bool paused = false;
+   public bool pauseMenuOpen = false;
 }

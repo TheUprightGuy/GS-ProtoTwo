@@ -35,22 +35,43 @@ public class EventHandler : MonoBehaviour
 
     #endregion
     
+    //Game state pause
     public GameInfo gameInfo;
-    public Action<bool> onPaused;
-    public bool settingsOpen;
+    public Action<bool> onPauseToggled;
+    public Action<bool> onTogglePauseMenu;
+    //Settings menu
+    [HideInInspector] public bool settingsMenuOpen;
     public Action<bool> toggleSettingsMenu;
+    //Tab menu
+    [HideInInspector] public bool tabMenuOpen;
+    public Action<bool> onToggleTabMenu;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !settingsOpen)
+        if (Input.GetKeyDown(KeyCode.Escape) && !settingsMenuOpen)
         {
-            TogglePaused();
+            TogglePauseMenu();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Tab) && !gameInfo.pauseMenuOpen && !settingsMenuOpen)
+        {
+            ToggleTabMenu();
         }
     }
 
-    public void TogglePaused()
+    public void TogglePauseMenu()
+    {
+        gameInfo.paused = (tabMenuOpen == true)? gameInfo.paused : !gameInfo.paused;
+        gameInfo.pauseMenuOpen = !gameInfo.pauseMenuOpen;
+        onPauseToggled?.Invoke(gameInfo.paused);
+        onTogglePauseMenu(gameInfo.pauseMenuOpen);
+    }
+    
+    public void ToggleTabMenu()
     {
         gameInfo.paused = !gameInfo.paused;
-        onPaused(gameInfo.paused);
+        tabMenuOpen = !tabMenuOpen;
+        onPauseToggled?.Invoke(gameInfo.paused);
+        onToggleTabMenu(tabMenuOpen);
     }
 }
