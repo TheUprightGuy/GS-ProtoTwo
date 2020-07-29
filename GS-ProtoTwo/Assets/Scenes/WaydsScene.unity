@@ -552,6 +552,7 @@ MonoBehaviour:
   player: {fileID: 4954117128745212439}
   player2: {fileID: 243380687}
   encounter: {fileID: 11400000, guid: 359a1c14575d5f446bd816342e95b43a, type: 2}
+  inventory: {fileID: 11400000, guid: e94a18b7749770e4199d0d7bf6f333d7, type: 2}
   victoryScreenBlur: {fileID: 1636337708}
   combatState: 0
   activeTurn: 0
@@ -1208,7 +1209,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5500
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 4.2476e-41, z: 0, w: 9.403955e-38}
+  m_BoundingSphereOverride: {x: 0, y: 4.228e-41, z: 0, w: 9.403955e-38}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0.53

@@ -35,6 +35,7 @@ public class CombatController : MonoBehaviour
     public PlayerController player2;
 
     public Encounter encounter;
+    public Inventory inventory;
     [Header("Scene Stuff")]
     public GameObject victoryScreenBlur;
     // Turn Tracking
@@ -52,6 +53,9 @@ public class CombatController : MonoBehaviour
         Invoke("Setup", 0.01f);
         victoryScreenBlur.transform.position = Camera.main.transform.position;
         victoryScreenBlur.SetActive(false);
+
+        encounter = Instantiate(encounter);
+        inventory = Instantiate(inventory);
     }
 
     public void Setup()
@@ -129,6 +133,7 @@ public class CombatController : MonoBehaviour
         {
             turnOrder.Add(n);
             SetupCanvas((PlayerController)n);
+            n.inventory = inventory;
         }
         foreach (BaseCharacterClass n in enemies)
         {
