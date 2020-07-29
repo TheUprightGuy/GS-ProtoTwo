@@ -15,7 +15,7 @@ public class EncounterStart : MonoBehaviour
     public void GoToCombat()
     {
         //Un-comment for scene loading :)
-        //SceneManager.LoadScene(CombatSceneToLoad);
+        SceneManager.LoadScene(CombatSceneToLoad);
 
         Debug.Log("Ping");
     }
