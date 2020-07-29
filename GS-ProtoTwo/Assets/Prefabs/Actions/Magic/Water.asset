@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca8b6578dc51b842b1cc98ac9786d4b, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  damage: 20
+  manaCost: 20
+  offensive: 1
+  element: 1
+  spellPrefab: {fileID: -7680601788810955228, guid: fc9258e851973de4a8d2f19146513a97,
+    type: 3}
