@@ -35,8 +35,13 @@ public class AIEditor : Editor {
                     }
                     break;
             }
+            case EnemyMovement.BehaviourType.WANDER:
+                {
+                    thisTarget.WanderRadius = EditorGUILayout.FloatField("Radius of wandering", thisTarget.WanderRadius);
+                    break;
+                }
 
-            default:
+                    default:
             {
 
                 break;
@@ -48,7 +53,7 @@ public class AIEditor : Editor {
     private void OnSceneGUI() 
     {
         EnemyMovement thisTarget = (EnemyMovement)target;
-        float size = HandleUtility.GetHandleSize(thisTarget.To) * sizeOfHandle;
+        //float size = HandleUtility.GetHandleSize(thisTarget.To) * sizeOfHandle;
         Vector3 snap = Vector3.one * 0.5f;
 
         switch (thisTarget.Behaviour)
@@ -88,6 +93,30 @@ public class AIEditor : Editor {
                 break;
             }
 
+
+            case EnemyMovement.BehaviourType.WANDER:
+            {
+                    EditorGUI.BeginChangeCheck();
+                    if (Application.isPlaying)
+                    {
+                        Handles.DrawWireDisc(thisTarget.storedHandlePos, Vector3.up, thisTarget.WanderRadius);
+
+                    }
+                    else
+                    {
+                        Handles.DrawWireDisc(thisTarget.transform.position, Vector3.up, thisTarget.WanderRadius);
+
+                    }
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        //Undo.RecordObject(thisTarget, "Move ToFrom");
+                        //thisTarget.Targets[i] = newTo;
+                    }
+
+                    break;
+
+            }
             default:
             {
 
@@ -98,5 +127,7 @@ public class AIEditor : Editor {
         
         
     }
+
+    
 }
 
