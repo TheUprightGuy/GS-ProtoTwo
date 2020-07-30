@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
     public enum BehaviourType
     {
         NONE,
+
         TO_FROM,
         TO_FROM_NAVMESH,
 
@@ -47,6 +48,15 @@ public class EnemyMovement : MonoBehaviour
 
     /*******************************/
 
+
+
+    //Enemy Awareness
+    /*******************************/
+    public float DetectRange = 100.0f;
+    public float EnemyFov = 0.0f;
+
+    /*******************************/
+
     void Start()
     {
         //Targets = new List<Vector3>();
@@ -61,6 +71,9 @@ public class EnemyMovement : MonoBehaviour
         {
             Targets[i] += transform.position;
         }
+
+        StartCoroutine("FindTargetsWithDelay", .2f);
+
     }
 
     float timer = 0.0f;
@@ -144,6 +157,52 @@ public class EnemyMovement : MonoBehaviour
         } while (!NMA.CalculatePath(newPos, temp));
         
         return newPos;
+    }
+
+
+    IEnumerator FindTargetsWithDelay(float delay)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(delay);
+            FindVisibleTargets();
+        }
+    }
+
+    public Transform PlayerObj = null;
+    void FindVisibleTargets()
+    {
+        PlayerObj = null;
+        
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, DetectRange, LayerMask.GetMask("Player"));
+
+        for (int i = 0; i < targetsInViewRadius.Length; i++)
+        {
+            Transform target = targetsInViewRadius[i].transform;
+            Vector3 dirToTarget = (target.position - transform.position).normalized;
+            if (Vector3.Angle(transform.forward, dirToTarget) <  EnemyFov / 2)
+            {
+                float dstToTarget = Vector3.Distance(transform.position, target.position);
+
+                if (Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Player")))
+                {
+                    PlayerObj = target;
+                }
+                else
+                {
+                    PlayerObj = null;
+                }
+            }
+        }
+    }
+
+    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+    {
+        if (!angleIsGlobal)
+        {
+            angleInDegrees += transform.eulerAngles.y;
+        }
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
     private void OnDrawGizmos()

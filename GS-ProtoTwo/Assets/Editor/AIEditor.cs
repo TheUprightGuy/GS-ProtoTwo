@@ -47,11 +47,18 @@ public class AIEditor : Editor {
                 break;
             }
         }
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("FOV Settings");
+        EditorGUILayout.Separator();
+        thisTarget.DetectRange = EditorGUILayout.FloatField("FOV Distance",thisTarget.DetectRange);
+        thisTarget.EnemyFov= EditorGUILayout.FloatField("FOV Angle", thisTarget.EnemyFov);
     }
 
     float sizeOfHandle = 0.5f;
     private void OnSceneGUI() 
     {
+        Handles.color = Color.white;
         EnemyMovement thisTarget = (EnemyMovement)target;
         //float size = HandleUtility.GetHandleSize(thisTarget.To) * sizeOfHandle;
         Vector3 snap = Vector3.one * 0.5f;
@@ -123,11 +130,23 @@ public class AIEditor : Editor {
                 break;
             }
         }
+
         
-        
-        
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(thisTarget.transform.position, Vector3.up, thisTarget.DetectRange);
+
+        Vector3 viewAngleA = thisTarget.DirFromAngle(-thisTarget.EnemyFov / 2, false);
+
+        Handles.DrawSolidArc(thisTarget.transform.position, thisTarget.transform.up, viewAngleA, thisTarget.EnemyFov, thisTarget.DetectRange);
+
+        Handles.color = Color.blue;
+        if (thisTarget.PlayerObj != null)
+        {
+            Handles.DrawLine(thisTarget.transform.position, thisTarget.PlayerObj.transform.position);
+        }
+
     }
 
-    
+
 }
 
