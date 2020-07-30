@@ -20,7 +20,7 @@ public class EncounterStart : MonoBehaviour
         Debug.Log("Ping");
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void EncounterOnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<EnemyPrefabs>())
         {

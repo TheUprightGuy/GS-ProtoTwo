@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
         {
             SpideyPowers = false;
         }
+
+        GetComponent<EncounterStart>().EncounterOnCollisionEnter(collision);
     }
 
     private void OnCollisionExit(Collision collision)
