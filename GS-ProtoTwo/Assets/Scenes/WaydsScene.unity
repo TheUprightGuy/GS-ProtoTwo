@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1.7306993, g: 1.1533517, b: 1.0659492, a: 1}
+  m_IndirectSpecularColor: {r: 1.7290161, g: 1.1523017, b: 1.0653198, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1830,7 +1830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9b2d97c963af1458f9ec11444424b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 5ab30f904ecad044a97878adc604eac1, type: 2}
+  stats: {fileID: 11400000, guid: 8f4713e270ff8494cad37bd63c3893d1, type: 2}
   inventory: {fileID: 11400000, guid: e94a18b7749770e4199d0d7bf6f333d7, type: 2}
   alive: 1
   id: 1
@@ -5739,7 +5739,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 5684
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 2.283e-41, z: 0, w: -154}
+  m_BoundingSphereOverride: {x: 7.33e-43, y: -0.000000012038576, z: 7.33e-43, w: 5.9e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0.53
@@ -6046,7 +6046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9b2d97c963af1458f9ec11444424b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 26a48013abea47a49bf7a3ce639dcf23, type: 2}
+  stats: {fileID: 11400000, guid: 8f4713e270ff8494cad37bd63c3893d1, type: 2}
   inventory: {fileID: 11400000, guid: e94a18b7749770e4199d0d7bf6f333d7, type: 2}
   alive: 1
   id: 1
@@ -7351,7 +7351,7 @@ PrefabInstance:
         type: 3}
       propertyPath: stats
       value: 
-      objectReference: {fileID: 11400000, guid: 26a48013abea47a49bf7a3ce639dcf23,
+      objectReference: {fileID: 11400000, guid: 8f4713e270ff8494cad37bd63c3893d1,
         type: 2}
     - target: {fileID: 2702286820036634690, guid: 58a602d62aeedc64bb2dd4fd75390c5b,
         type: 3}

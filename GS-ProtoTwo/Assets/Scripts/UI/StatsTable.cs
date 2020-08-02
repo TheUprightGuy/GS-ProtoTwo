@@ -26,12 +26,12 @@ public class StatsTable : MonoBehaviour
     public TMPro.TextMeshProUGUI defenseText;
     public TMPro.TextMeshProUGUI speedText;
 
-    public void UpdateText(Stats2 _stats)
+    public void UpdateText(Stats _stats)
     {
         attackText.SetText(_stats.attack.ToString());
         magicText.SetText(_stats.magic.ToString());
-        healthText.SetText(_stats.health.ToString());
-        manaText.SetText(_stats.mana.ToString());
+        healthText.SetText(_stats.hp.ToString());
+        manaText.SetText(_stats.mp.ToString());
         defenseText.SetText(_stats.defense.ToString());
         speedText.SetText(_stats.speed.ToString());
     }

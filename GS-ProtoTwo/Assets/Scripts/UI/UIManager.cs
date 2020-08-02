@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,5 +28,11 @@ public class UIManager : MonoBehaviour
         tips[tipsShown].SetActive(false);
         tipsShown = (tipsShown + 1) % 2;
         tips[tipsShown].SetActive(true);
+    }
+
+
+    public void tempSwapScene()
+    {
+        SceneManager.LoadScene("JacksWorld");
     }
 }

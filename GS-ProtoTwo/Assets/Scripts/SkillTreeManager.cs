@@ -23,10 +23,18 @@ public class SkillTreeManager : MonoBehaviour
 
     [Header("Setup Requirements")]
     public GameObject linkPrefab;
-    public Stats2 stats;
+    //public Stats2 stats;
+    public Stats stats;
 
     private Quaternion target;
     [HideInInspector] public bool rotating = false;
+
+    private void Start()
+    {
+        // Clears Previous Stats & Start Anew
+        stats.Clear();
+        stats.Setup();
+    }
 
     public void Update()
     {
@@ -83,6 +91,7 @@ public class SkillTreeManager : MonoBehaviour
         {
             stats.Clear();
             updateStats();
+            stats.SetupHPMP();
             StatsTable.instance.UpdateText(stats);
         }
     }
