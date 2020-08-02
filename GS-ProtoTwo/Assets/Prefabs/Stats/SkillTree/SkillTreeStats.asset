@@ -25,7 +25,12 @@ MonoBehaviour:
   damage: 0
   baseHealth: 100
   baseMana: 100
-  spells: []
-  abilities: []
+  spells:
+  - {fileID: 11400000, guid: 77cb64126cb35764a83c8a79e7ef4d80, type: 2}
+  - {fileID: 11400000, guid: cf83f2184f1c6a147a625d75181b8745, type: 2}
+  - {fileID: 11400000, guid: 29d8cd9ba78004248bf19f79f6783911, type: 2}
+  - {fileID: 11400000, guid: 09e2cc67b8f567a4792cdff944683195, type: 2}
+  abilities:
+  - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
   mana: 0
   health: 0
