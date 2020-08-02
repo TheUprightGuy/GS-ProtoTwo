@@ -8,7 +8,8 @@ public class ActionScript : MonoBehaviour
 {
     // temp
     public GameObject actionMenu;
-    public GameObject targetMenu;
+    public GameObject allyTargetMenu;
+    public GameObject enemyTargetMenu;
     public GameObject abilityMenu;
     public GameObject magicMenu;
     public GameObject itemMenu;
@@ -49,7 +50,7 @@ public class ActionScript : MonoBehaviour
     public void Attack()
     {
         prevMenu = curMenu;
-        curMenu = targetMenu;
+        curMenu = enemyTargetMenu;
         player.actionDelegate = player.Attack;
     }
 
@@ -70,8 +71,8 @@ public class ActionScript : MonoBehaviour
     public void Item()
     {
         prevMenu = curMenu;
-        //curMenu = itemMenu;
-        curMenu = targetMenu;
+        curMenu = itemMenu;
+        //curMenu = enemyTargetMenu;
         player.actionDelegate = player.Item;
     }
 
@@ -82,13 +83,13 @@ public class ActionScript : MonoBehaviour
         CombatController.instance.SetTarget(-1);
     }
 
-    public void ChooseTarget(PlayerController _player, ActionDelegate _action)
+    public void ChooseTarget(PlayerController _player, ActionDelegate _action, bool _offensive)
     {
         if (player == _player)
         {
             player.actionDelegate = _action;
             prevMenu = curMenu;
-            curMenu = targetMenu;
+            curMenu = (_offensive) ? enemyTargetMenu : allyTargetMenu;
             ToggleMenu();
         }
     }
@@ -96,7 +97,8 @@ public class ActionScript : MonoBehaviour
     public void ToggleMenu()
     {
         actionMenu.SetActive(false);
-        targetMenu.SetActive(false);
+        allyTargetMenu.SetActive(false);
+        enemyTargetMenu.SetActive(false);
 
         abilityMenu.SetActive(false);
         magicMenu.SetActive(false);
@@ -107,7 +109,7 @@ public class ActionScript : MonoBehaviour
     }
     public void SelectFirst()
     {
-        if (curMenu == targetMenu && CombatController.instance.CheckEnemies())
+        if (curMenu == enemyTargetMenu && CombatController.instance.CheckEnemies())
         {
             Debug.Log("No more enemies");
         }

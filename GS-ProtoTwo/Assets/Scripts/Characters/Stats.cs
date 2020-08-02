@@ -8,16 +8,86 @@ public class Stats : ScriptableObject
     [Header("Name & Type")]
     new public string name;
     public CharacterType characterType;
+
     [Header("Attributes")]
+    public int attack;
+    public int defense;
+    public int speed;
+    public int magic;
+    public int hp;
+    public int mp;
+
     public int maxHealth;  
     public int maxMana;
-    public int speed;
-    // temp
     public int damage;
+
+    public int baseHealth;
+    public int baseMana;
+
     [Header("Skills List")]
     public List<Magic> spells;
     public List<Ability> abilities;
 
-    [HideInInspector] public int mana;
-    [HideInInspector] public int health;
+    //[HideInInspector]
+    public int mana;
+    //[HideInInspector] 
+    public int health;
+
+    public void Setup()
+    {
+        maxHealth = baseHealth;
+        health = maxHealth;
+        maxMana = baseMana;
+        mana = maxMana;
+    }
+
+    public void AddStats(Stats _stats)
+    {
+        attack += _stats.attack;
+        defense += _stats.defense;
+        speed += _stats.speed;
+        magic += _stats.magic;
+        hp += _stats.hp;
+        mp += _stats.mp;
+    }
+
+    public void Multiply(Stats _stats, int _links)
+    {
+        attack  = _stats.attack * _links;
+        magic   = _stats.magic * _links;
+        hp      = _stats.hp * _links;
+        mp      = _stats.mp * _links;
+        defense = _stats.defense * _links;
+        speed   = _stats.speed * _links;
+    }
+
+    public void Clear()
+    {
+        attack = 0;
+        magic = 0;
+        hp = 0;
+        mp = 0;
+        defense = 0;
+        speed = 0;
+    }
+
+    public void SetupHPMP()
+    {
+        if (maxHealth == 0 || maxMana == 0)
+        {
+            Debug.LogError("MaxHealth/Mana should never be Zero!");
+        }
+
+        float hpPercent = ((float)health / (float)maxHealth);
+        float mpPercent = ((float)mana / (float)maxMana);
+
+        // Probably be careful where we call this.
+        // Currently adds a base of 100hp/mp + stats * 100
+        maxHealth = baseHealth + (hp * 100);
+        maxMana = baseMana + (mp * 100);
+
+        health = (int)(maxHealth * hpPercent);
+        mana = (int)(maxMana * mpPercent);
+        damage = attack * 10;
+    }
 }

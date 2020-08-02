@@ -8,6 +8,7 @@ public enum CombatState
     PLAYERTURN,
     ACTION,
     ENEMYTURN,
+    BATTLEEND,
 }
 
 
@@ -34,6 +35,9 @@ public class CombatController : MonoBehaviour
     public PlayerController player2;
 
     public Encounter encounter;
+    public Inventory inventory;
+    [Header("Scene Stuff")]
+    public GameObject victoryScreenBlur;
     // Turn Tracking
     public CombatState combatState;
     [HideInInspector] public int activeTurn = 0;
@@ -47,6 +51,14 @@ public class CombatController : MonoBehaviour
     {
         // temp - REQUIRED CURRENTLY
         Invoke("Setup", 0.01f);
+        victoryScreenBlur.transform.position = Camera.main.transform.position;
+        victoryScreenBlur.SetActive(false);
+
+
+        // For Debug purposes make clones of everything
+        encounter = Instantiate(encounter);
+        inventory = Instantiate(inventory);
+        inventory.Setup();
     }
 
     public void Setup()
@@ -64,31 +76,53 @@ public class CombatController : MonoBehaviour
         switch (combatState)
         {
             case CombatState.PLAYERTURN:
-            {
-                ToggleActionCanvas(turnOrder[activeTurn], true);
-                StartTurn((PlayerController)turnOrder[activeTurn]);
-                break;
-            }
+                {
+                    ToggleActionCanvas(turnOrder[activeTurn], true);
+                    StartTurn((PlayerController)turnOrder[activeTurn]);
+                    break;
+                }
             case CombatState.ACTION:
-            {
-                ToggleTurn();
-                ToggleActionCanvas(turnOrder[activeTurn], false);
-                break;
-            }
+                {
+                    ToggleTurn();
+                    ToggleActionCanvas(turnOrder[activeTurn], false);
+                    break;
+                }
+            case CombatState.BATTLEEND:
+                {
+                    ToggleTurn();
+                    ToggleActionCanvas(turnOrder[activeTurn], false);
+                    break;
+                }
             default:
-            {
-                ToggleActionCanvas(turnOrder[activeTurn], false);
-                break;
-            }
+                {
+                    ToggleActionCanvas(turnOrder[activeTurn], false);
+                    break;
+                }
         }
+    }
+
+    public void DisplayVictory()
+    {
+        // Probably add action bars to this cleanup function.
+        GameplayUIScript.instance.ToggleVictory(true);
+        CleanUpUI();
+        victoryScreenBlur.SetActive(true);
+    }
+
+    public void DisplayGameOver()
+    {
+        // Probably add action bars to this cleanup function.
+        GameplayUIScript.instance.ToggleGameOver(true);
+        CleanUpUI();
+        victoryScreenBlur.SetActive(true);
     }
 
     // Instantiate Enemies
     public void SetupBattle()
     {
-        foreach(GameObject n in encounter.enemyPrefabs)
+        foreach (GameObject n in encounter.enemyPrefabs)
         {
-            EnemyController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<EnemyController>();           
+            EnemyController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<EnemyController>();
             enemies.Add(temp);
         }
 
@@ -102,6 +136,7 @@ public class CombatController : MonoBehaviour
         {
             turnOrder.Add(n);
             SetupCanvas((PlayerController)n);
+            n.inventory = inventory;
         }
         foreach (BaseCharacterClass n in enemies)
         {
@@ -111,7 +146,6 @@ public class CombatController : MonoBehaviour
                 n.target = GetTarget();
             }
             turnOrder.Add(n);
-            // Change this to take in EnemyController once we have more info on there (eg. name)
         }
     }
 
@@ -141,6 +175,10 @@ public class CombatController : MonoBehaviour
         {
             AddEnemyButton((EnemyController)n);
         }
+        foreach (BaseCharacterClass n in players)
+        {
+            AddAllyButton((PlayerController)n);
+        }
     }
 
     public void StartBattle()
@@ -151,13 +189,16 @@ public class CombatController : MonoBehaviour
 
     public void NextTurn()
     {
-        activeTurn = (activeTurn < turnOrder.Count - 1) ? (activeTurn + 1) : 0;
-
-        SetTurn(activeTurn);
-
-        if (!turnOrder[activeTurn].alive)
+        if (combatState != CombatState.BATTLEEND)
         {
-            NextTurn();
+            activeTurn = (activeTurn < turnOrder.Count - 1) ? (activeTurn + 1) : 0;
+
+            SetTurn(activeTurn);
+
+            if (!turnOrder[activeTurn].alive)
+            {
+                NextTurn();
+            }
         }
     }
 
@@ -192,13 +233,34 @@ public class CombatController : MonoBehaviour
         if (CheckPlayers())
         {
             // GameOver Sequence
+            ChangeState(CombatState.BATTLEEND);
+            DisplayGameOver();
+            encounter.EndEncounter();
             Debug.Log("All players dead");
         }
         if (CheckEnemies())
         {
             // Move to Win Battle
+            ChangeState(CombatState.BATTLEEND);
+            GetRewards();
+            DisplayVictory();
+            encounter.EndEncounter();
             Debug.Log("All enemies dead");
         }
+    }
+
+    public void GetRewards()
+    {
+        Inventory rewards = ScriptableObject.CreateInstance<Inventory>();
+        rewards.Setup();
+
+        foreach (GameObject n in encounter.enemyPrefabs)
+        {
+            inventory.AddItem(n.GetComponent<EnemyController>().GiveReward());
+            rewards.AddItem(n.GetComponent<EnemyController>().GiveReward());
+        }
+
+        GameplayUIScript.instance.SetRewardText(rewards);
     }
 
 
@@ -254,6 +316,15 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    public event Action<PlayerController> addAllyButton;
+    public void AddAllyButton(PlayerController _player)
+    {
+        if (addAllyButton != null)
+        {
+            addAllyButton(_player);
+        }
+    }
+
     public event Action<PlayerController> startTurn;
     public void StartTurn(PlayerController _player)
     {
@@ -263,12 +334,12 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    public event Action<PlayerController, ActionDelegate> chooseTarget;
-    public void ChooseTarget(PlayerController _player, ActionDelegate _action)
+    public event Action<PlayerController, ActionDelegate, bool> chooseTarget;
+    public void ChooseTarget(PlayerController _player, ActionDelegate _action, bool _offensive)
     {
         if (chooseTarget != null)
         {
-            chooseTarget(_player, _action);
+            chooseTarget(_player, _action, _offensive);
         }
     }
 
@@ -314,6 +385,15 @@ public class CombatController : MonoBehaviour
         if (turnOffTarget != null)
         {
             turnOffTarget(_id);
+        }
+    }
+
+    public event Action cleanUp;
+    public void CleanUpUI()
+    {
+        if (cleanUp != null)
+        {
+            cleanUp();
         }
     }
 

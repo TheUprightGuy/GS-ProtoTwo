@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
   m_Name: EnemyStats
   m_EditorClassIdentifier: 
-  health: 50
-  maxHealth: 50
-  mana: 50
+  name: Troglodyte
+  characterType: 0
+  maxHealth: 20
   maxMana: 50
   speed: 0
   damage: 10
-  name: Troglodyte
   spells: []
   abilities: []
-  characterType: 0
+  mana: 50
+  health: 20

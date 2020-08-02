@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,10 @@ public class GameplayUIScript : MonoBehaviour
     }
     #endregion Singleton
 
+    public GameObject victoryCanvas;
+    public GameObject gameOverCanvas;
+    public TMPro.TextMeshProUGUI rewardsText;
+
     public GameObject actionCanvasPrefab;
     public SetupStatusBar statusBars;
     public List<ActionScript> playerUI;
@@ -31,6 +36,9 @@ public class GameplayUIScript : MonoBehaviour
         CombatController.instance.toggleActionCanvas += ToggleActionCanvas;
         CombatController.instance.setupCanvas += SetupCanvas;
         CombatController.instance.turnOffTarget += TurnOff;
+
+        ToggleVictory(false);
+        ToggleGameOver(false);
     }
 
     private void OnDestroy()
@@ -54,6 +62,10 @@ public class GameplayUIScript : MonoBehaviour
         {
             temp.magicMenu.GetComponent<SetupMagic>().AddMagicButton(_player, n);
         }
+        foreach (Item n in _player.inventory.items)
+        {
+            temp.itemMenu.GetComponent<SetupItems>().AddItemButton(_player, n);
+        }
 
         statusBars.Setup(_player);
     }
@@ -73,7 +85,6 @@ public class GameplayUIScript : MonoBehaviour
         }
     }
 
-
     public void TurnOff(int _id)
     {
         for (int i = targets.Count - 1; i >= 0; i--)
@@ -83,6 +94,37 @@ public class GameplayUIScript : MonoBehaviour
                 Destroy(targets[i].gameObject);
                 targets.RemoveAt(i);
             }
+        }
+    }
+
+    public void ToggleVictory(bool _toggle)
+    {
+        victoryCanvas.SetActive(_toggle);
+    }
+
+    public void ToggleGameOver(bool _toggle)
+    {
+        gameOverCanvas.SetActive(_toggle);
+    }
+
+    public void SetRewardText(Inventory _items)
+    {
+        string test = "";
+
+        foreach (Item n in _items.items)
+        {
+            test += n.name + " " + n.quantity + "\n";
+        }
+
+        rewardsText.SetText(test);
+    }
+
+    public event Action<Item> updateItemQuantity;
+    public void UpdateItemQuantity(Item _item)
+    {
+        if (updateItemQuantity != null)
+        {
+            updateItemQuantity(_item);
         }
     }
 }

@@ -17,6 +17,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
 {
     [Header("Character Stats")]
     public Stats stats;
+    public Inventory inventory;
     // Debug
     public bool alive = true;
     [HideInInspector] public int id;
@@ -250,6 +251,23 @@ public abstract class BaseCharacterClass : MonoBehaviour
         else
         {
             targetIndicator.Toggle(false);
+        }
+    }
+
+    public void RestoreHealth(int _health)
+    {
+        stats.health = (stats.health + _health > stats.maxHealth) ? stats.maxHealth : stats.health + _health;
+        if (stats.characterType == CharacterType.Player)
+        {
+            CombatController.instance.UpdateStatus((PlayerController)this);
+        }
+    }
+    public void RestoreMana(int _mana)
+    {
+        stats.mana = (stats.mana + _mana > stats.maxMana) ? stats.maxMana : stats.mana + _mana;
+        if (stats.characterType == CharacterType.Player)
+        {
+            CombatController.instance.UpdateStatus((PlayerController)this);
         }
     }
 }

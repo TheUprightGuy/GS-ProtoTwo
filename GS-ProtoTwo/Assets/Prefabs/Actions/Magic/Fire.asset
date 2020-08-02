@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5a483e59abfca4c8d001bd352375fe, type: 3}
+  m_Script: {fileID: 11500000, guid: dca8b6578dc51b842b1cc98ac9786d4b, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  damage: 10
-  manaCost: 10
+  damage: 20
+  manaCost: 20
+  offensive: 1
   element: 0
   spellPrefab: {fileID: -7680601788810955228, guid: 06a3357ed71ef5841934c8fdb1f2490d,
     type: 3}
