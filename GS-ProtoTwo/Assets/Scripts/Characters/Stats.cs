@@ -53,6 +53,7 @@ public class Stats : ScriptableObject
         mana = maxMana;
 
         damage = 10;
+        pointsToSpend = 3;
     }
 
     public void AddStats(Stats _stats)

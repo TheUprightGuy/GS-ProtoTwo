@@ -18,6 +18,8 @@ public class Node : MonoBehaviour
     private MeshRenderer meshRenderer;
     [HideInInspector] public bool currentSelected = false;
 
+    public Camera skillTreeCamera;
+
     #region Setup
     private void Awake()
     {
@@ -201,7 +203,7 @@ public class Node : MonoBehaviour
 
     private void Update()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        transform.rotation = Quaternion.LookRotation(transform.position - skillTreeCamera.transform.position);
 
         if (counting && !completed)
         {

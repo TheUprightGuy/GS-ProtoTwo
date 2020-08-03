@@ -24,6 +24,7 @@ public class PositionTracker : MonoBehaviour
     public Node currentPosition;
     public Material currentMat;
     public Material completedMat;
+    public Camera skillTreeCamera;
 
     // List of Links so far (used for toggling on).
     [HideInInspector] public List<Link> links;
@@ -80,7 +81,7 @@ public class PositionTracker : MonoBehaviour
 
         Quaternion target;
         // Get Rotation for SkillTree
-        Quaternion toCam = Quaternion.LookRotation(Camera.main.transform.position - skillTreeManager.transform.position);
+        Quaternion toCam = Quaternion.LookRotation(skillTreeCamera.transform.position - skillTreeManager.transform.position);
         Quaternion toNode = Quaternion.LookRotation(currentPosition.transform.localPosition);
         Quaternion fromNode = Quaternion.Inverse(toNode);
         target = toCam * fromNode;

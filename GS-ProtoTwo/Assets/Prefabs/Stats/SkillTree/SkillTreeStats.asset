@@ -23,10 +23,11 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   nextLevelXP: 100
-  pointsToSpend: 0
+  pointsToSpend: 4
+  xpReward: 0
   maxHealth: 100
   maxMana: 100
-  damage: 0
+  damage: 10
   baseHealth: 100
   baseMana: 100
   mana: 100
