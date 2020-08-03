@@ -14,11 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Troglodyte
   characterType: 0
+  attack: 0
+  defense: 0
+  speed: 0
+  magic: 0
+  hp: 0
+  mp: 0
+  level: 0
+  currentXP: 0
+  nextLevelXP: 0
+  pointsToSpend: 0
+  xpReward: 100
   maxHealth: 20
   maxMana: 50
-  speed: 0
   damage: 10
-  spells: []
-  abilities: []
+  baseHealth: 0
+  baseMana: 0
   mana: 50
   health: 20
+  spells: []
+  abilities: []
+  linked: 0

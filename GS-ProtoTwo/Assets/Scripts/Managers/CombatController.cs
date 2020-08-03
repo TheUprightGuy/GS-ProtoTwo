@@ -260,6 +260,14 @@ public class CombatController : MonoBehaviour
             rewards.AddItem(n.GetComponent<EnemyController>().GiveReward());
         }
 
+        foreach (PlayerController n in players)
+        {
+            foreach (EnemyController o in enemies)
+            {
+                n.stats.GainXP(o.stats.xpReward);
+            }
+        }
+            
         GameplayUIScript.instance.SetRewardText(rewards);
     }
 

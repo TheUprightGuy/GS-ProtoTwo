@@ -35,6 +35,6 @@ public class StatsTable : MonoBehaviour
         manaText.SetText(_stats.mp.ToString());
         defenseText.SetText(_stats.defense.ToString());
         speedText.SetText(_stats.speed.ToString());
-        pointsLeft.SetText(SkillTreeManager.instance.pointsToSpend.ToString());
+        pointsLeft.SetText(SkillTreeManager.instance.stats.pointsToSpend.ToString());
     }
 }

@@ -23,6 +23,11 @@ public class SkillTreeController : MonoBehaviour
 
     private void Start()
     {
+        Invoke("DelayedStart", 0.01f);
+    }
+
+    void DelayedStart()
+    {
         Toggle(false);
     }
 

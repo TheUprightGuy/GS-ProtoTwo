@@ -17,30 +17,42 @@ public class Stats : ScriptableObject
     public int hp;
     public int mp;
 
-    public int maxHealth;  
-    public int maxMana;
-    public int damage;
+    [Header("Leveling")]
+    public int level;
+    public int currentXP;
+    public int nextLevelXP;
+    public int pointsToSpend;
 
-    public int baseHealth;
-    public int baseMana;
+    [Header("Enemies Only")]
+    public int xpReward;
+
+    [HideInInspector] public int maxHealth;
+    [HideInInspector] public int maxMana;
+    [HideInInspector] public int damage;
+    [HideInInspector] public int baseHealth;
+    [HideInInspector] public int baseMana;
+    [HideInInspector] public int mana;
+    [HideInInspector] public int health;
 
     [Header("Skills List")]
     public List<Magic> spells;
     public List<Ability> abilities;
 
-    //[HideInInspector]
-    public int mana;
-    //[HideInInspector] 
-    public int health;
 
-    public bool linked;
+    [HideInInspector] public bool linked;
 
     public void Setup()
     {
+        level = 1;
+        currentXP = 0;
+        nextLevelXP = 100;
+
         maxHealth = baseHealth;
         health = maxHealth;
         maxMana = baseMana;
         mana = maxMana;
+
+        damage = 10;
     }
 
     public void AddStats(Stats _stats)
@@ -94,7 +106,7 @@ public class Stats : ScriptableObject
         hp = 0;
         mp = 0;
         defense = 0;
-        speed = 0;
+        speed = 0;     
 
         spells.Clear();
         abilities.Clear();
@@ -117,6 +129,19 @@ public class Stats : ScriptableObject
 
         health = (int)(maxHealth * hpPercent);
         mana = (int)(maxMana * mpPercent);
-        damage = attack * 10;
+        damage = 10 + (attack * 10);
+    }
+
+    public void GainXP(int _xp)
+    {
+        currentXP += _xp;
+        if (currentXP >= nextLevelXP)
+        {
+            level++;
+            pointsToSpend++;
+            currentXP %= nextLevelXP;
+        }
+
+        nextLevelXP = (int)(nextLevelXP * 1.5f);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  name: Total
+  name: Fire
   characterType: 1
   attack: 0
   defense: 0
@@ -20,13 +20,18 @@ MonoBehaviour:
   magic: 0
   hp: 0
   mp: 0
+  level: 0
+  currentXP: 0
+  nextLevelXP: 0
+  pointsToSpend: 0
   maxHealth: 0
   maxMana: 0
   damage: 0
   baseHealth: 0
   baseMana: 0
+  mana: 100
+  health: 50
   spells:
   - {fileID: 11400000, guid: 77cb64126cb35764a83c8a79e7ef4d80, type: 2}
   abilities: []
-  mana: 100
-  health: 50
+  linked: 0

@@ -24,9 +24,7 @@ public class SkillTreeManager : MonoBehaviour
     [Header("Setup Requirements")]
     public GameObject linkPrefab;
     public Stats stats;
-
-    public int pointsToSpend;
-
+    
     private Quaternion target;
     [HideInInspector] public bool rotating = false;
 
@@ -34,9 +32,9 @@ public class SkillTreeManager : MonoBehaviour
 
     public bool SpendPoint()
     {
-        if (pointsToSpend > 0)
+        if (stats.pointsToSpend > 0)
         {
-            pointsToSpend--;
+            stats.pointsToSpend--;
             return true;
         }
         return false;

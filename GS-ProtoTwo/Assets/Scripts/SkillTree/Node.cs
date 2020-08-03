@@ -14,11 +14,9 @@ public class Node : MonoBehaviour
     private bool completed = false;
     [HideInInspector] public Material defaultMat;
     [HideInInspector] public List<Link> links;
-    //[HideInInspector] 
-    public FaceCamera statsText;
+    [HideInInspector] public FaceCamera statsText;
     private MeshRenderer meshRenderer;
-
-    public bool currentSelected = false;
+    [HideInInspector] public bool currentSelected = false;
 
     #region Setup
     private void Awake()

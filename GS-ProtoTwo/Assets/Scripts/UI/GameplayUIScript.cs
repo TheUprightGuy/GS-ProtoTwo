@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayUIScript : MonoBehaviour
 {
@@ -126,5 +127,10 @@ public class GameplayUIScript : MonoBehaviour
         {
             updateItemQuantity(_item);
         }
+    }
+
+    public void GoToWorld()
+    {
+        SceneManager.LoadScene("JacksWorld");
     }
 }
