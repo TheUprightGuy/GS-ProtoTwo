@@ -14,8 +14,11 @@ public class Node : MonoBehaviour
     private bool completed = false;
     [HideInInspector] public Material defaultMat;
     [HideInInspector] public List<Link> links;
-    [HideInInspector] public FaceCamera statsText;
+    //[HideInInspector] 
+    public FaceCamera statsText;
     private MeshRenderer meshRenderer;
+
+    public bool currentSelected = false;
 
     #region Setup
     private void Awake()
@@ -42,6 +45,12 @@ public class Node : MonoBehaviour
                 temp.Setup(this, n);
                 links.Add(temp);
             }
+        }
+
+        // Hide Tooltip
+        if (statsText)
+        {
+            statsText.ShowTooltip(false);
         }
     }
     private void OnDestroy()
@@ -160,14 +169,17 @@ public class Node : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        Clear();
+        if (!currentSelected)
+        {
+            Clear();
+        }
     }
     private void OnMouseExit()
     {
         Clear();
 
         // Hide Tooltip
-        if (statsText)
+        if (statsText && !currentSelected)
         {
             statsText.ShowTooltip(false);
         }
@@ -191,6 +203,8 @@ public class Node : MonoBehaviour
 
     private void Update()
     {
+        transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+
         if (counting && !completed)
         {
             count += Time.deltaTime;

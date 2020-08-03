@@ -61,7 +61,9 @@ public class PositionTracker : MonoBehaviour
     public void SetPosition(Node _position)
     {      
         currentPosition.ResetMat();
+        currentPosition.currentSelected = false;
         currentPosition = _position;
+        currentPosition.currentSelected = true;
         // Turns on Links to Neighbours
         skillTreeManager.ToggleLinks(currentPosition);
 
@@ -84,6 +86,11 @@ public class PositionTracker : MonoBehaviour
         target = toCam * fromNode;
 
         skillTreeManager.SetTarget(target);
+
+        if (currentPosition.statsText)
+        {
+            currentPosition.statsText.ShowTooltip(true);
+        }
     }
 
 
