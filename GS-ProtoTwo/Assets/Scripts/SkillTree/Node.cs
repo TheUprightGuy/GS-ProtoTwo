@@ -20,6 +20,8 @@ public class Node : MonoBehaviour
 
     public Camera skillTreeCamera;
 
+    public List<GameObject> vfx;
+
     #region Setup
     private void Awake()
     {
@@ -51,6 +53,21 @@ public class Node : MonoBehaviour
         if (statsText)
         {
             statsText.ShowTooltip(false);
+        }
+
+        // Just me being Lazy
+        VFXSwitcher vfxboi = GetComponentInChildren<VFXSwitcher>();
+        MeshRenderer meshyboy = GetComponent<MeshRenderer>();
+        vfxboi.nodeMat = meshyboy.material;
+        meshyboy.enabled = false;
+        vfxboi.Setup();
+
+
+        // meh
+        if (vfx.Count > 0)
+        {
+            vfx[1].SetActive(false);
+            vfx[0].SetActive(true);
         }
     }
     private void OnDestroy()
@@ -219,6 +236,13 @@ public class Node : MonoBehaviour
                         GetLineFromRoot();
                         PositionTracker.instance.SetPosition(this);
                         SkillTreeManager.instance.AddNode(this);
+
+                        // meh
+                        if (vfx.Count > 0)
+                        {
+                            vfx[0].SetActive(false);
+                            vfx[1].SetActive(true);
+                        }
                     }
                 }
                 else

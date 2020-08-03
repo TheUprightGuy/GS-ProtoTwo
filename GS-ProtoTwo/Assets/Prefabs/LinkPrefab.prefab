@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2405289586901545249}
   - component: {fileID: 6777390991288382549}
   m_Layer: 0
-  m_Name: NewLinkPref
+  m_Name: LinkPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.119047165
+        value: 0.047620773
         inSlope: 0
         outSlope: 0
         tangentMode: 0
