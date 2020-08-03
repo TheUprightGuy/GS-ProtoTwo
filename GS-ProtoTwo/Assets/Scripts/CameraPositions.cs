@@ -8,7 +8,7 @@ public class CameraPositions : MonoBehaviour
     public List<Vector3> Positions;
     public float lerpSpeed;
     // Private Variables
-    private Vector3 lerpTarget;
+    public Vector3 lerpTarget;
     private bool lerping = false;
 
     public void Update()
@@ -28,6 +28,8 @@ public class CameraPositions : MonoBehaviour
             BeginLerpTo(Positions[1]);
             SkillTreeManager.instance.ToggleLayers(1);
         }
+
+        //if (Input.GetAxis)
     }
 
     public void BeginLerpTo(Vector3 _pos)
@@ -39,8 +41,8 @@ public class CameraPositions : MonoBehaviour
 
     public void LerpTo()
     {
-        transform.position = Vector3.Lerp(transform.position, lerpTarget, lerpSpeed * Time.deltaTime);
-        if (transform.position == lerpTarget)
+        transform.localPosition = Vector3.Lerp(transform.localPosition, lerpTarget, lerpSpeed * Time.deltaTime);
+        if (transform.localPosition == lerpTarget)
         {
             lerping = false;
         }
