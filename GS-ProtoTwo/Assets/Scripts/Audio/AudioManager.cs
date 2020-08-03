@@ -23,6 +23,15 @@ namespace Audio
             Instance = this;
 
             DontDestroyOnLoad(this.gameObject);
+            
+            
+            InitialisePrivateVariables();
+            foreach (var audioSource in audioSources)
+            {
+                AddAudioSourceToDictionary(audioSource);
+            }
+
+            _soundsUnrestricted = new List<string> {"ui"};
         }
 
         #endregion
@@ -32,19 +41,11 @@ namespace Audio
         public float masterVolume = 1.0f;
 
         private Dictionary<string, SoundInfo> _soundDictionary;
+        private List<string> _soundsUnrestricted;    //Audio source will play this sound regardless of if it's already playing
         [SerializeField] private GameObject volumeSlider = null;
         private Slider _slider;
         private AudioSource _musicSource;
         private float _musicDefaultVolume;
-
-        private void Start()
-        {
-            InitialisePrivateVariables();
-            foreach (var audioSource in audioSources)
-            {
-                AddAudioSourceToDictionary(audioSource);
-            }
-        }
 
         private void InitialisePrivateVariables()
         {
@@ -76,15 +77,16 @@ namespace Audio
 
         public void OnVolumeAdjusted()
         {
-            masterVolume = _slider.value;
+            masterVolume = _slider.value / 10f;
             _musicSource.volume = _musicDefaultVolume * masterVolume;
+            PlaySound("ui");
         }
     
 
         private void PlaySound(AudioSource audioSource) //Only play sound if it's not already playing
         {
             AdjustPitchAndVolume(audioSource);
-            if (!audioSource.isPlaying || audioSource.name == "ui")    //Should expand if any sounds(apart from UI) need to be played like this
+            if (!audioSource.isPlaying || _soundsUnrestricted.Contains(audioSource.name))
                 audioSource.Play();
         }
 

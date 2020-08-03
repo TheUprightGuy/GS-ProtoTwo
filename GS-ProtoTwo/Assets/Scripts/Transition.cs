@@ -12,12 +12,16 @@ public class Transition : MonoBehaviour
     public Animator animator;
 
     private static readonly int PlayTransition = Animator.StringToHash("PlayTransition");
-    [SerializeField] private string nextSceneToLoad;
+    public string nextSceneToLoad;
     public string transitionMessage = "FIGHT!";
-    [SerializeField] private TextMeshProUGUI logoText;
+    private GameObject logo;
+    private TextMeshProUGUI logoText;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        logo = transform.GetChild(2).gameObject;
+        logoText = logo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         logoText.text = transitionMessage;
     }
 
@@ -27,8 +31,9 @@ public class Transition : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public IEnumerator StartTransition()
+    public IEnumerator TransitionToCombat()
     {
+        logo.SetActive(true);
         animator.SetTrigger(PlayTransition);
 
         yield return new WaitForSeconds(1.5f);

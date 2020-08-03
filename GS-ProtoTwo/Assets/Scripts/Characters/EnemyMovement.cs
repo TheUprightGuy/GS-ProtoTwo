@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
 public class EnemyMovement : MonoBehaviour
 {
 
@@ -26,6 +29,8 @@ public class EnemyMovement : MonoBehaviour
     public bool lockY = true;
 
     public Vector3 storedHandlePos;
+    
+    public GameInfo gameInfo;
 
     //Pathing
     /*******************************/
@@ -56,9 +61,14 @@ public class EnemyMovement : MonoBehaviour
     public float EnemyFov = 0.0f;
 
     /*******************************/
+    private void Awake()
+    {
+        GameObject.Find("EventHandler").GetComponent<EventHandler>().onPauseToggled += OnPauseToggled;
+    }
 
     void Start()
     {
+        gameInfo = GameObject.Find("EventHandler").GetComponent<EventHandler>().gameInfo;
         //Targets = new List<Vector3>();
         //Targets.Add(To + transform.position);
         //Targets.Add(From + transform.position);
@@ -82,6 +92,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameInfo.paused) return;
         switch (Behaviour)
         {
             case BehaviourType.NONE:
@@ -227,5 +238,10 @@ public class EnemyMovement : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void OnPauseToggled(bool obj)
+    {
+        NMA.isStopped = gameInfo.paused;
     }
 }

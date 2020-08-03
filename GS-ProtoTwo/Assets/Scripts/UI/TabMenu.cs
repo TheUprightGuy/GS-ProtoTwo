@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class TabMenu : MonoBehaviour
     public List<Stats> playerStats;
 
     public List<GameObject> menuScreens;
+    public GameInfo gameInfo;
     
     private void Awake()
     {
@@ -54,6 +56,7 @@ public class TabMenu : MonoBehaviour
     private void Start()
     {
         EventHandler.Instance.onToggleTabMenu += ToggleTabMenu;
+        gameInfo = EventHandler.Instance.gameInfo;
     }
 
     public void Back()
@@ -63,6 +66,7 @@ public class TabMenu : MonoBehaviour
 
     private void ToggleTabMenu(bool enableTabMenu)
     {
+        AudioManager.Instance.PlaySound("ui");
         transform.GetChild(0).gameObject.SetActive(enableTabMenu);
     }
 }

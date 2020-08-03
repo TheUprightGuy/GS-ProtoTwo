@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SkillTree.unity
     guid: 09168f37a197b4a4b8a9b212104972db
+  - enabled: 1
+    path: Assets/Scenes/TestScene2.unity
+    guid: f489a33bc7849b94188a4e6394bf884f
   m_configObjects: {}

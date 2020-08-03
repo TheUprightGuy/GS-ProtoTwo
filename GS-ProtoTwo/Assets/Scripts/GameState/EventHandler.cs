@@ -13,7 +13,6 @@ public class EventHandler : MonoBehaviour
 
     private void Awake()
     {
-        gameInfo = ScriptableObject.CreateInstance<GameInfo>();
         if (Instance != null)
         {
             Debug.Log("More than one EventHandler in scene!");
@@ -23,6 +22,7 @@ public class EventHandler : MonoBehaviour
 
         Instance = this;
         gameInfo.paused = false;
+        gameInfo.pauseMenuOpen = false;
         SceneManager.activeSceneChanged += OnSceneChanged;
         DontDestroyOnLoad(this.gameObject);
     }
@@ -61,10 +61,11 @@ public class EventHandler : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        gameInfo.paused = (tabMenuOpen == true)? gameInfo.paused : !gameInfo.paused;
+        gameInfo.paused = tabMenuOpen? gameInfo.paused : !gameInfo.paused;
         gameInfo.pauseMenuOpen = !gameInfo.pauseMenuOpen;
         onPauseToggled?.Invoke(gameInfo.paused);
         onTogglePauseMenu(gameInfo.pauseMenuOpen);
+        Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
     }
     
     public void ToggleTabMenu()
@@ -73,5 +74,6 @@ public class EventHandler : MonoBehaviour
         tabMenuOpen = !tabMenuOpen;
         onPauseToggled?.Invoke(gameInfo.paused);
         onToggleTabMenu(tabMenuOpen);
+        Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

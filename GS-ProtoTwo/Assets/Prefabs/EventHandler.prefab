@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1e426863e4ac54eb928072938dee88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInfo: {fileID: 0}
-  settingsOpen: 0
+  gameInfo: {fileID: 11400000, guid: 26aa76acdc06426489580f949ddceabe, type: 2}
+  settingsMenuOpen: 0
+  tabMenuOpen: 0
