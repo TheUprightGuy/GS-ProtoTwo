@@ -8,6 +8,9 @@ public class AIEditor : Editor {
  {
      "None", "Path Points", "Path Points with NAVMESH" , "Wander" 
  };
+
+    bool showPosition = true;
+
     public override void OnInspectorGUI() 
     {
         //base.OnInspectorGUI();
@@ -48,11 +51,18 @@ public class AIEditor : Editor {
             }
         }
 
-        EditorGUILayout.Space();
-        EditorGUILayout.LabelField("FOV Settings");
-        EditorGUILayout.Separator();
-        thisTarget.DetectRange = EditorGUILayout.FloatField("FOV Distance",thisTarget.DetectRange);
-        thisTarget.EnemyFov= EditorGUILayout.FloatField("FOV Angle", thisTarget.EnemyFov);
+        showPosition = EditorGUILayout.BeginFoldoutHeaderGroup(showPosition, "Enemy Awareness");
+
+        if (showPosition)
+        {
+            EditorGUILayout.Separator();
+            thisTarget.PlayerFoundObj = (GameObject)EditorGUILayout.ObjectField("Player Found Indicator", thisTarget.PlayerFoundObj, typeof(Object), true);
+            thisTarget.PlayerLostObj = (GameObject)EditorGUILayout.ObjectField("Player Lost Indicator", thisTarget.PlayerLostObj, typeof(Object), true);
+            thisTarget.DetectRange = EditorGUILayout.FloatField("FOV Distance", thisTarget.DetectRange);
+            thisTarget.EnemyFov = EditorGUILayout.FloatField("FOV Angle", thisTarget.EnemyFov);
+        }
+
+        EditorGUILayout.EndFoldoutHeaderGroup();
     }
 
     float sizeOfHandle = 0.5f;

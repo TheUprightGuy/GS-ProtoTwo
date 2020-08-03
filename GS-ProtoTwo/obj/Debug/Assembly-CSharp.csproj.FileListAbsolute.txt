@@ -648,7 +648,3 @@ D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\Unity.Pro
 D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\UnityEditor.TestRunner.pdb
 D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\Unity.ShaderGraph.Utilities.pdb
 D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\UnityEngine.TestRunner.pdb
-D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\ICSharpCode.NRefactory.dll
-D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\nunit.framework.dll
-D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\nunit.framework.pdb
-D:\Users\jack.bel7544\Documents\GS-ProtoTwo\GS-ProtoTwo\Temp\bin\Debug\nunit.framework.xml

@@ -55,8 +55,16 @@ public class EnemyMovement : MonoBehaviour
     public float DetectRange = 100.0f;
     public float EnemyFov = 0.0f;
 
+    private Vector3 PlayerLastSeenPos = Vector3.zero;
+
+    public GameObject PlayerFoundObj = null;
+    private Color FoundBaseColor;
+    public GameObject PlayerLostObj = null;
+    private Color LostBaseColor;
     /*******************************/
 
+
+    
     void Start()
     {
         //Targets = new List<Vector3>();
@@ -73,7 +81,8 @@ public class EnemyMovement : MonoBehaviour
         }
 
         StartCoroutine("FindTargetsWithDelay", .2f);
-
+        FoundBaseColor = PlayerFoundObj.GetComponent<Renderer>().material.color;
+        LostBaseColor = PlayerLostObj.GetComponent<Renderer>().material.color;
     }
 
     float timer = 0.0f;
@@ -82,23 +91,35 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (Behaviour)
+        if (PlayerLastSeenPos != Vector3.zero)
         {
-            case BehaviourType.NONE:
-                break;
-            case BehaviourType.TO_FROM:
-                NMA.enabled = false;
-                AIPath();
-                break;
-            case BehaviourType.TO_FROM_NAVMESH:
-                break;
-            case BehaviourType.WANDER:
-                NMA.enabled = true;
-                AIWander();
-                break;
-            default:
-                break;
+            NMA.enabled = true;
+            if (NMA.remainingDistance < 0.1f)
+            {
+                PlayerLastSeenPos = Vector3.zero;
+            }
         }
+        else
+        {
+            switch (Behaviour)
+            {
+                case BehaviourType.NONE:
+                    break;
+                case BehaviourType.TO_FROM:
+                    NMA.enabled = false;
+                    AIPath();
+                    break;
+                case BehaviourType.TO_FROM_NAVMESH:
+                    break;
+                case BehaviourType.WANDER:
+                    NMA.enabled = true;
+                    AIWander();
+                    break;
+                default:
+                    break;
+            }
+        }
+        
     }
 
     void AIPath()
@@ -168,14 +189,35 @@ public class EnemyMovement : MonoBehaviour
             FindVisibleTargets();
         }
     }
+    
+    IEnumerator LerpColor(Color StartColor, Color EndColor, GameObject currentObj, float time)
+    {
+        float ElapsedTime = 0.0f;
+        float TotalTime = time;
+        while (ElapsedTime < TotalTime)
+        {
+            ElapsedTime += Time.deltaTime;
+            Color test = Color.Lerp(StartColor, EndColor, (ElapsedTime / TotalTime));
+            //test.a = 0.5f;
+            currentObj.GetComponent<Renderer>().material.SetColor("_BaseColor", test);//color = 
+            yield return new WaitForEndOfFrame();
+        }
+
+
+    }
+
 
     public Transform PlayerObj = null;
     void FindVisibleTargets()
     {
+        bool hadPrevious = (PlayerObj != null);
+
+        Debug.Log(hadPrevious.ToString());
         PlayerObj = null;
         
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, DetectRange, LayerMask.GetMask("Player"));
 
+        
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, DetectRange, LayerMask.GetMask("Player"));
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
             Transform target = targetsInViewRadius[i].transform;
@@ -186,13 +228,33 @@ public class EnemyMovement : MonoBehaviour
 
                 if (Physics.Raycast(transform.position, dirToTarget, dstToTarget, LayerMask.GetMask("Player")))
                 {
+                    if (!hadPrevious)
+                    {
+                        PlayerLostObj.SetActive(false);
+                        PlayerFoundObj.SetActive(true);
+                        Color trans = FoundBaseColor;
+                        trans.a = 0.0f;
+                        IEnumerator lerp = LerpColor(trans, FoundBaseColor, PlayerFoundObj, 0.2f);
+                        StartCoroutine(lerp);
+                    }
+
                     PlayerObj = target;
+                    PlayerLastSeenPos = PlayerObj.transform.position;
+                    NMA.destination = PlayerLastSeenPos;
                 }
-                else
-                {
-                    PlayerObj = null;
-                }
+
             }
+        }
+
+        if (PlayerObj == null && PlayerFoundObj.activeSelf)
+        {
+            PlayerFoundObj.SetActive(false);
+            PlayerLostObj.SetActive(true);
+
+            Color trans = LostBaseColor;
+            trans.a = 0.0f;
+            IEnumerator lerp = LerpColor(LostBaseColor, trans, PlayerLostObj, 5.0f);
+            StartCoroutine(lerp);
         }
     }
 
