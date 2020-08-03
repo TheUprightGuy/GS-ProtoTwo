@@ -7,6 +7,7 @@ public enum Element
     Fire,
     Water,
     Lightning,
+    Earth,
     Holy
 }
 

@@ -33,6 +33,8 @@ public class Stats : ScriptableObject
     //[HideInInspector] 
     public int health;
 
+    public bool linked;
+
     public void Setup()
     {
         maxHealth = baseHealth;
@@ -43,12 +45,31 @@ public class Stats : ScriptableObject
 
     public void AddStats(Stats _stats)
     {
-        attack += _stats.attack;
-        defense += _stats.defense;
-        speed += _stats.speed;
-        magic += _stats.magic;
-        hp += _stats.hp;
-        mp += _stats.mp;
+        if (_stats.linked)
+        {
+            attack += _stats.attack;
+            defense += _stats.defense;
+            speed += _stats.speed;
+            magic += _stats.magic;
+            hp += _stats.hp;
+            mp += _stats.mp;
+
+            foreach (Magic n in _stats.spells)
+            {
+                if (!spells.Contains(n))
+                {
+                    spells.Add(n);
+                }
+            }
+
+            foreach (Ability n in _stats.abilities)
+            {
+                if (!abilities.Contains(n))
+                {
+                    abilities.Add(n);
+                }
+            }
+        }
     }
 
     public void Multiply(Stats _stats, int _links)
@@ -59,6 +80,11 @@ public class Stats : ScriptableObject
         mp      = _stats.mp * _links;
         defense = _stats.defense * _links;
         speed   = _stats.speed * _links;
+
+        if (_links > 0)
+        {
+            linked = true;
+        }
     }
 
     public void Clear()
@@ -69,6 +95,9 @@ public class Stats : ScriptableObject
         mp = 0;
         defense = 0;
         speed = 0;
+
+        spells.Clear();
+        abilities.Clear();
     }
 
     public void SetupHPMP()

@@ -1284,7 +1284,9 @@ MonoBehaviour:
   allyTargetMenu: {fileID: 7816981702523118321}
   enemyTargetMenu: {fileID: 4370805965432709996}
   abilityMenu: {fileID: 4370805965034514684}
+  abilityButton: {fileID: 4370805964836368663}
   magicMenu: {fileID: 4370805966613148967}
+  magicButton: {fileID: 4370805966050526683}
   itemMenu: {fileID: 4370805965303727209}
   playerName: {fileID: 4370805965084809213}
   curMenu: {fileID: 0}

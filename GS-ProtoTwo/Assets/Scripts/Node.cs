@@ -152,6 +152,11 @@ public class Node : MonoBehaviour
         {
             counting = false;
         }
+
+        if (SkillTreeManager.instance.NodeCompleted(this))
+        {
+            counting = true;
+        }
     }
     private void OnMouseUp()
     {
@@ -191,10 +196,22 @@ public class Node : MonoBehaviour
             count += Time.deltaTime;
             if (count >= 1.0f)
             {
-                completed = true;
-                GetComponent<MeshRenderer>().material = defaultMat;
-                GetLineFromRoot();
-                PositionTracker.instance.SetPosition(this);
+                if (!SkillTreeManager.instance.NodeCompleted(this))
+                {
+                    if (SkillTreeManager.instance.SpendPoint())
+                    {
+                        completed = true;
+                        GetComponent<MeshRenderer>().material = defaultMat;
+                        GetLineFromRoot();
+                        PositionTracker.instance.SetPosition(this);
+                        SkillTreeManager.instance.AddNode(this);
+                    }
+                }
+                else
+                {
+                    completed = true;
+                    PositionTracker.instance.SetPosition(this); 
+                }
             }
         }
     }

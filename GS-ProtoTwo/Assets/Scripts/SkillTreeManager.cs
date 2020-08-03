@@ -23,11 +23,37 @@ public class SkillTreeManager : MonoBehaviour
 
     [Header("Setup Requirements")]
     public GameObject linkPrefab;
-    //public Stats2 stats;
     public Stats stats;
+
+    public int pointsToSpend;
 
     private Quaternion target;
     [HideInInspector] public bool rotating = false;
+
+    public List<Node> nodes;
+
+    public bool SpendPoint()
+    {
+        if (pointsToSpend > 0)
+        {
+            pointsToSpend--;
+            return true;
+        }
+        return false;
+    }
+
+    public void AddNode(Node _node)
+    {
+        if (!nodes.Contains(_node))
+        {
+            nodes.Add(_node);
+        }
+    }
+
+    public bool NodeCompleted(Node _node)
+    {
+        return (nodes.Contains(_node));
+    }
 
     private void Start()
     {
