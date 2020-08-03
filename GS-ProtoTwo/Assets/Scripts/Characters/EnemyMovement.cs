@@ -212,7 +212,7 @@ public class EnemyMovement : MonoBehaviour
     {
         bool hadPrevious = (PlayerObj != null);
 
-        Debug.Log(hadPrevious.ToString());
+        //Debug.Log(hadPrevious.ToString());
         PlayerObj = null;
         
 
