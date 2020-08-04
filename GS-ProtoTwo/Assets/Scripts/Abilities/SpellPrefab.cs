@@ -85,10 +85,25 @@ public class SpellPrefab : MonoBehaviour
         if (spellType == SpellType.Projectile)
         {
             // Target still Alive
-            transform.LookAt(target.targetPoint);
+            if (target.targetPoint)
+            {
+                transform.LookAt(target.targetPoint);
+            }
+            else
+            {
+                transform.LookAt(target.transform);
+            }
 
+            Vector3 dir;
             // Get Direction & Find Movement
-            Vector3 dir = target.targetPoint.position - transform.position;
+            if (target.targetPoint)
+            {
+                dir = target.targetPoint.position - transform.position;
+            }
+            else
+            {
+                dir = target.transform.position - transform.position;
+            }
             float distanceThisFrame = projectileSpeed * Time.deltaTime;
 
             // If distance to target is less than how far we move this frame

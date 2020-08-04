@@ -153,7 +153,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
             if (!CombatController.instance.CheckPlayers())
             {
-                Attack(this, CombatController.instance.GetTarget());
+                ChooseCommand();
+               // Attack(this, CombatController.instance.GetTarget());
             }
             else
             {
@@ -163,6 +164,51 @@ public abstract class BaseCharacterClass : MonoBehaviour
         else if (activeTurn && stats.characterType == CharacterType.Player)
         {
             CombatController.instance.ChangeState(CombatState.PLAYERTURN);
+        }
+    }
+
+    public void ChooseCommand()
+    {
+        bool chosen = false;
+
+        while (!chosen)
+        {
+            int action = UnityEngine.Random.Range(0, 3);
+
+            switch (action)
+            {
+                // Attack
+                case 0:
+                {
+                    chosen = true;
+                    Attack(this, CombatController.instance.GetTarget());
+                    break;
+                }
+                // Ability
+                case 1:
+                {
+                    if (stats.abilities.Count > 0)
+                    {
+                        chosen = true;
+                        int rand = UnityEngine.Random.Range(0, stats.abilities.Count);
+                        Ability(this, CombatController.instance.GetTarget());
+                        stats.abilities[rand].Use(this, CombatController.instance.GetTarget());
+                    }
+                    break;
+                }
+                // Spells
+                case 2:
+                {
+                    if (stats.spells.Count > 0)
+                    {
+                        chosen = true;
+                        int rand = UnityEngine.Random.Range(0, stats.spells.Count);
+                        Magic(this, CombatController.instance.GetTarget());
+                        stats.spells[rand].Use(this, CombatController.instance.GetTarget());
+                    }
+                    break;
+                }
+            }
         }
     }
 
