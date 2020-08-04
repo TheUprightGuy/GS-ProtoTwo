@@ -10,32 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
-  m_Name: SkillTreeStats
+  m_Name: AttackDoug
   m_EditorClassIdentifier: 
-  name: Player Stats
-  characterType: 1
-  attack: 0
+  name: Attack Doug
+  characterType: 0
+  attack: 3
   defense: 0
-  speed: 0
-  magic: 1
+  speed: 2
+  magic: 0
   hp: 0
   mp: 0
   level: 1
   currentXP: 0
-  nextLevelXP: 100
-  pointsToSpend: 3
-  xpReward: 0
-  maxHealth: 100
-  maxMana: 100
+  nextLevelXP: 0
+  pointsToSpend: 0
+  xpReward: 100
+  maxHealth: 20
+  maxMana: 50
   damage: 10
   baseHealth: 100
   baseMana: 100
-  mana: 20
-  health: -60
-  spells:
-  - {fileID: 11400000, guid: 893310cd03c6b374e8cde88824401403, type: 2}
-  - {fileID: 11400000, guid: cf83f2184f1c6a147a625d75181b8745, type: 2}
-  abilities: []
-  weakness: 5
-  resistance: 5
+  mana: 50
+  health: 20
+  spells: []
+  abilities:
+  - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
+  weakness: 1
+  resistance: 0
   linked: 0

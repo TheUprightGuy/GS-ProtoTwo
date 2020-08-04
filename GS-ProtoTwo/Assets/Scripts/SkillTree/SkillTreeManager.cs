@@ -58,6 +58,7 @@ public class SkillTreeManager : MonoBehaviour
         // Clears Previous Stats & Start Anew
         stats.Clear();
         stats.Setup();
+        stats.SetupHPMP();
     }
 
     public void Update()

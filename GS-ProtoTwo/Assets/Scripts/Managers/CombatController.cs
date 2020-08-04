@@ -262,7 +262,7 @@ public class CombatController : MonoBehaviour
         {
             foreach (EnemyController o in enemies)
             {
-                n.stats.GainXP(o.stats.xpReward);
+                n.stats.GainXP((int)((float)o.stats.xpReward * Mathf.Sqrt(o.stats.level)));
             }
         }
             

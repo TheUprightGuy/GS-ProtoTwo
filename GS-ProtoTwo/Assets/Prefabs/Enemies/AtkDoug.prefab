@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: -4524593587168409131}
   - component: {fileID: 4340916835608135358}
   m_Layer: 0
-  m_Name: Doug
+  m_Name: AtkDoug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16302fa9fe92650459a275f6df472076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 5aee7fc85bb8a2b418a6d6767923a63b, type: 2}
+  stats: {fileID: 11400000, guid: c1855e3b496947c43b1a885a55f2bef5, type: 2}
   inventory: {fileID: 0}
   alive: 1
   id: 0
@@ -468,6 +468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asset_Enemy_Mon01
       objectReference: {fileID: 0}
+    - target: {fileID: 1935729509762661198, guid: 98970acfe3bc68c429425f9d9d380074,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 07d1632a3ae1fa849a9a44b034eb3a53, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98970acfe3bc68c429425f9d9d380074, type: 3}
 --- !u!4 &2084227160751698567 stripped

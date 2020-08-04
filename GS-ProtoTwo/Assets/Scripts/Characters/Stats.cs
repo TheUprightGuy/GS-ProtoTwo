@@ -28,16 +28,24 @@ public class Stats : ScriptableObject
 
     [HideInInspector] public int maxHealth;
     [HideInInspector] public int maxMana;
-    [HideInInspector] public int damage;
-    [HideInInspector] public int baseHealth;
-    [HideInInspector] public int baseMana;
-    [HideInInspector] public int mana;
-    [HideInInspector] public int health;
+    //[HideInInspector] 
+    public int damage;
+    //[HideInInspector] 
+    public int baseHealth;
+    //[HideInInspector] 
+    public int baseMana;
+    //[HideInInspector] 
+    public int mana;
+    //[HideInInspector] 
+    public int health;
 
     [Header("Skills List")]
     public List<Magic> spells;
     public List<Ability> abilities;
 
+    [Header("Resistances")]
+    public Element weakness;
+    public Element resistance;
 
     [HideInInspector] public bool linked;
 

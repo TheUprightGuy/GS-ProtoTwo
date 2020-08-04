@@ -86,8 +86,11 @@ public abstract class BaseCharacterClass : MonoBehaviour
     #region Callbacks
     private void Start()
     {
-        stats.mana = stats.maxMana;
-        stats.health = stats.maxHealth;
+        if (GetComponent<EnemyController>())
+        {
+            stats.Setup();
+            stats.SetupHPMP();
+        }
 
         CombatController.instance.toggleTurn += TurnOffTurn;
         CombatController.instance.setTarget += ToggleTarget;
@@ -220,12 +223,24 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void DamageEnemy()
     {
         // This will be switched w/ ability damage or a range or something idk
-        target.TakeDamage(stats.damage);
+        target.TakeDamage(stats.damage, Element.None);
     }
 
-    public void TakeDamage(int _damage)
+    public void TakeDamage(int _damage, Element _element)
     {
-        //Debug.Log(name + " took " + _damage + " damage!");
+        // Double/Halve Damage based on Resistance/Weakness
+        if (_element == stats.weakness)
+        {
+            _damage *= 2;
+        }
+        if (_element == stats.resistance)
+        {
+            _damage /= 2;
+        }
+
+        _damage -= stats.defense * 3;
+
+        // Change this to percentage later
         stats.health -= _damage;
 
         if (stats.characterType == CharacterType.Player)
@@ -240,6 +255,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
         {
             stats.health = stats.maxHealth;
         }
+
+        Debug.Log(this.name + " took " + _damage + " damage!");
     }
 
     public void Die()

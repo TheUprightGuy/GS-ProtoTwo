@@ -15,9 +15,9 @@ public class SpellPrefab : MonoBehaviour
     public GameObject hitFX;
     public GameObject critFX;
 
-    public void Setup(Magic _magic, BaseCharacterClass _target)
+    public void Setup(Magic _magic, BaseCharacterClass _user, BaseCharacterClass _target)
     {
-        damage = _magic.damage;
+        damage = _magic.damage + _user.stats.magic * 3;
         element = _magic.element;
         spellType = _magic.spellType;
         target = _target;
@@ -143,7 +143,7 @@ public class SpellPrefab : MonoBehaviour
         // Ensure Enemy is Still Alive
         if (_target != null)
         {
-            _target.TakeDamage(damage);
+            _target.TakeDamage(damage, element);
         }
     }
 }

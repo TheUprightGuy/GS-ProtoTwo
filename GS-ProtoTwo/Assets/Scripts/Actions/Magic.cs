@@ -8,7 +8,8 @@ public enum Element
     Water,
     Lightning,
     Earth,
-    Holy
+    Holy,
+    None
 }
 
 public enum SpellType
@@ -46,13 +47,13 @@ public class Magic : ScriptableObject
             case SpellType.Projectile:
             {
                 SpellPrefab temp = Instantiate<SpellPrefab>(spellPrefab, _user.transform.position, _user.transform.rotation);
-                temp.Setup(this, _tar);
+                temp.Setup(this, _user, _tar);
                 break;
             }
             case SpellType.Targeted:
             {
                 SpellPrefab temp = Instantiate<SpellPrefab>(spellPrefab, _tar.transform.position, _tar.transform.rotation);
-                temp.Setup(this, _tar);
+                temp.Setup(this, _user, _tar);
                 break;
             }
             case SpellType.Self:
