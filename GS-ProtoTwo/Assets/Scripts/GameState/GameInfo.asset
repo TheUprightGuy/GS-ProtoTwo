@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ef7b5a2c779274e9502706e75dc835, type: 3}
   m_Name: GameInfo
   m_EditorClassIdentifier: 
-  paused: 1
-  pauseMenuOpen: 1
+  paused: 0
+  pauseMenuOpen: 0
   activeScene: 1

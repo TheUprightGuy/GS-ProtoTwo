@@ -12,6 +12,9 @@ public class TabGroup : MonoBehaviour
     public TabButton selectedTab;
     public List<GameObject> menuCanvases;
 
+    // temp sorry
+    public TabMenu tabMenu;
+
     public void Awake()
     {
         ResetTabs();
@@ -47,6 +50,7 @@ public class TabGroup : MonoBehaviour
         ResetTabs();
         button.background.sprite = tabSelected;
         int index = button.transform.GetSiblingIndex();
+
         for (int i = 0; i < menuCanvases.Count; i++)
         {
             if (i == index)
@@ -57,7 +61,7 @@ public class TabGroup : MonoBehaviour
             {
                 menuCanvases[i].SetActive(false);
             }
-        }
+        }     
     }
 
     private void ResetTabs()

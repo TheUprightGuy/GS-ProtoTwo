@@ -59,12 +59,17 @@ public class TabMenu : MonoBehaviour
         gameInfo = EventHandler.Instance.gameInfo;
     }
 
+    private void OnDestroy()
+    {
+        EventHandler.Instance.onToggleTabMenu -= ToggleTabMenu;
+    }
+
     public void Back()
     {
         EventHandler.Instance.ToggleTabMenu();
     }
 
-    private void ToggleTabMenu(bool enableTabMenu)
+    public void ToggleTabMenu(bool enableTabMenu)
     {
         AudioManager.instance.PlaySound("ui");
         transform.GetChild(0).gameObject.SetActive(enableTabMenu);

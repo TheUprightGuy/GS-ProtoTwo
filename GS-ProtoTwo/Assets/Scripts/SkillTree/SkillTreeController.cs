@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkillTreeController : MonoBehaviour
 {
     #region Singleton
-    [HideInInspector] public SkillTreeController instance;
+    [HideInInspector] public static SkillTreeController instance;
     private void Awake()
     {
         if (instance != null)
@@ -34,5 +34,14 @@ public class SkillTreeController : MonoBehaviour
     public void Toggle(bool _toggle)
     {
         skillTree.SetActive(_toggle);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Toggle(!skillTree.activeSelf);
+            Cursor.lockState = (skillTree.activeSelf) ? CursorLockMode.None : CursorLockMode.Locked;
+        }
     }
 }
