@@ -27,6 +27,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
     public ActionDelegate actionDelegate;
 
+    public Transform targetPoint;
+
     // Public is necessary due to Inheritance
     [HideInInspector] public TurnBillboard turnIndicator;
     [HideInInspector] public TargetBillboard targetIndicator;

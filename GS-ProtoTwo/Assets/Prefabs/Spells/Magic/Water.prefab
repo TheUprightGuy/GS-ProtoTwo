@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4636055503993905768}
   - component: {fileID: 6421147085875638594}
   - component: {fileID: 8366548354866221551}
-  - component: {fileID: -7680601788810955228}
+  - component: {fileID: 177960707781547939}
   m_Layer: 0
-  m_Name: DummyProj
+  m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-7680601788810955228
+--- !u!114 &177960707781547939
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,12 +90,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5778522320898475606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c350dc30562d6e4b983dbc9d0005c4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fb020facacfd784f956eab87bcab617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   projectileSpeed: 5
-  damage: 5
+  ps: {fileID: 2730087223424202759}
+  target: {fileID: 0}
+  hitFX: {fileID: 9190717816335602958, guid: 750710c9f9e208648ac720a5b9c95211, type: 3}
+  critFX: {fileID: 6926626733752849096, guid: 202adbaf1939a8b4fbadc780ba7704bd, type: 3}
 --- !u!1001 &4801583576904573482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -223,6 +225,12 @@ PrefabInstance:
 --- !u!4 &2730087223424202758 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7440387556001651244, guid: 136c8af0dc41eca4a9cdc254b8806857,
+    type: 3}
+  m_PrefabInstance: {fileID: 4801583576904573482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2730087223424202759 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7440387556001651245, guid: 136c8af0dc41eca4a9cdc254b8806857,
     type: 3}
   m_PrefabInstance: {fileID: 4801583576904573482}
   m_PrefabAsset: {fileID: 0}

@@ -11,14 +11,25 @@ public enum Element
     Holy
 }
 
+public enum SpellType
+{
+    Projectile,
+    Targeted,
+    Self
+}
+
 [CreateAssetMenu(fileName = "Magic", menuName = "Actions/Magic")]
 public class Magic : ScriptableObject
 {
     public int damage;
     public int manaCost;
-    public bool offensive;
     public Element element;
-    public Projectile spellPrefab;
+    public SpellType spellType;
+
+    public SpellPrefab spellPrefab;
+
+    public bool offensive;
+
 
     public void SpendMana(BaseCharacterClass _user)
     {
@@ -30,16 +41,25 @@ public class Magic : ScriptableObject
         SpendMana(_user);
         _user.Magic(_user, _tar);
 
-        if (spellPrefab)
+        switch(spellType)
         {
-            Projectile temp = Instantiate<Projectile>(spellPrefab, _user.transform.position, _user.transform.rotation);
-            temp.Setup(this);
-            temp.Seek(_tar);
-        }
-        else
-        {
-            Debug.Log(_user.name + " spent " + manaCost + " mana to cast " + this.name + " on " + _tar.name);
-            _tar.TakeDamage(damage);
+            case SpellType.Projectile:
+            {
+                SpellPrefab temp = Instantiate<SpellPrefab>(spellPrefab, _user.transform.position, _user.transform.rotation);
+                temp.Setup(this, _tar);
+                break;
+            }
+            case SpellType.Targeted:
+            {
+                SpellPrefab temp = Instantiate<SpellPrefab>(spellPrefab, _tar.transform.position, _tar.transform.rotation);
+                temp.Setup(this, _tar);
+                break;
+            }
+            case SpellType.Self:
+            {
+
+                break;
+            }
         }
     }
 }

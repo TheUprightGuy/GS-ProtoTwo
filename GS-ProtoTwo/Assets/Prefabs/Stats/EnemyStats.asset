@@ -33,5 +33,6 @@ MonoBehaviour:
   mana: 50
   health: 20
   spells: []
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
   linked: 0

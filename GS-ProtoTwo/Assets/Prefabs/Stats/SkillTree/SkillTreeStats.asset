@@ -23,7 +23,7 @@ MonoBehaviour:
   level: 1
   currentXP: 0
   nextLevelXP: 100
-  pointsToSpend: 4
+  pointsToSpend: 3
   xpReward: 0
   maxHealth: 100
   maxMana: 100
