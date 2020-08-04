@@ -15,7 +15,7 @@ MonoBehaviour:
   name: MumenRider
   characterType: 1
   maxHealth: 50
-  maxMana: 50
+  maxMana: 0
   speed: 50
   damage: 50
   spells:

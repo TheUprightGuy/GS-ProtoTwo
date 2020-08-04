@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float GroundPoundForce = 50.0f;
     public bool SpideyPowers = true;
     private Vector3 velocity;
+    public GameInfo gameInfo;
 
     private Rigidbody rb;
     // Start is called before the first frame update
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
+        if (!gameInfo.paused) MovePlayer();
     }
 
     void MovePlayer()

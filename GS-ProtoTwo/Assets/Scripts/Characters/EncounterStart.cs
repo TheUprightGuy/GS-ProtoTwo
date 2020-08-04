@@ -6,6 +6,7 @@ public class EncounterStart : MonoBehaviour
 {
     public string CombatSceneToLoad;
     public Encounter EncounterSO;
+    public GameObject transitionCanvas;
 
     private void Start()
     {
@@ -15,7 +16,11 @@ public class EncounterStart : MonoBehaviour
     public void GoToCombat()
     {
         //Un-comment for scene loading :)
-        SceneManager.LoadScene(CombatSceneToLoad);
+        //SceneManager.LoadScene(CombatSceneToLoad);
+        
+        //Transition using animation
+        transitionCanvas.GetComponent<Transition>().nextSceneToLoad = CombatSceneToLoad;
+        StartCoroutine(transitionCanvas.GetComponent<Transition>().TransitionToCombat());
 
         Debug.Log("Ping");
     }

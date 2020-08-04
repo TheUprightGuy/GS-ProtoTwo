@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class SettingsMenu : MonoBehaviour
@@ -12,8 +13,9 @@ public class SettingsMenu : MonoBehaviour
 
     public void Back()
     {
+        AudioManager.Instance.PlaySound("ui");
         //Trigger toggle settings menu action which disables settings menu and enable pause menu
-        EventHandler.Instance.settingsOpen = false; 
+        EventHandler.Instance.settingsMenuOpen = false; 
         EventHandler.Instance.toggleSettingsMenu(false);
     }
 
