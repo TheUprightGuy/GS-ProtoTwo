@@ -56,9 +56,7 @@ public class CombatController : MonoBehaviour
 
 
         // For Debug purposes make clones of everything
-        encounter = Instantiate(encounter);
-        inventory = Instantiate(inventory);
-        inventory.Setup();
+        //inventory.Setup();
     }
 
     public void Setup()

@@ -61,11 +61,6 @@ public class EnemyMovement : MonoBehaviour
     public float EnemyFov = 0.0f;
 
     /*******************************/
-    private void Awake()
-    {
-        EventHandler.Instance.onPauseToggled += OnPauseToggled;
-    }
-
     private void OnDestroy()
     {
         EventHandler.Instance.onPauseToggled -= OnPauseToggled;
@@ -73,6 +68,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
+        EventHandler.Instance.onPauseToggled += OnPauseToggled;
         gameInfo = GameObject.Find("EventHandler").GetComponent<EventHandler>().gameInfo;
         //Targets = new List<Vector3>();
         //Targets.Add(To + transform.position);
@@ -88,7 +84,6 @@ public class EnemyMovement : MonoBehaviour
         }
 
         StartCoroutine("FindTargetsWithDelay", .2f);
-
     }
 
     float timer = 0.0f;

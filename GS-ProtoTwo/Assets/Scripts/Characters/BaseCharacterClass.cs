@@ -190,6 +190,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
         {
             Die();
         }
+        if (stats.health > stats.maxHealth)
+        {
+            stats.health = stats.maxHealth;
+        }
     }
 
     public void Die()
@@ -197,8 +201,15 @@ public abstract class BaseCharacterClass : MonoBehaviour
         alive = false;
         // Do death stuff here
         // TEMP PLEASE REPLACE THIS
-        navAgent.enabled = false;
-        transform.Translate(new Vector3(0, -1000, 0));
+        if (this.GetComponent<EnemyController>())
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            navAgent.enabled = false;
+            transform.Translate(new Vector3(0, -1000, 0));
+        }
 
         CombatController.instance.TurnOffTarget(id);
         CombatController.instance.CheckRemainingCharacters();

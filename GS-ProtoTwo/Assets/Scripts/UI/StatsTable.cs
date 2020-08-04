@@ -27,6 +27,11 @@ public class StatsTable : MonoBehaviour
     public TMPro.TextMeshProUGUI speedText;
     public TMPro.TextMeshProUGUI pointsLeft;
 
+    private void OnEnable()
+    {
+        UpdateText(SkillTreeManager.instance.stats);
+    }
+
     public void UpdateText(Stats _stats)
     {
         attackText.SetText(_stats.attack.ToString());
