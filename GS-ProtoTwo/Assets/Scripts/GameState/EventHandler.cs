@@ -29,7 +29,6 @@ public class EventHandler : MonoBehaviour
 
     private void OnSceneChanged(Scene current, Scene next)
     {
-        Debug.Log(current.name + " changed to " + next.name);
         gameInfo.paused = false;
     }
 
@@ -38,7 +37,21 @@ public class EventHandler : MonoBehaviour
     //Game state pause
     public GameInfo gameInfo;
     public Action<bool> onPauseToggled;
+    public void OnPauseToggled(bool _toggle)
+    {
+        if (onPauseToggled != null)
+        {
+            onPauseToggled(_toggle);
+        }
+    }
     public Action<bool> onTogglePauseMenu;
+    public void OnTogglePauseMenu(bool _toggle)
+    {
+        if (onTogglePauseMenu != null)
+        {
+            onTogglePauseMenu(_toggle);
+        }
+    }
     //Settings menu
     [HideInInspector] public bool settingsMenuOpen;
     public Action<bool> toggleSettingsMenu;
@@ -64,7 +77,8 @@ public class EventHandler : MonoBehaviour
         gameInfo.paused = tabMenuOpen? gameInfo.paused : !gameInfo.paused;
         gameInfo.pauseMenuOpen = !gameInfo.pauseMenuOpen;
         onPauseToggled?.Invoke(gameInfo.paused);
-        onTogglePauseMenu(gameInfo.pauseMenuOpen);
+        
+        OnTogglePauseMenu(gameInfo.pauseMenuOpen);
         Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
     }
     

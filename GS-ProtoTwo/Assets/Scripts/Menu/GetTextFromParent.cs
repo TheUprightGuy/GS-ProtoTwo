@@ -7,8 +7,15 @@ using UnityEngine.UI;
 
 public class GetTextFromParent : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
-        GetComponent<TextMeshPro>().text = transform.parent.name;
+        if (GetComponent<Text>())
+        {
+            GetComponent<Text>().text = transform.parent.name;
+        }
+        else if (GetComponent<TextMeshProUGUI>())
+        {
+            GetComponent<TextMeshProUGUI>().SetText(transform.parent.name);
+        }
     }
 }

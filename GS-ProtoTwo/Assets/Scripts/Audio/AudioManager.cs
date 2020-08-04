@@ -8,19 +8,17 @@ namespace Audio
     public class AudioManager : MonoBehaviour
     {
         #region Singleton
-
-        public static AudioManager Instance;
-
+        public static AudioManager instance;
         private void Awake()
         {
-            if (Instance != null)
+            if (instance != null)
             {
                 Debug.Log("More than one AudioManager in scene!");
                 Destroy(this.gameObject);
                 return;
             }
 
-            Instance = this;
+            instance = this;
 
             DontDestroyOnLoad(this.gameObject);
             

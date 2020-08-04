@@ -82,7 +82,7 @@ public class PositionTracker : MonoBehaviour
         Quaternion target;
         // Get Rotation for SkillTree
         Quaternion toCam = Quaternion.LookRotation(skillTreeCamera.transform.position - skillTreeManager.transform.position);
-        Quaternion toNode = Quaternion.LookRotation(currentPosition.transform.localPosition);
+        Quaternion toNode = (currentPosition.transform.localPosition != Vector3.zero) ? Quaternion.LookRotation(currentPosition.transform.localPosition) : Quaternion.identity; 
         Quaternion fromNode = Quaternion.Inverse(toNode);
         target = toCam * fromNode;
 

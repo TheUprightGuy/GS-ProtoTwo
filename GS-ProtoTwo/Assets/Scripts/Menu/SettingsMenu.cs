@@ -13,7 +13,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void Back()
     {
-        AudioManager.Instance.PlaySound("ui");
+        AudioManager.instance.PlaySound("ui");
         //Trigger toggle settings menu action which disables settings menu and enable pause menu
         EventHandler.Instance.settingsMenuOpen = false; 
         EventHandler.Instance.toggleSettingsMenu(false);

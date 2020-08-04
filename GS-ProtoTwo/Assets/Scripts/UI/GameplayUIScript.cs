@@ -32,6 +32,8 @@ public class GameplayUIScript : MonoBehaviour
 
     public List<TargetScript> targets;
 
+    public GameInfo gameInfo;
+
     private void Start()
     {
         CombatController.instance.toggleActionCanvas += ToggleActionCanvas;
@@ -131,6 +133,6 @@ public class GameplayUIScript : MonoBehaviour
 
     public void GoToWorld()
     {
-        SceneManager.LoadScene("JacksWorld");
+        SceneTransition.instance.GoToWorld();
     }
 }

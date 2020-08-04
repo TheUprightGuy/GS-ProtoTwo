@@ -27,7 +27,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     public void OnPointerClick(PointerEventData eventData)
     {
         tabGroup.OnTabSelected(this);
-        AudioManager.Instance.PlaySound("ui");
+        AudioManager.instance.PlaySound("ui");
     }
 
     public void OnPointerExit(PointerEventData eventData)

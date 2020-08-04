@@ -38,6 +38,6 @@ public class Transition : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        SceneManager.LoadScene(nextSceneToLoad);
+        SceneTransition.instance.MoveToCombat();
     }
 }

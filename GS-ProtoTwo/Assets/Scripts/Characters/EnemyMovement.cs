@@ -63,7 +63,12 @@ public class EnemyMovement : MonoBehaviour
     /*******************************/
     private void Awake()
     {
-        GameObject.Find("EventHandler").GetComponent<EventHandler>().onPauseToggled += OnPauseToggled;
+        EventHandler.Instance.onPauseToggled += OnPauseToggled;
+    }
+
+    private void OnDestroy()
+    {
+        EventHandler.Instance.onPauseToggled -= OnPauseToggled;
     }
 
     void Start()
