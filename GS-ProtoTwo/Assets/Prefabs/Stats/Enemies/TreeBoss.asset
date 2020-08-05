@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
-  m_Name: AttackDoug
+  m_Name: TreeBoss
   m_EditorClassIdentifier: 
-  name: Attack Doug
+  name: EvilTree
   characterType: 0
   attack: 0
   defense: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   baseHealth: 100
   baseMana: 100
   mana: 600
-  health: 420
+  health: 540
   spells:
   - {fileID: 11400000, guid: 893310cd03c6b374e8cde88824401403, type: 2}
   - {fileID: 11400000, guid: 77cb64126cb35764a83c8a79e7ef4d80, type: 2}

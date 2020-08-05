@@ -29,10 +29,25 @@ public class TreeBossController : EnemyController
         currentTurn = (currentTurn + 1) % 3;
     }
 
+    public void BigPunch(BaseCharacterClass _tar)
+    {
+        inAction = true;
+        target = _tar;
+
+        animController.AttackAnim();
+    }
+
+    public void DEALDAMAGE()
+    {
+        // This will be switched w/ ability damage or a range or something idk
+        target.TakeDamage(stats.damage, Element.None);
+    }
+
     public void NormalAttack(BaseCharacterClass _tar)
     {
         // Attack
-        Attack(this, _tar);
+        target = _tar;
+        ActionsList(() => BigPunch(_tar));
     }
 
 
@@ -46,8 +61,8 @@ public class TreeBossController : EnemyController
         // Change Material Color Here
 
         // Play Animation Here
-
-        ActionsList();
+        animController.MagicAnim();
+        ActionsList(()=>HoldPriority(this));
     }
 
     public void CastSpell(BaseCharacterClass _tar)
@@ -56,13 +71,61 @@ public class TreeBossController : EnemyController
         {
             if (n.element == currentElement)
             {
-                Magic(this, _tar);
+                //Magic(this, _tar);
                 n.Use(this, _tar);
                 // Cast this spell
             }
         }
 
         // Change Material Color Here
-        stats.weakness = Element.None;
+        stats.weakness = Element.Holy;
+    }
+
+    public void Die()
+    {
+        alive = false;
+        // Do death stuff here
+        // TEMP PLEASE REPLACE THIS
+        animController.DeathAnim();
+
+        CombatController.instance.TurnOffTarget(id);
+        //CombatController.instance.CheckRemainingCharacters();
+    }
+
+    public void Finish()
+    {
+        Destroy(gameObject);
+        CombatController.instance.CheckRemainingCharacters();
+    }
+
+    public override void TakeDamage(int _damage, Element _element)
+    {
+        // Double/Halve Damage based on Resistance/Weakness
+        if (_element == stats.weakness)
+        {
+            _damage *= 2;
+        }
+        if (_element == stats.resistance)
+        {
+            _damage /= 2;
+        }
+
+        _damage -= stats.defense * 3;
+
+        animController.FlinchAnim();
+
+        // Change this to percentage later
+        stats.health -= _damage;
+
+        if (stats.health <= 0)
+        {
+            Die();
+        }
+        if (stats.health > stats.maxHealth)
+        {
+            stats.health = stats.maxHealth;
+        }
+
+        Debug.Log(this.name + " took " + _damage + " damage!");
     }
 }

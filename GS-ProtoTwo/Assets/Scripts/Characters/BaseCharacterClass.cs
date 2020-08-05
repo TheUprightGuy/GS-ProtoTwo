@@ -27,7 +27,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
     public ActionDelegate actionDelegate;
 
+    // TEMPORARY SHIT
     public Transform targetPoint;
+    public Transform navToPoint;
+    public Quaternion baseRot;
 
     // Public is necessary due to Inheritance
     [HideInInspector] public TurnBillboard turnIndicator;
@@ -49,6 +52,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         animator = GetComponent<Animator>();
 
         startPosition = transform.position;
+        baseRot = transform.rotation;
     }
     #endregion
     #region ActionQueuing
@@ -61,7 +65,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
     public void NextTask()
     {
-        myQueue.RemoveAt(0);
+        if (myQueue.Count > 0)
+        {
+            myQueue.RemoveAt(0);
+        }
     }
 
     public void FinishedTask()
@@ -71,6 +78,11 @@ public abstract class BaseCharacterClass : MonoBehaviour
     }
     public void EndTurn()
     {
+        // temp
+        navAgent.velocity = Vector3.zero;
+        navAgent.isStopped = true;
+        transform.rotation = baseRot;
+
         CombatController.instance.NextTurn();
         FinishedTask();
     }
@@ -122,7 +134,14 @@ public abstract class BaseCharacterClass : MonoBehaviour
     {
         inAction = true;
 
-        navAgent.SetDestination(_enemy.transform.position);
+        if (_enemy.navToPoint)
+        {
+            navAgent.SetDestination(_enemy.navToPoint.position);
+        }
+        else
+        {
+            navAgent.SetDestination(_enemy.transform.position);
+        }
     }
     #endregion Navigation
 
@@ -177,6 +196,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         }
         else if (activeTurn && stats.characterType == CharacterType.Player)
         {
+            navAgent.isStopped = false;
             CombatController.instance.ChangeState(CombatState.PLAYERTURN);
         }
     }
@@ -237,7 +257,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         target.TakeDamage(stats.damage, Element.None);
     }
 
-    public void TakeDamage(int _damage, Element _element)
+    public virtual void TakeDamage(int _damage, Element _element)
     {
         // Double/Halve Damage based on Resistance/Weakness
         if (_element == stats.weakness)
@@ -275,7 +295,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         alive = false;
         // Do death stuff here
         // TEMP PLEASE REPLACE THIS
-        if (this.GetComponent<EnemyController>())
+        if (this.GetComponent<EnemyController>() || this.GetComponent<TreeBossController>())
         {
             Destroy(gameObject);
         }

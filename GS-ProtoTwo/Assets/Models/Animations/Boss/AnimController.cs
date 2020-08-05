@@ -6,11 +6,6 @@ public class AnimController : MonoBehaviour
 {
     public Animator animator;
 
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
-
     public void AttackAnim()
     {
         animator.SetTrigger("Attack");
