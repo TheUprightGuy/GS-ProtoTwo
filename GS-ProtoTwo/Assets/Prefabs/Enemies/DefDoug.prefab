@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2133661504911526742}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4340916835608135359}
@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3433305410086276489}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.813, y: 3.461, z: 0}
+  m_LocalPosition: {x: 0, y: 2.3, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4340916835608135359}
@@ -321,8 +321,8 @@ MonoBehaviour:
   navAgent: {fileID: 0}
   animator: {fileID: 0}
   animController: {fileID: 6558061886555796612}
-  hitFX: {fileID: 0}
-  critFX: {fileID: 0}
+  hitFX: {fileID: 5753249035225130618, guid: a0c08103f5955584b91abb93d8951704, type: 3}
+  critFX: {fileID: 6017387055550256265, guid: 82e573d575c4de0429d6cbf982a6c7e2, type: 3}
   inAction: 0
   rewardItem: {fileID: 11400000, guid: 38648dade75e08f47a3c5f6e76f9022e, type: 2}
 --- !u!1 &7248321810727564719
@@ -351,7 +351,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7248321810727564719}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.599, z: 0}
+  m_LocalPosition: {x: 0, y: 2.3, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4340916835608135359}
@@ -443,7 +443,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8108645765204267678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.839, y: 2.753, z: 0}
+  m_LocalPosition: {x: 0, y: 1.107, z: 0.383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4340916835608135359}

@@ -44,6 +44,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public GameObject hitFX;
     public GameObject critFX;
 
+    Vector3 lastKnownPosition;
+
     #region Setup
     private void Awake()
     {
@@ -154,6 +156,11 @@ public abstract class BaseCharacterClass : MonoBehaviour
     {
         if (activeTurn)
         {
+            if (target)
+            {
+                lastKnownPosition = target.transform.position;
+            }
+
             // Check Action Queue
             if (myQueue.Count != 0 && !inAction)
             {
@@ -168,6 +175,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
                 navAgent.ResetPath();
 
                 NextTask();
+                Vector3 rot = Vector3.RotateTowards(transform.position, lastKnownPosition, 360, 0);
+                transform.Rotate(rot);
             }
             if (animController)
             {
@@ -179,6 +188,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
                 else if (GetComponent<EnemyController>())
                 {
                     animController.animator.SetBool("Moving", navAgent.hasPath);
+                }
+                else if (GetComponent<PlayerController>())
+                {
+                    animController.animator.SetBool("Forward", navAgent.hasPath);
                 }
             }
         }
@@ -358,7 +371,6 @@ public abstract class BaseCharacterClass : MonoBehaviour
     {
         Debug.Log("using virtual for some reason");
     }
-
     public virtual void Magic(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
         Debug.Log("using virtual for some reason");

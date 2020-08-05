@@ -29,7 +29,10 @@ public class StatsTable : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateText(SkillTreeManager.instance.stats);
+        if (SkillTreeManager.instance)
+        {
+            UpdateText(SkillTreeManager.instance.stats);
+        }
     }
 
     public void UpdateText(Stats _stats)

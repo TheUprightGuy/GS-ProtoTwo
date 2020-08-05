@@ -6,7 +6,6 @@ public class EncounterStart : MonoBehaviour
 {
     public string CombatSceneToLoad;
     public Encounter EncounterSO;
-    public GameObject transitionCanvas;
 
     private void Start()
     {
