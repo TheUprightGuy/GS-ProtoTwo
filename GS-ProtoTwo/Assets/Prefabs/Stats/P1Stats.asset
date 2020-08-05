@@ -14,10 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gosu
   characterType: 1
+  attack: 0
+  defense: 0
+  speed: 10
+  magic: 0
+  hp: 0
+  mp: 0
+  level: 0
+  currentXP: 0
+  nextLevelXP: 0
+  pointsToSpend: 0
+  levelUpMessagePrefab: {fileID: 7359730171079469629, guid: 8d668e728d6829e48b9e19d034821d03,
+    type: 3}
+  levelUpMessageDisplayTime: 3
+  xpReward: 0
   maxHealth: 50
   maxMana: 100
-  speed: 10
   damage: 10
+  baseHealth: 0
+  baseMana: 0
+  mana: 100
+  health: 50
   spells:
   - {fileID: 11400000, guid: 77cb64126cb35764a83c8a79e7ef4d80, type: 2}
   - {fileID: 11400000, guid: cf83f2184f1c6a147a625d75181b8745, type: 2}
@@ -25,9 +42,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09e2cc67b8f567a4792cdff944683195, type: 2}
   abilities:
   - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
-  items:
-  - {fileID: 11400000, guid: 9101c3d250a1adc45bd438205eed4eac, type: 2}
-  - {fileID: 11400000, guid: 38648dade75e08f47a3c5f6e76f9022e, type: 2}
-  - {fileID: 11400000, guid: 1c785a5a76ff4f04aaf023efae4b00e0, type: 2}
-  mana: 100
-  health: 50
+  weakness: 0
+  resistance: 0
+  linked: 0

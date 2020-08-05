@@ -34,7 +34,7 @@ public class SceneTransition : MonoBehaviour
     }
     #endregion Setup
 
-    public GameInfo gameInfo;
+    [HideInInspector] public GameInfo gameInfo;
 
     // Switches Active Objects
     public void SwapScene()

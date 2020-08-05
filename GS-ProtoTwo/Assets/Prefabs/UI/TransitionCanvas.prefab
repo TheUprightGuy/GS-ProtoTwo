@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 7183697614295767117}
   - component: {fileID: 8339862775385068578}
   - component: {fileID: 910911880}
+  - component: {fileID: 6830732389420509531}
   m_Layer: 5
   m_Name: TransitionCanvas
   m_TagString: Untagged
@@ -591,3 +592,17 @@ MonoBehaviour:
   animator: {fileID: 8339862775385068578}
   nextSceneToLoad: JacksWorld
   transitionMessage: 
+--- !u!114 &6830732389420509531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189220408598211908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6b1554e27fb544d8dc527cd9846535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transition: {fileID: 0}
+  gameInfo: {fileID: 0}

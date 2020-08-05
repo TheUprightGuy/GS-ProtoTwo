@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        gameInfo = EventHandler.Instance.gameInfo;
         playerAnims = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
     }
