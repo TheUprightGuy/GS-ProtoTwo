@@ -59,7 +59,7 @@ public class SceneTransition : MonoBehaviour
     public void GoToCombat()
     {
         AudioManager.instance.SwitchMusicTrack("battle");
-        gameInfo.paused = true;
+        gameInfo.worldPaused = true;
         gameInfo.activeScene = GameInfo.ActiveScene.CombatScene;
         transition.nextSceneToLoad = "CombatScene";
         // Play Anim
@@ -78,7 +78,7 @@ public class SceneTransition : MonoBehaviour
     // Swaps Scene
     public void GoToWorld()
     {
-        gameInfo.paused = false;
+        gameInfo.worldPaused = false;
         gameInfo.activeScene = GameInfo.ActiveScene.WorldScene;
 
         SwapScene();

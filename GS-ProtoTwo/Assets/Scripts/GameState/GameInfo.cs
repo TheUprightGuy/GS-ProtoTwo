@@ -17,6 +17,7 @@ public class GameInfo : ScriptableObject
    #endregion
    
    public bool paused = false;
+   public bool worldPaused = false;
    public bool pauseMenuOpen = false;
    public ActiveScene activeScene = ActiveScene.Other;
 }

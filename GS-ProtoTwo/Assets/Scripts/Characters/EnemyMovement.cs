@@ -92,7 +92,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameInfo.paused) return;
+        if (gameInfo.paused || gameInfo.worldPaused) return;
         switch (Behaviour)
         {
             case BehaviourType.NONE:
@@ -242,6 +242,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnPauseToggled(bool obj)
     {
-        NMA.isStopped = gameInfo.paused;
+        NMA.isStopped = (gameInfo.paused || gameInfo.worldPaused);
     }
 }

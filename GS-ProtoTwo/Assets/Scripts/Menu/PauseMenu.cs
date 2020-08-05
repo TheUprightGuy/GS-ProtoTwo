@@ -7,12 +7,25 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameInfo gameInfo;
-    #region Callbacks
+    #region Singleton
+    public static PauseMenu instance;
     private void Awake()
     {
-        
+        if (instance != null)
+        {
+            Debug.Log("More than one Pausemenu in scene!");
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
     }
+
+    #endregion
+    
+    #region Callbacks
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +43,7 @@ public class PauseMenu : MonoBehaviour
     }
     #endregion Callbacks
 
+    public GameInfo gameInfo;
     private void TogglePauseMenu(bool isPaused)
     {
         if (AudioManager.instance != null) AudioManager.instance.PlaySound("ui");

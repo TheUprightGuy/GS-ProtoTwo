@@ -22,6 +22,7 @@ public class EventHandler : MonoBehaviour
 
         Instance = this;
         gameInfo.paused = false;
+        gameInfo.worldPaused = false;
         gameInfo.pauseMenuOpen = false;
         SceneManager.activeSceneChanged += OnSceneChanged;
         DontDestroyOnLoad(this.gameObject);

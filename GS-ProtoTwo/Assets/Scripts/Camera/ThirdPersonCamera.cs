@@ -50,7 +50,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void Update()
     {
-	    if (gameInfo.paused) return;
+	    if (gameInfo.paused || gameInfo.worldPaused) return;
          if (Input.GetKeyDown("`"))
         {
             if (Cursor.lockState == CursorLockMode.Locked)
