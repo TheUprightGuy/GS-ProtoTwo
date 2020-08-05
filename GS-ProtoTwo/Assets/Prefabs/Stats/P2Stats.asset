@@ -22,20 +22,20 @@ MonoBehaviour:
   mp: 1
   level: 1
   currentXP: 0
-  nextLevelXP: 0
-  pointsToSpend: 0
+  nextLevelXP: 100
+  pointsToSpend: 3
   xpReward: 0
-  maxHealth: 50
-  maxMana: 0
-  damage: 10
+  maxHealth: 200
+  maxMana: 200
+  damage: 30
   baseHealth: 100
   baseMana: 100
-  mana: 0
-  health: 0
+  mana: 200
+  health: 182
   spells:
   - {fileID: 11400000, guid: 09e2cc67b8f567a4792cdff944683195, type: 2}
   abilities:
   - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
-  weakness: 5
-  resistance: 5
+  weakness: 4
+  resistance: 4
   linked: 0

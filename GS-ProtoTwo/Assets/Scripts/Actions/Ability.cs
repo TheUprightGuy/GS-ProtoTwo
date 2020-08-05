@@ -15,6 +15,6 @@ public class Ability : ScriptableObject
         _user.Ability(_user, _tar);
 
         Debug.Log(_user.name + " used " + this.name + " on " + _tar.name + " dealing " + damage + " damage.");
-        _tar.TakeDamage(damage + _user.stats.attack * 3, element);
+        _tar.TakeDamage(_user.stats.attack * 9, element);
     }
 }

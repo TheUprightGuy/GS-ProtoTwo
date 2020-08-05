@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: EvilTree
   characterType: 0
-  attack: 0
-  defense: 0
-  speed: 0
-  magic: 0
+  attack: 1
+  defense: 3
+  speed: 2
+  magic: 3
   hp: 5
   mp: 5
   level: 1
@@ -27,17 +27,17 @@ MonoBehaviour:
   xpReward: 100
   maxHealth: 600
   maxMana: 600
-  damage: 10
+  damage: 20
   baseHealth: 100
   baseMana: 100
   mana: 600
-  health: 540
+  health: 579
   spells:
   - {fileID: 11400000, guid: 893310cd03c6b374e8cde88824401403, type: 2}
   - {fileID: 11400000, guid: 77cb64126cb35764a83c8a79e7ef4d80, type: 2}
   - {fileID: 11400000, guid: cf83f2184f1c6a147a625d75181b8745, type: 2}
   - {fileID: 11400000, guid: 29d8cd9ba78004248bf19f79f6783911, type: 2}
   abilities: []
-  weakness: 5
+  weakness: 4
   resistance: 1
   linked: 0

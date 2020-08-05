@@ -6,6 +6,9 @@ public class TreeBossController : EnemyController
 {
     public Element currentElement = Element.Fire;
     public int currentTurn = 0;
+    public PulsingLight pulsingLight;
+
+
     public void TakeTurn(BaseCharacterClass _tar)
     {
         switch(currentTurn)
@@ -59,7 +62,7 @@ public class TreeBossController : EnemyController
         stats.resistance = currentElement;
         stats.weakness = (Element)(((int)currentElement + 1) % 4);
         // Change Material Color Here
-
+        pulsingLight.ChangeColor(currentElement);
         // Play Animation Here
         animController.MagicAnim();
         ActionsList(()=>HoldPriority(this));
@@ -79,6 +82,7 @@ public class TreeBossController : EnemyController
 
         // Change Material Color Here
         stats.weakness = Element.Holy;
+        pulsingLight.ChangeColor(Element.Holy);
     }
 
     public void Die()
@@ -110,7 +114,11 @@ public class TreeBossController : EnemyController
             _damage /= 2;
         }
 
-        _damage -= stats.defense * 3;
+        float armor = 100 / (100 + ((float)stats.defense * 3));
+        _damage = Mathf.FloorToInt((float)_damage * armor);
+
+        // Change this to percentage later
+        stats.health -= _damage;
 
         animController.FlinchAnim();
 

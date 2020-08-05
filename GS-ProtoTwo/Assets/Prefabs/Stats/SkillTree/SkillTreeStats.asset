@@ -17,7 +17,7 @@ MonoBehaviour:
   attack: 0
   defense: 0
   speed: 0
-  magic: 1
+  magic: 0
   hp: 0
   mp: 0
   level: 1
@@ -30,12 +30,10 @@ MonoBehaviour:
   damage: 10
   baseHealth: 100
   baseMana: 100
-  mana: 20
-  health: -60
-  spells:
-  - {fileID: 11400000, guid: 893310cd03c6b374e8cde88824401403, type: 2}
-  - {fileID: 11400000, guid: cf83f2184f1c6a147a625d75181b8745, type: 2}
+  mana: 100
+  health: 100
+  spells: []
   abilities: []
-  weakness: 5
-  resistance: 5
+  weakness: 4
+  resistance: 4
   linked: 0

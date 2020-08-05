@@ -166,6 +166,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
                 NextTask();
             }
+            if (animController)
+            {
+                animController.animator.SetBool("Forward", navAgent.hasPath);
+            }
         }
     }
 
@@ -272,7 +276,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
             _damage /= 2;
         }
 
-        _damage -= stats.defense * 3;
+        float armor = 100 / (100 + ((float)stats.defense * 3));
+        _damage = Mathf.FloorToInt((float)_damage * armor);
+
+        //_damage -= stats.defense * 3;
 
         // Change this to percentage later
         stats.health -= _damage;

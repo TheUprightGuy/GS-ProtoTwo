@@ -9,7 +9,10 @@ public class EnemyController : BaseCharacterClass
     public void Punch()
     {
         inAction = true;
-        animController.AttackAnim();
+        if (animController)
+        {
+            animController.AttackAnim();
+        }
 
 
         DamageEnemy();

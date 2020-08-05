@@ -10,7 +10,7 @@ public class PlayerController : BaseCharacterClass
     {
         inAction = true;
 
-        animator.SetTrigger("Punch");
+        animController.AttackAnim();
     }
 
     public override void Attack(BaseCharacterClass _user, BaseCharacterClass _tar)
