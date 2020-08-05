@@ -43,6 +43,8 @@ public class ThirdPersonCamera : MonoBehaviour
     void Start()
     {
         offset = target.transform.position - transform.position;
+        storedXPos = PlayerObj.transform.eulerAngles.y;
+        storeYPos = PlayerObj.transform.eulerAngles.x;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
