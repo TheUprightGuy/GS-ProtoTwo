@@ -9,6 +9,8 @@ public class EnemyController : BaseCharacterClass
     public void Punch()
     {
         inAction = true;
+        animController.AttackAnim();
+
 
         DamageEnemy();
         FinishedTask();

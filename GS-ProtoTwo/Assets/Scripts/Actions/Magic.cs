@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum Element
 {
-    Fire,
+    Fire = 0,
     Water,
     Lightning,
     Earth,
@@ -61,6 +61,10 @@ public class Magic : ScriptableObject
 
                 break;
             }
+        }
+        if (_user.animController)
+        {
+            _user.animController.MagicAnim();
         }
     }
 }

@@ -191,10 +191,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 2.4511254
+  m_Height: 6.5070167
+  m_Direction: 0
+  m_Center: {x: -0.27774453, y: 2.3926904, z: 0}
 --- !u!195 &8456553908658111096
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -214,7 +214,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!95 &-4524593587168409131
@@ -260,6 +260,7 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   navAgent: {fileID: 0}
   animator: {fileID: 0}
+  animController: {fileID: 0}
   inAction: 0
   rewardItem: {fileID: 11400000, guid: 1c785a5a76ff4f04aaf023efae4b00e0, type: 2}
 --- !u!1 &7248321810727564719

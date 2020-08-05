@@ -120,8 +120,16 @@ public class CombatController : MonoBehaviour
     {
         foreach (GameObject n in encounter.enemyPrefabs)
         {
-            EnemyController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<EnemyController>();
-            enemies.Add(temp);
+            if (n.GetComponent<TreeBossController>())
+            {
+                TreeBossController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<TreeBossController>();
+                enemies.Add(temp);
+            }
+            else
+            {
+                EnemyController temp = Instantiate(n, transform.position, transform.rotation).GetComponent<EnemyController>();
+                enemies.Add(temp);
+            }
         }
 
         // temp
@@ -129,6 +137,9 @@ public class CombatController : MonoBehaviour
 
         players.Add(player);
         players.Add(player2);
+
+        player2.stats.Setup();
+        player2.stats.SetupHPMP();
 
         foreach (BaseCharacterClass n in players)
         {
@@ -171,7 +182,14 @@ public class CombatController : MonoBehaviour
         // Add a Button for each Target
         foreach (BaseCharacterClass n in enemies)
         {
-            AddEnemyButton((EnemyController)n);
+            if (n.GetComponent<TreeBossController>())
+            {
+                AddEnemyButton((TreeBossController)n);
+            }
+            else
+            {
+                AddEnemyButton((EnemyController)n);
+            }
         }
         foreach (BaseCharacterClass n in players)
         {

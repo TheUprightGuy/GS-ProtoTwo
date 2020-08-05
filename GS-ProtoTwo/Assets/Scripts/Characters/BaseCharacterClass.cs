@@ -36,6 +36,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     [HideInInspector] public NavMeshAgent navAgent;
     [HideInInspector] public Animator animator;
 
+    public AnimController animController;
+
     #region Setup
     private void Awake()
     {
@@ -91,6 +93,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
             stats.Setup();
             stats.SetupHPMP();
         }
+
+        animController = GetComponentInChildren<AnimController>();
 
         CombatController.instance.toggleTurn += TurnOffTurn;
         CombatController.instance.setTarget += ToggleTarget;
@@ -156,8 +160,15 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
             if (!CombatController.instance.CheckPlayers())
             {
-                ChooseCommand();
-               // Attack(this, CombatController.instance.GetTarget());
+                if (GetComponent<TreeBossController>())
+                {
+                    GetComponent<TreeBossController>().TakeTurn(CombatController.instance.GetTarget());
+                }
+                else
+                {
+                    ChooseCommand();
+                    // Attack(this, CombatController.instance.GetTarget());
+                }
             }
             else
             {
