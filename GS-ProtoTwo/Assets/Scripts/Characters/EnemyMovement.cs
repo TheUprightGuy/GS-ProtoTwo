@@ -76,8 +76,9 @@ public class EnemyMovement : MonoBehaviour
     
     void Start()
     {
+        gameInfo = EventHandler.Instance.gameInfo;
+
         EventHandler.Instance.onPauseToggled += OnPauseToggled;
-        gameInfo = GameObject.Find("EventHandler").GetComponent<EventHandler>().gameInfo;
         //Targets = new List<Vector3>();
         //Targets.Add(To + transform.position);
         //Targets.Add(From + transform.position);
@@ -226,8 +227,6 @@ public class EnemyMovement : MonoBehaviour
 
         //Debug.Log(hadPrevious.ToString());
         PlayerObj = null;
-        
-
         
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, DetectRange, LayerMask.GetMask("Player"));
         for (int i = 0; i < targetsInViewRadius.Length; i++)

@@ -86,8 +86,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
         navAgent.isStopped = true;
         transform.rotation = baseRot;
 
-        CombatController.instance.NextTurn();
         FinishedTask();
+        CombatController.instance.NextTurn();
     }
 
     public void ActionsList(params Action[] _actions)
@@ -136,6 +136,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void MoveToTarget(BaseCharacterClass _enemy)
     {
         inAction = true;
+        // BADBADBADBABD
+        navAgent.isStopped = false;
 
         if (_enemy.navToPoint)
         {
@@ -169,7 +171,15 @@ public abstract class BaseCharacterClass : MonoBehaviour
             }
             if (animController)
             {
-                animController.animator.SetBool("Forward", navAgent.hasPath);
+                // HORRID
+                if (GetComponent<TreeBossController>())
+                {
+                    animController.animator.SetBool("Forward", navAgent.hasPath);
+                }
+                else if (GetComponent<EnemyController>())
+                {
+                    animController.animator.SetBool("Moving", navAgent.hasPath);
+                }
             }
         }
     }

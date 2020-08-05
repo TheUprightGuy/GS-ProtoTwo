@@ -15,8 +15,8 @@ public class EnemyController : BaseCharacterClass
         }
 
 
-        DamageEnemy();
-        FinishedTask();
+        //DamageEnemy();
+        //FinishedTask();
     }
 
     public override void Attack(BaseCharacterClass _user, BaseCharacterClass _tar)

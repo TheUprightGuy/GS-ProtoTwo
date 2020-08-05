@@ -17,12 +17,17 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private Animator playerAnims;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         playerAnims = GetComponentInChildren<Animator>();
-
         rb = GetComponent<Rigidbody>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {       
+        gameInfo = EventHandler.Instance.gameInfo;
     }
 
     // Update is called once per frame
