@@ -40,6 +40,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     [HideInInspector] public Animator animator;
 
     public AnimController animController;
+    public GameObject hitFX;
+    public GameObject critFX;
 
     #region Setup
     private void Awake()
@@ -255,6 +257,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     {
         // This will be switched w/ ability damage or a range or something idk
         target.TakeDamage(stats.damage, Element.None);
+        CreateHitFX();
     }
 
     public virtual void TakeDamage(int _damage, Element _element)
@@ -375,6 +378,23 @@ public abstract class BaseCharacterClass : MonoBehaviour
         if (stats.characterType == CharacterType.Player)
         {
             CombatController.instance.UpdateStatus((PlayerController)this);
+        }
+    }
+
+    public void CreateHitFX()
+    {
+        if (hitFX)
+        {
+            if (target.targetPoint)
+            {
+                // If crit use crit
+                Instantiate(hitFX, target.targetPoint);
+            }
+            else
+            {
+                // If crit use crit
+                Instantiate(hitFX, target.transform);
+            }
         }
     }
 }
