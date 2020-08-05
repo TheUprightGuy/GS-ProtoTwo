@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using Audio;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -233,12 +234,14 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
     public void DamageEnemy()
     {
+        AudioManager.instance.PlaySound("growl");
         // This will be switched w/ ability damage or a range or something idk
         target.TakeDamage(stats.damage, Element.None);
     }
 
     public void TakeDamage(int _damage, Element _element)
     {
+        if(_damage>0) AudioManager.instance.PlaySound("enemyDamage2");
         // Double/Halve Damage based on Resistance/Weakness
         if (_element == stats.weakness)
         {

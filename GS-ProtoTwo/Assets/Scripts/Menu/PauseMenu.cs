@@ -9,11 +9,18 @@ public class PauseMenu : MonoBehaviour
 {
     public GameInfo gameInfo;
     #region Callbacks
+    private void Awake()
+    {
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         EventHandler.Instance.onTogglePauseMenu += TogglePauseMenu;
         EventHandler.Instance.toggleSettingsMenu += ToggleSettingsMenu;
+        gameInfo = EventHandler.Instance.gameInfo;
+        TogglePauseMenu(false);
     }
 
     private void OnDestroy()
@@ -25,7 +32,7 @@ public class PauseMenu : MonoBehaviour
 
     private void TogglePauseMenu(bool isPaused)
     {
-        AudioManager.instance.PlaySound("ui");
+        if (AudioManager.instance != null) AudioManager.instance.PlaySound("ui");
         transform.GetChild(0).gameObject.SetActive(isPaused);
     }
     

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
-  m_Name: AttackDoug
+  m_Name: TreeBoss
   m_EditorClassIdentifier: 
   name: Attack Doug
   characterType: 0

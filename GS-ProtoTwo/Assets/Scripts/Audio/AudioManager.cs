@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -37,6 +38,7 @@ namespace Audio
         [Header("Audio Sources Used To Create Sound Dictionary:")]
         public List<AudioSource> audioSources;
         public float masterVolume = 1.0f;
+        public List<AudioClip> musicTracks;
 
         private Dictionary<string, SoundInfo> _soundDictionary;
         private List<string> _soundsUnrestricted;    //Audio source will play this sound regardless of if it's already playing
@@ -92,6 +94,15 @@ namespace Audio
         {
             audioSource.pitch *= (Random.value * 0.5f + 0.75f); //Pitch is default multiplied by random value between 0.75 and 1.25
             audioSource.volume *= masterVolume;
+        }
+
+        public void SwitchMusicTrack(string trackName)
+        {
+            foreach (var track in musicTracks.Where(track => track.name == trackName))
+            {
+                GetComponent<AudioSource>().clip = track;
+                GetComponent<AudioSource>().Play();
+            }
         }
     }
 }

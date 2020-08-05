@@ -16,6 +16,7 @@ MonoBehaviour:
   manaCost: 20
   element: 2
   spellType: 0
+  soundName: slashSpell
   spellPrefab: {fileID: 9202997503143651604, guid: 21812712c8a49a64685d3328d185b182,
     type: 3}
   offensive: 1

@@ -2,55 +2,92 @@
 using System.Collections;
 using System.Collections.Generic;
 using Audio;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TabMenu : MonoBehaviour
 {
-    public GameObject statsUIPrefab;
-    public GameObject itemsUIPrefab;
-    public GameObject abilitiesUIPrefab;
-    public GameObject spellsUIPrefab;
+    public GameObject statsUiPrefab;
+    public GameObject itemsUiPrefab;
+    public GameObject itemUiPrefab;
+    public GameObject abilitiesUiPrefab;
+    public GameObject abilityUiPrefab;
     public List<Stats> playerStats;
 
     public List<GameObject> menuScreens;
     public GameInfo gameInfo;
+    public Inventory inventory;
     
     private void Awake()
     {
         LoadTabMenuScreenData();
     }
 
-    private void LoadTabMenuScreenData()
+    public void LoadTabMenuScreenData()
     {
+        UnloadOldItems();
+        SetUpItems();
         foreach (var player in playerStats)
         {
-            var playerStatsUI = Instantiate(statsUIPrefab, menuScreens[0].transform, true);
-            playerStatsUI.name = player.name;
-            playerStatsUI.transform.GetChild(1).GetComponent<Text>().text = "Health: " + player.health;
-            if(player.maxMana > 0) playerStatsUI.transform.GetChild(2).GetComponent<Text>().text = "Mana: " + player.mana;
-            playerStatsUI.transform.GetChild(3).GetComponent<Text>().text = "Speed: " + player.speed;
-            playerStatsUI.transform.GetChild(4).GetComponent<Text>().text = "Damage: " + player.damage;
-            
-            var playerItemsUI = Instantiate(itemsUIPrefab, menuScreens[1].transform, true);
-            playerItemsUI.name = player.name;
+            SetUpPlayerStats(player);
 
-            var playerAbilitiesUI = Instantiate(abilitiesUIPrefab, menuScreens[2].transform, true);
-            playerAbilitiesUI.name = player.name;
-            playerAbilitiesUI.transform.GetChild(1).GetComponent<Text>().text =
-                player.abilities[0].name + " Damage: " + player.abilities[0].damage;
+            SetUpAbilities(player);
+        }
+    }
 
-            
-            var playerSpellsUI = Instantiate(spellsUIPrefab, menuScreens[3].transform, true);
-            playerSpellsUI.name = player.name;
-            for (int i = 0; i < player.spells.Count; i++)
+    public void UnloadOldItems()
+    {
+        foreach (var menuScreen in menuScreens)
+        {
+            for (int i = 0; i < menuScreen.transform.childCount; i++)
             {
-                var currentSpellUI = playerSpellsUI.transform.GetChild(i+1);
-                currentSpellUI.GetComponent<Text>().text = player.spells[i].name;
-                currentSpellUI.transform.GetChild(0).GetComponent<Text>().text = " Damage: " + player.spells[i].damage;
-                currentSpellUI.transform.GetChild(1).GetComponent<Text>().text = " Cost: " + player.spells[i].manaCost;
+                Destroy(menuScreen.transform.GetChild(i));
             }
         }
+    }
+
+    private void SetUpAbilities(Stats player)
+    {
+        //Contains abilities and spells
+        var playerAbilitiesUi = Instantiate(abilitiesUiPrefab, menuScreens[2].transform, true);
+        playerAbilitiesUi.name = player.name.ToUpper();
+        foreach (var t in player.abilities)
+        {
+            var playerAbilityUi = Instantiate(abilityUiPrefab, playerAbilitiesUi.transform.GetChild(1), true);
+            playerAbilityUi.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = t.name.ToUpper();
+            playerAbilityUi.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ("Damage: " + t.damage).ToUpper();
+        }
+        
+        foreach (var t in player.spells)
+        {
+            var currentSpellUi = Instantiate(abilityUiPrefab, playerAbilitiesUi.transform.GetChild(1), true);
+            currentSpellUi.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = t.name.ToUpper();;
+            currentSpellUi.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ("Damage: " + t.damage + " Cost: " + t.manaCost).ToUpper();
+        }
+    }
+
+    private void SetUpItems()
+    {
+        var itemsUi = Instantiate(itemsUiPrefab, menuScreens[1].transform, true);
+        foreach (var item in inventory.items)
+        { 
+            var itemUi = Instantiate(itemUiPrefab, itemsUi.transform, true);
+            itemUi.GetComponent<TextMeshProUGUI>().text = (item.quantity + " " + item.name + "s" ).ToUpper();
+        }
+    }
+
+    private void SetUpPlayerStats(Stats player)
+    {
+        var playerStatsUi = Instantiate(statsUiPrefab, menuScreens[0].transform, true);
+        playerStatsUi.name = player.name;
+        playerStatsUi.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Health: " + player.health;
+        if (player.maxMana > 0)
+            playerStatsUi.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Mana: " + player.mana;
+        else
+            Destroy(playerStatsUi.transform.GetChild(1).GetChild(1));
+        playerStatsUi.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "Speed: " + player.speed;
+        playerStatsUi.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "Damage: " + player.damage;
     }
 
     private void Start()
