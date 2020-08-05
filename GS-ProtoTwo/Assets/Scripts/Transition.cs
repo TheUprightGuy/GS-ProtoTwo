@@ -40,4 +40,14 @@ public class Transition : MonoBehaviour
 
         SceneTransition.instance.MoveToCombat();
     }
+    
+    public IEnumerator TransitionToWorld()
+    {
+        logo.SetActive(false);
+        animator.SetTrigger(PlayTransition);
+
+        yield return new WaitForSeconds(1.5f);
+
+        SceneManager.LoadScene("JacksWorld");
+    }
 }

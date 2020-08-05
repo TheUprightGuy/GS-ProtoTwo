@@ -149,6 +149,8 @@ public class Stats : ScriptableObject
             level++;
             pointsToSpend++;
             currentXP %= nextLevelXP;
+            //Play level up sfx
+            //Display levelUPOverlay
         }
 
         nextLevelXP = (int)(nextLevelXP * 1.5f);

@@ -7,13 +7,33 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameInfo gameInfo;
+    #region Singleton
+    public static PauseMenu instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.Log("More than one Pausemenu in scene!");
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    #endregion
+    
     #region Callbacks
+
     // Start is called before the first frame update
     void Start()
     {
         EventHandler.Instance.onTogglePauseMenu += TogglePauseMenu;
         EventHandler.Instance.toggleSettingsMenu += ToggleSettingsMenu;
+        gameInfo = EventHandler.Instance.gameInfo;
+        TogglePauseMenu(false);
     }
 
     private void OnDestroy()
@@ -23,9 +43,10 @@ public class PauseMenu : MonoBehaviour
     }
     #endregion Callbacks
 
+    public GameInfo gameInfo;
     private void TogglePauseMenu(bool isPaused)
     {
-        AudioManager.instance.PlaySound("ui");
+        if (AudioManager.instance != null) AudioManager.instance.PlaySound("ui");
         transform.GetChild(0).gameObject.SetActive(isPaused);
     }
     

@@ -15,3 +15,6 @@ MonoBehaviour:
   offensive: 1
   damage: 33
   element: 5
+  swingSounds:
+  - swing
+  - swing2

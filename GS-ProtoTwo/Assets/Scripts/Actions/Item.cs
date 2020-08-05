@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item", menuName = "Actions/Item")]
@@ -12,6 +13,7 @@ public class Item : ScriptableObject
   
     public void Use(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
+        AudioManager.instance.PlaySound("bottle");
         _user.Item(_user, _tar);
 
         _tar.RestoreHealth(healthRestored);

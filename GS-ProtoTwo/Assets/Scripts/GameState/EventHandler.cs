@@ -22,6 +22,7 @@ public class EventHandler : MonoBehaviour
 
         Instance = this;
         gameInfo.paused = false;
+        gameInfo.worldPaused = false;
         gameInfo.pauseMenuOpen = false;
         SceneManager.activeSceneChanged += OnSceneChanged;
         DontDestroyOnLoad(this.gameObject);
@@ -77,8 +78,7 @@ public class EventHandler : MonoBehaviour
         gameInfo.paused = tabMenuOpen? gameInfo.paused : !gameInfo.paused;
         gameInfo.pauseMenuOpen = !gameInfo.pauseMenuOpen;
         onPauseToggled?.Invoke(gameInfo.paused);
-        
-        OnTogglePauseMenu(gameInfo.pauseMenuOpen);
+        onTogglePauseMenu?.Invoke(gameInfo.pauseMenuOpen);
         Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
     }
     
@@ -87,7 +87,7 @@ public class EventHandler : MonoBehaviour
         gameInfo.paused = !gameInfo.paused;
         tabMenuOpen = !tabMenuOpen;
         onPauseToggled?.Invoke(gameInfo.paused);
-        onToggleTabMenu(tabMenuOpen);
+        onToggleTabMenu?.Invoke(tabMenuOpen);
         Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

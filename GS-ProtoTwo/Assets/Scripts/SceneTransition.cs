@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -57,7 +58,8 @@ public class SceneTransition : MonoBehaviour
     // Plays Anim then Swaps Scene
     public void GoToCombat()
     {
-        gameInfo.paused = true;
+        AudioManager.instance.SwitchMusicTrack("battle");
+        gameInfo.worldPaused = true;
         gameInfo.activeScene = GameInfo.ActiveScene.CombatScene;
         transition.nextSceneToLoad = "CombatScene";
         // Play Anim
@@ -76,10 +78,11 @@ public class SceneTransition : MonoBehaviour
     // Swaps Scene
     public void GoToWorld()
     {
-        gameInfo.paused = false;
+        gameInfo.worldPaused = false;
         gameInfo.activeScene = GameInfo.ActiveScene.WorldScene;
 
         SwapScene();
         UnloadScene();
+        AudioManager.instance.SwitchMusicTrack("world");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public enum Element
@@ -26,6 +27,7 @@ public class Magic : ScriptableObject
     public int manaCost;
     public Element element;
     public SpellType spellType;
+    public string soundName;
 
     public SpellPrefab spellPrefab;
 
@@ -39,6 +41,7 @@ public class Magic : ScriptableObject
     
     public void Use(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
+        AudioManager.instance.PlaySound(soundName);
         SpendMana(_user);
         _user.Magic(_user, _tar);
 

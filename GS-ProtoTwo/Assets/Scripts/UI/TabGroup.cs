@@ -6,9 +6,10 @@ using UnityEngine;
 public class TabGroup : MonoBehaviour
 {
     [HideInInspector]public List<TabButton> tabButtons;
-    public Sprite tabIdle;
-    public Sprite tabHover;
-    public Sprite tabSelected;
+    public Sprite tab;
+    public Color32 tabIdle;
+    public Color32 tabHover;
+    public Color32 tabSelected;
     public TabButton selectedTab;
     public List<GameObject> menuCanvases;
 
@@ -35,7 +36,7 @@ public class TabGroup : MonoBehaviour
         ResetTabs();
         if (selectedTab == null || button != selectedTab)
         {
-            button.background.sprite = tabHover;
+            button.background.color = tabHover;
         }
     }
 
@@ -48,7 +49,7 @@ public class TabGroup : MonoBehaviour
     {
         selectedTab = button;
         ResetTabs();
-        button.background.sprite = tabSelected;
+        button.background.color = tabSelected;
         int index = button.transform.GetSiblingIndex();
 
         for (int i = 0; i < menuCanvases.Count; i++)
@@ -69,7 +70,7 @@ public class TabGroup : MonoBehaviour
         foreach (var button in tabButtons)
         {
             if(button == selectedTab) continue;
-            button.background.sprite = tabIdle;
+            button.background.color = tabIdle;
         }
     }
 }

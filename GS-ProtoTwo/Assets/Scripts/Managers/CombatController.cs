@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public enum CombatState
@@ -102,6 +103,7 @@ public class CombatController : MonoBehaviour
     public void DisplayVictory()
     {
         // Probably add action bars to this cleanup function.
+        AudioManager.instance.SwitchMusicTrack("victory");
         GameplayUIScript.instance.ToggleVictory(true);
         CleanUpUI();
         victoryScreenBlur.SetActive(true);

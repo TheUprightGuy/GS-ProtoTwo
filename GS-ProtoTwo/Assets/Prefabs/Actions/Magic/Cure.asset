@@ -16,6 +16,7 @@ MonoBehaviour:
   manaCost: 20
   element: 4
   spellType: 1
+  soundName: spellChime
   spellPrefab: {fileID: 2812523090876540655, guid: 3766c4f2388e2f3448d27b8ca32bbf72,
     type: 3}
   offensive: 0

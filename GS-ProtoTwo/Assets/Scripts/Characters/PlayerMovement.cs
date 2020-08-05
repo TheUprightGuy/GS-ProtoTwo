@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameInfo.paused) MovePlayer();
+        if (!gameInfo.paused && !gameInfo.worldPaused) MovePlayer();
     }
 
 
