@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\jacob\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jacob\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_GS-ProtoTwo.-949342702.00" t="ExcludeRecursive" />
+    <e p="D:\GitHubProjects\GS-ProtoTwo\GS-ProtoTwo" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="AnimationCallback.cs" t="Include" />
+        <e p="Editor" t="Include">
+          <e p="AIEditor.cs" t="Include" />
+          <e p="THCEditor.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="Animations" t="Include">
+            <e p="Boss" t="Include">
+              <e p="AnimController.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="PulsingLight.cs" t="Include" />
+        <e p="Samples" t="Include">
+          <e p="Terrain Tools" t="Include">
+            <e p="0.1.0-preview" t="Include">
+              <e p="Terrain Assets" t="Include">
+                <e p="ThirdPartyNotices.txt" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Abilities" t="Include">
+            <e p="SpellPrefab.cs" t="Include" />
+          </e>
+          <e p="Actions" t="Include">
+            <e p="Ability.cs" t="Include" />
+            <e p="Inventory.cs" t="Include" />
+            <e p="Item.cs" t="Include" />
+            <e p="Magic.cs" t="Include" />
+          </e>
+          <e p="ActivateOtherScene.cs" t="Include" />
+          <e p="Audio" t="Include">
+            <e p="AudioManager.cs" t="Include" />
+            <e p="SoundInfo.cs" t="Include" />
+          </e>
+          <e p="Camera" t="Include">
+            <e p="SimpleCameraController.cs" t="Include" />
+            <e p="ThirdPersonCamera.cs" t="Include" />
+          </e>
+          <e p="Characters" t="Include">
+            <e p="BaseCharacterClass.cs" t="Include" />
+            <e p="EncounterStart.cs" t="Include" />
+            <e p="EnemyController.cs" t="Include" />
+            <e p="EnemyMovement.cs" t="Include" />
+            <e p="EnemyPrefabs.cs" t="Include" />
+            <e p="PlayerController.cs" t="Include" />
+            <e p="PlayerMovement.cs" t="Include" />
+            <e p="Stats.cs" t="Include" />
+            <e p="TreeBossController.cs" t="Include" />
+          </e>
+          <e p="GameState" t="Include">
+            <e p="EventHandler.cs" t="Include" />
+            <e p="GameInfo.cs" t="Include" />
+          </e>
+          <e p="LoadTestScene2.cs" t="Include" />
+          <e p="Managers" t="Include">
+            <e p="CombatController.cs" t="Include" />
+            <e p="Encounter.cs" t="Include" />
+            <e p="SetupEnemies.cs" t="Include" />
+          </e>
+          <e p="Menu" t="Include">
+            <e p="GetTextFromParent.cs" t="Include" />
+            <e p="PauseMenu.cs" t="Include" />
+            <e p="SettingsMenu.cs" t="Include" />
+          </e>
+          <e p="SceneTransition.cs" t="Include" />
+          <e p="SingleUseFX.cs" t="Include" />
+          <e p="SkillTree" t="Include">
+            <e p="CameraPositions.cs" t="Include" />
+            <e p="Link.cs" t="Include" />
+            <e p="LinkStats.cs" t="Include" />
+            <e p="Node.cs" t="Include" />
+            <e p="PositionTracker.cs" t="Include" />
+            <e p="RotateSkillTree.cs" t="Include" />
+            <e p="SkillTreeController.cs" t="Include" />
+            <e p="SkillTreeManager.cs" t="Include" />
+          </e>
+          <e p="Transition.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="ActionScript.cs" t="Include" />
+            <e p="Billboards" t="Include">
+              <e p="Billboard.cs" t="Include" />
+              <e p="TargetBillboard.cs" t="Include" />
+              <e p="TurnBillboard.cs" t="Include" />
+            </e>
+            <e p="Buttons" t="Include">
+              <e p="AbilityButton.cs" t="Include" />
+              <e p="ItemButton.cs" t="Include" />
+              <e p="SetupAbility.cs" t="Include" />
+              <e p="SetupAllies.cs" t="Include" />
+              <e p="SetupItems.cs" t="Include" />
+              <e p="SetupMagic.cs" t="Include" />
+              <e p="SpellButton.cs" t="Include" />
+            </e>
+            <e p="FaceCamera.cs" t="Include" />
+            <e p="GameplayUIScript.cs" t="Include" />
+            <e p="MainMenu.cs" t="Include" />
+            <e p="StatsTable.cs" t="Include" />
+            <e p="StatusBar" t="Include">
+              <e p="PlayerStatusBar.cs" t="Include" />
+              <e p="SetupStatusBar.cs" t="Include" />
+            </e>
+            <e p="TabButton.cs" t="Include" />
+            <e p="TabGroup.cs" t="Include" />
+            <e p="TabMenu.cs" t="Include" />
+            <e p="TargetScript.cs" t="Include" />
+            <e p="UIManager.cs" t="Include" />
+            <e p="VictoryScript.cs" t="Include" />
+          </e>
+          <e p="VFXSwitcher.cs" t="Include" />
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Fonts" t="Include">
+            <e p="LiberationSans - OFL.txt" t="Include" />
+          </e>
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
+        </e>
+        <e p="TutorialInfo" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="Editor" t="Include">
+              <e p="ReadmeEditor.cs" t="Include" />
+            </e>
+            <e p="Readme.cs" t="Include" />
+          </e>
+        </e>
+        <e p="vfx_folder" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="CameraShakeSimpleScript.cs" t="Include" />
+            <e p="ProjectileMoveScript.cs" t="Include" />
+            <e p="RotateToMouseScript.cs" t="Include" />
+            <e p="SpawnProjectilesScript.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="GS-ProtoTwo.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
