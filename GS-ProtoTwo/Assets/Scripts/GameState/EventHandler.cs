@@ -13,7 +13,6 @@ public class EventHandler : MonoBehaviour
 
     private void Awake()
     {
-        gameInfo = ScriptableObject.CreateInstance<GameInfo>();
         if (Instance != null)
         {
             Debug.Log("More than one EventHandler in scene!");
@@ -23,34 +22,72 @@ public class EventHandler : MonoBehaviour
 
         Instance = this;
         gameInfo.paused = false;
+        gameInfo.pauseMenuOpen = false;
         SceneManager.activeSceneChanged += OnSceneChanged;
         DontDestroyOnLoad(this.gameObject);
     }
 
     private void OnSceneChanged(Scene current, Scene next)
     {
-        Debug.Log(current.name + " changed to " + next.name);
         gameInfo.paused = false;
     }
 
     #endregion
     
+    //Game state pause
     public GameInfo gameInfo;
-    public Action<bool> onPaused;
-    public bool settingsOpen;
+    public Action<bool> onPauseToggled;
+    public void OnPauseToggled(bool _toggle)
+    {
+        if (onPauseToggled != null)
+        {
+            onPauseToggled(_toggle);
+        }
+    }
+    public Action<bool> onTogglePauseMenu;
+    public void OnTogglePauseMenu(bool _toggle)
+    {
+        if (onTogglePauseMenu != null)
+        {
+            onTogglePauseMenu(_toggle);
+        }
+    }
+    //Settings menu
+    [HideInInspector] public bool settingsMenuOpen;
     public Action<bool> toggleSettingsMenu;
+    //Tab menu
+    [HideInInspector] public bool tabMenuOpen;
+    public Action<bool> onToggleTabMenu;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !settingsOpen)
+        if (Input.GetKeyDown(KeyCode.Escape) && !settingsMenuOpen)
         {
-            TogglePaused();
+            TogglePauseMenu();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Tab) && !gameInfo.pauseMenuOpen && !settingsMenuOpen)
+        {
+            ToggleTabMenu();
         }
     }
 
-    public void TogglePaused()
+    public void TogglePauseMenu()
+    {
+        gameInfo.paused = tabMenuOpen? gameInfo.paused : !gameInfo.paused;
+        gameInfo.pauseMenuOpen = !gameInfo.pauseMenuOpen;
+        onPauseToggled?.Invoke(gameInfo.paused);
+        
+        OnTogglePauseMenu(gameInfo.pauseMenuOpen);
+        Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
+    }
+    
+    public void ToggleTabMenu()
     {
         gameInfo.paused = !gameInfo.paused;
-        onPaused(gameInfo.paused);
+        tabMenuOpen = !tabMenuOpen;
+        onPauseToggled?.Invoke(gameInfo.paused);
+        onToggleTabMenu(tabMenuOpen);
+        Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

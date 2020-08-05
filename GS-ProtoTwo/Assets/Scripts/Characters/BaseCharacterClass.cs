@@ -27,12 +27,21 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
     public ActionDelegate actionDelegate;
 
+    // TEMPORARY SHIT
+    public Transform targetPoint;
+    public Transform navToPoint;
+    public Quaternion baseRot;
+
     // Public is necessary due to Inheritance
     [HideInInspector] public TurnBillboard turnIndicator;
     [HideInInspector] public TargetBillboard targetIndicator;
     [HideInInspector] public Vector3 startPosition;
     [HideInInspector] public NavMeshAgent navAgent;
     [HideInInspector] public Animator animator;
+
+    public AnimController animController;
+    public GameObject hitFX;
+    public GameObject critFX;
 
     #region Setup
     private void Awake()
@@ -45,6 +54,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         animator = GetComponent<Animator>();
 
         startPosition = transform.position;
+        baseRot = transform.rotation;
     }
     #endregion
     #region ActionQueuing
@@ -57,7 +67,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
     public void NextTask()
     {
-        myQueue.RemoveAt(0);
+        if (myQueue.Count > 0)
+        {
+            myQueue.RemoveAt(0);
+        }
     }
 
     public void FinishedTask()
@@ -67,6 +80,11 @@ public abstract class BaseCharacterClass : MonoBehaviour
     }
     public void EndTurn()
     {
+        // temp
+        navAgent.velocity = Vector3.zero;
+        navAgent.isStopped = true;
+        transform.rotation = baseRot;
+
         CombatController.instance.NextTurn();
         FinishedTask();
     }
@@ -84,8 +102,13 @@ public abstract class BaseCharacterClass : MonoBehaviour
     #region Callbacks
     private void Start()
     {
-        stats.mana = stats.maxMana;
-        stats.health = stats.maxHealth;
+        if (GetComponent<EnemyController>())
+        {
+            stats.Setup();
+            stats.SetupHPMP();
+        }
+
+        animController = GetComponentInChildren<AnimController>();
 
         CombatController.instance.toggleTurn += TurnOffTurn;
         CombatController.instance.setTarget += ToggleTarget;
@@ -113,7 +136,14 @@ public abstract class BaseCharacterClass : MonoBehaviour
     {
         inAction = true;
 
-        navAgent.SetDestination(_enemy.transform.position);
+        if (_enemy.navToPoint)
+        {
+            navAgent.SetDestination(_enemy.navToPoint.position);
+        }
+        else
+        {
+            navAgent.SetDestination(_enemy.transform.position);
+        }
     }
     #endregion Navigation
 
@@ -136,6 +166,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
                 NextTask();
             }
+            if (animController)
+            {
+                animController.animator.SetBool("Forward", navAgent.hasPath);
+            }
         }
     }
 
@@ -151,7 +185,15 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
             if (!CombatController.instance.CheckPlayers())
             {
-                Attack(this, CombatController.instance.GetTarget());
+                if (GetComponent<TreeBossController>())
+                {
+                    GetComponent<TreeBossController>().TakeTurn(CombatController.instance.GetTarget());
+                }
+                else
+                {
+                    ChooseCommand();
+                    // Attack(this, CombatController.instance.GetTarget());
+                }
             }
             else
             {
@@ -160,7 +202,53 @@ public abstract class BaseCharacterClass : MonoBehaviour
         }
         else if (activeTurn && stats.characterType == CharacterType.Player)
         {
+            navAgent.isStopped = false;
             CombatController.instance.ChangeState(CombatState.PLAYERTURN);
+        }
+    }
+
+    public void ChooseCommand()
+    {
+        bool chosen = false;
+
+        while (!chosen)
+        {
+            int action = UnityEngine.Random.Range(0, 3);
+
+            switch (action)
+            {
+                // Attack
+                case 0:
+                {
+                    chosen = true;
+                    Attack(this, CombatController.instance.GetTarget());
+                    break;
+                }
+                // Ability
+                case 1:
+                {
+                    if (stats.abilities.Count > 0)
+                    {
+                        chosen = true;
+                        int rand = UnityEngine.Random.Range(0, stats.abilities.Count);
+                        Ability(this, CombatController.instance.GetTarget());
+                        stats.abilities[rand].Use(this, CombatController.instance.GetTarget());
+                    }
+                    break;
+                }
+                // Spells
+                case 2:
+                {
+                    if (stats.spells.Count > 0)
+                    {
+                        chosen = true;
+                        int rand = UnityEngine.Random.Range(0, stats.spells.Count);
+                        Magic(this, CombatController.instance.GetTarget());
+                        stats.spells[rand].Use(this, CombatController.instance.GetTarget());
+                    }
+                    break;
+                }
+            }
         }
     }
 
@@ -172,12 +260,28 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void DamageEnemy()
     {
         // This will be switched w/ ability damage or a range or something idk
-        target.TakeDamage(stats.damage);
+        target.TakeDamage(stats.damage, Element.None);
+        CreateHitFX();
     }
 
-    public void TakeDamage(int _damage)
+    public virtual void TakeDamage(int _damage, Element _element)
     {
-        //Debug.Log(name + " took " + _damage + " damage!");
+        // Double/Halve Damage based on Resistance/Weakness
+        if (_element == stats.weakness)
+        {
+            _damage *= 2;
+        }
+        if (_element == stats.resistance)
+        {
+            _damage /= 2;
+        }
+
+        float armor = 100 / (100 + ((float)stats.defense * 3));
+        _damage = Mathf.FloorToInt((float)_damage * armor);
+
+        //_damage -= stats.defense * 3;
+
+        // Change this to percentage later
         stats.health -= _damage;
 
         if (stats.characterType == CharacterType.Player)
@@ -188,6 +292,12 @@ public abstract class BaseCharacterClass : MonoBehaviour
         {
             Die();
         }
+        if (stats.health > stats.maxHealth)
+        {
+            stats.health = stats.maxHealth;
+        }
+
+        Debug.Log(this.name + " took " + _damage + " damage!");
     }
 
     public void Die()
@@ -195,8 +305,15 @@ public abstract class BaseCharacterClass : MonoBehaviour
         alive = false;
         // Do death stuff here
         // TEMP PLEASE REPLACE THIS
-        navAgent.enabled = false;
-        transform.Translate(new Vector3(0, -1000, 0));
+        if (this.GetComponent<EnemyController>() || this.GetComponent<TreeBossController>())
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            navAgent.enabled = false;
+            transform.Translate(new Vector3(0, -1000, 0));
+        }
 
         CombatController.instance.TurnOffTarget(id);
         CombatController.instance.CheckRemainingCharacters();
@@ -268,6 +385,23 @@ public abstract class BaseCharacterClass : MonoBehaviour
         if (stats.characterType == CharacterType.Player)
         {
             CombatController.instance.UpdateStatus((PlayerController)this);
+        }
+    }
+
+    public void CreateHitFX()
+    {
+        if (hitFX)
+        {
+            if (target.targetPoint)
+            {
+                // If crit use crit
+                Instantiate(hitFX, target.targetPoint);
+            }
+            else
+            {
+                // If crit use crit
+                Instantiate(hitFX, target.transform);
+            }
         }
     }
 }

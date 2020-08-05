@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SkillTree.unity
+    guid: 09168f37a197b4a4b8a9b212104972db
+  - enabled: 1
     path: Assets/Scenes/JacobScene.unity
     guid: ae65cf8a39ca4214f86dabbc9e96c131
   - enabled: 1
@@ -15,9 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/NewWorld.unity
     guid: f82872d83c863724d82880a604f46e02
   - enabled: 1
-    path: Assets/Scenes/WaydsScene.unity
+    path: Assets/Scenes/CombatScene.unity
     guid: 2a6125988e20c9b4aa65707246156e39
   - enabled: 1
     path: Assets/Scenes/SkillTree.unity
     guid: 09168f37a197b4a4b8a9b212104972db
+  - enabled: 1
+    path: Assets/Scenes/TestScene2.unity
+    guid: f489a33bc7849b94188a4e6394bf884f
   m_configObjects: {}

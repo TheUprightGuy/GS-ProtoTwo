@@ -10,12 +10,12 @@ public class PlayerController : BaseCharacterClass
     {
         inAction = true;
 
-        animator.SetTrigger("Punch");
+        animController.AttackAnim();
     }
 
     public override void Attack(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
-        Debug.Log(_user.name + " attacked " + _tar.name + " dealing " + stats.damage + " damage.");
+        //Debug.Log(_user.name + " attacked " + _tar.name + " dealing " + stats.damage + " damage.");
 
         target = _tar;
         ActionsList(()=>MoveToTarget(target), ()=>Punch(), ()=>MoveToStart());

@@ -40,6 +40,8 @@ public class ThirdPersonCamera : MonoBehaviour
     // Start is called before the first frame update
 
     private Vector3 velocity = Vector3.zero;
+    public GameInfo gameInfo;
+
     void Start()
     {
         offset = target.transform.position - transform.position;
@@ -50,6 +52,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void Update()
     {
+	    if (gameInfo.paused) return;
          if (Input.GetKeyDown("`"))
         {
             if (Cursor.lockState == CursorLockMode.Locked)

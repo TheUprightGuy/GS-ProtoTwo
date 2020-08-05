@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
   m_Name: SkillTreeStats
   m_EditorClassIdentifier: 
-  name: Total
+  name: Player Stats
   characterType: 1
   attack: 0
   defense: 0
@@ -20,17 +20,20 @@ MonoBehaviour:
   magic: 0
   hp: 0
   mp: 0
-  maxHealth: 0
-  maxMana: 0
-  damage: 0
+  level: 1
+  currentXP: 0
+  nextLevelXP: 100
+  pointsToSpend: 3
+  xpReward: 0
+  maxHealth: 100
+  maxMana: 100
+  damage: 10
   baseHealth: 100
   baseMana: 100
-  spells:
-  - {fileID: 11400000, guid: 77cb64126cb35764a83c8a79e7ef4d80, type: 2}
-  - {fileID: 11400000, guid: cf83f2184f1c6a147a625d75181b8745, type: 2}
-  - {fileID: 11400000, guid: 29d8cd9ba78004248bf19f79f6783911, type: 2}
-  - {fileID: 11400000, guid: 09e2cc67b8f567a4792cdff944683195, type: 2}
-  abilities:
-  - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
-  mana: 0
-  health: 0
+  mana: 100
+  health: 100
+  spells: []
+  abilities: []
+  weakness: 4
+  resistance: 4
+  linked: 0

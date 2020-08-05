@@ -11,7 +11,9 @@ public class ActionScript : MonoBehaviour
     public GameObject allyTargetMenu;
     public GameObject enemyTargetMenu;
     public GameObject abilityMenu;
+    public GameObject abilityButton;
     public GameObject magicMenu;
+    public GameObject magicButton;
     public GameObject itemMenu;
 
     // temp
@@ -31,6 +33,11 @@ public class ActionScript : MonoBehaviour
         CombatController.instance.startTurn += ResetMenu;
         CombatController.instance.playerRef += PlayerRef;
         CombatController.instance.chooseTarget += ChooseTarget;
+
+        if (player.stats.spells.Count == 0)
+        {
+            Destroy(magicMenu);
+        }
     }
 
     private void OnDestroy()
@@ -44,6 +51,17 @@ public class ActionScript : MonoBehaviour
     {
         player = _player;
         playerName.SetText(player.stats.name);
+
+        if (player.stats.spells.Count == 0)
+        {
+            Destroy(magicMenu);
+            Destroy(magicButton);
+        }
+        if (player.stats.abilities.Count == 0)
+        {
+            Destroy(abilityMenu);
+            Destroy(abilityButton);
+        }
     }
 
     // Menu Function Calls Go Here
@@ -100,8 +118,14 @@ public class ActionScript : MonoBehaviour
         allyTargetMenu.SetActive(false);
         enemyTargetMenu.SetActive(false);
 
-        abilityMenu.SetActive(false);
-        magicMenu.SetActive(false);
+        if (abilityMenu)
+        {
+            abilityMenu.SetActive(false);
+        }
+        if (magicMenu)
+        {
+            magicMenu.SetActive(false);
+        }
         itemMenu.SetActive(false);
 
         curMenu.SetActive(true);

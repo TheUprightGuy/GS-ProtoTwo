@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   manaCost: 20
-  offensive: 1
   element: 1
-  spellPrefab: {fileID: -7680601788810955228, guid: fc9258e851973de4a8d2f19146513a97,
+  spellType: 0
+  spellPrefab: {fileID: 177960707781547939, guid: fc9258e851973de4a8d2f19146513a97,
     type: 3}
+  offensive: 1

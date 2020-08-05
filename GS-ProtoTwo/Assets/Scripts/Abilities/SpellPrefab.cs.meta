@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5fb020facacfd784f956eab87bcab617
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ps: {instanceID: 0}
+  - target: {instanceID: 0}
+  - hitFX: {fileID: 9190717816335602958, guid: 750710c9f9e208648ac720a5b9c95211, type: 3}
+  - critFX: {fileID: 6926626733752849096, guid: 202adbaf1939a8b4fbadc780ba7704bd,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

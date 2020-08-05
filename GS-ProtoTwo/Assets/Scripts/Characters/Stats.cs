@@ -17,38 +17,80 @@ public class Stats : ScriptableObject
     public int hp;
     public int mp;
 
-    public int maxHealth;  
-    public int maxMana;
-    public int damage;
+    [Header("Leveling")]
+    public int level;
+    public int currentXP;
+    public int nextLevelXP;
+    public int pointsToSpend;
 
+    [Header("Enemies Only")]
+    public int xpReward;
+
+    [HideInInspector] public int maxHealth;
+    [HideInInspector] public int maxMana;
+    //[HideInInspector] 
+    public int damage;
+    //[HideInInspector] 
     public int baseHealth;
+    //[HideInInspector] 
     public int baseMana;
+    //[HideInInspector] 
+    public int mana;
+    //[HideInInspector] 
+    public int health;
 
     [Header("Skills List")]
     public List<Magic> spells;
     public List<Ability> abilities;
 
-    //[HideInInspector]
-    public int mana;
-    //[HideInInspector] 
-    public int health;
+    [Header("Resistances")]
+    public Element weakness;
+    public Element resistance;
+
+    [HideInInspector] public bool linked;
 
     public void Setup()
     {
+        level = 1;
+        currentXP = 0;
+        nextLevelXP = 100;
+
         maxHealth = baseHealth;
         health = maxHealth;
         maxMana = baseMana;
         mana = maxMana;
+
+        damage = 10;
+        pointsToSpend = 3;
     }
 
     public void AddStats(Stats _stats)
     {
-        attack += _stats.attack;
-        defense += _stats.defense;
-        speed += _stats.speed;
-        magic += _stats.magic;
-        hp += _stats.hp;
-        mp += _stats.mp;
+        if (_stats.linked)
+        {
+            attack += _stats.attack;
+            defense += _stats.defense;
+            speed += _stats.speed;
+            magic += _stats.magic;
+            hp += _stats.hp;
+            mp += _stats.mp;
+
+            foreach (Magic n in _stats.spells)
+            {
+                if (!spells.Contains(n))
+                {
+                    spells.Add(n);
+                }
+            }
+
+            foreach (Ability n in _stats.abilities)
+            {
+                if (!abilities.Contains(n))
+                {
+                    abilities.Add(n);
+                }
+            }
+        }
     }
 
     public void Multiply(Stats _stats, int _links)
@@ -59,6 +101,11 @@ public class Stats : ScriptableObject
         mp      = _stats.mp * _links;
         defense = _stats.defense * _links;
         speed   = _stats.speed * _links;
+
+        if (_links > 0)
+        {
+            linked = true;
+        }
     }
 
     public void Clear()
@@ -68,7 +115,10 @@ public class Stats : ScriptableObject
         hp = 0;
         mp = 0;
         defense = 0;
-        speed = 0;
+        speed = 0;     
+
+        spells.Clear();
+        abilities.Clear();
     }
 
     public void SetupHPMP()
@@ -88,6 +138,19 @@ public class Stats : ScriptableObject
 
         health = (int)(maxHealth * hpPercent);
         mana = (int)(maxMana * mpPercent);
-        damage = attack * 10;
+        damage = 10 + (attack * 10);
+    }
+
+    public void GainXP(int _xp)
+    {
+        currentXP += _xp;
+        if (currentXP >= nextLevelXP)
+        {
+            level++;
+            pointsToSpend++;
+            currentXP %= nextLevelXP;
+        }
+
+        nextLevelXP = (int)(nextLevelXP * 1.5f);
     }
 }

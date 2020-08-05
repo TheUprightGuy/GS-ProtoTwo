@@ -29,10 +29,4 @@ public class UIManager : MonoBehaviour
         tipsShown = (tipsShown + 1) % 2;
         tips[tipsShown].SetActive(true);
     }
-
-
-    public void tempSwapScene()
-    {
-        SceneManager.LoadScene("JacksWorld");
-    }
 }

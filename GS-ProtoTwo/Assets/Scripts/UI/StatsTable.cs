@@ -25,6 +25,12 @@ public class StatsTable : MonoBehaviour
     public TMPro.TextMeshProUGUI manaText;
     public TMPro.TextMeshProUGUI defenseText;
     public TMPro.TextMeshProUGUI speedText;
+    public TMPro.TextMeshProUGUI pointsLeft;
+
+    private void OnEnable()
+    {
+        UpdateText(SkillTreeManager.instance.stats);
+    }
 
     public void UpdateText(Stats _stats)
     {
@@ -34,5 +40,6 @@ public class StatsTable : MonoBehaviour
         manaText.SetText(_stats.mp.ToString());
         defenseText.SetText(_stats.defense.ToString());
         speedText.SetText(_stats.speed.ToString());
+        pointsLeft.SetText(SkillTreeManager.instance.stats.pointsToSpend.ToString());
     }
 }

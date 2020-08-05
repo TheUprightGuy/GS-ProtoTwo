@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offensive: 1
   damage: 33
+  element: 5

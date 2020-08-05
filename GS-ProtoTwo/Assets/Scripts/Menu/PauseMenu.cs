@@ -1,47 +1,57 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    private void Awake()
-    {
-        ToggleMenu(false);
-    }
-
+    public GameInfo gameInfo;
+    #region Callbacks
     // Start is called before the first frame update
     void Start()
     {
-        EventHandler.Instance.onPaused += ToggleMenu;
+        EventHandler.Instance.onTogglePauseMenu += TogglePauseMenu;
         EventHandler.Instance.toggleSettingsMenu += ToggleSettingsMenu;
     }
 
-    private void ToggleMenu(bool isPaused)
+    private void OnDestroy()
     {
+        EventHandler.Instance.onTogglePauseMenu -= TogglePauseMenu;
+        EventHandler.Instance.toggleSettingsMenu -= ToggleSettingsMenu;
+    }
+    #endregion Callbacks
+
+    private void TogglePauseMenu(bool isPaused)
+    {
+        AudioManager.instance.PlaySound("ui");
         transform.GetChild(0).gameObject.SetActive(isPaused);
     }
     
     private void ToggleSettingsMenu(bool enableSettings)
     {
+        AudioManager.instance.PlaySound("ui");
         transform.GetChild(0).gameObject.SetActive(!enableSettings);
     }
 
     public void Resume()
     {
-        EventHandler.Instance.TogglePaused();
+        AudioManager.instance.PlaySound("ui");
+        EventHandler.Instance.TogglePauseMenu();
     }
 
     public void ReturnToMenu()
     {
+        AudioManager.instance.PlaySound("ui");
         //Trigger Scene transition - To do
         SceneManager.LoadScene("MenuScene");
     }
 
     public void OpenSettings()
     {
-        EventHandler.Instance.settingsOpen = true;
+        AudioManager.instance.PlaySound("ui");
+        EventHandler.Instance.settingsMenuOpen = true;
         EventHandler.Instance.toggleSettingsMenu(true);
     }
 

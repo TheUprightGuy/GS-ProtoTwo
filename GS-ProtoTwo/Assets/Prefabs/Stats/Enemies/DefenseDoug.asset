@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cf75c75963ac44b877249c7cd0a754, type: 3}
+  m_Name: DefenseDoug
+  m_EditorClassIdentifier: 
+  name: Def Doug
+  characterType: 0
+  attack: 1
+  defense: 1
+  speed: 1
+  magic: 0
+  hp: 1
+  mp: 0
+  level: 1
+  currentXP: 0
+  nextLevelXP: 100
+  pointsToSpend: 3
+  xpReward: 100
+  maxHealth: 400
+  maxMana: 100
+  damage: 40
+  baseHealth: 100
+  baseMana: 100
+  mana: 100
+  health: 275
+  spells: []
+  abilities: []
+  weakness: 3
+  resistance: 2
+  linked: 0

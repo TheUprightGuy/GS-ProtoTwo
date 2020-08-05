@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayUIScript : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class GameplayUIScript : MonoBehaviour
     public List<ActionScript> playerUI;
 
     public List<TargetScript> targets;
+
+    public GameInfo gameInfo;
 
     private void Start()
     {
@@ -126,5 +129,10 @@ public class GameplayUIScript : MonoBehaviour
         {
             updateItemQuantity(_item);
         }
+    }
+
+    public void GoToWorld()
+    {
+        SceneTransition.instance.GoToWorld();
     }
 }

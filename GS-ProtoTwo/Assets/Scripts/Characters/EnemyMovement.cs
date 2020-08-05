@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
 public class EnemyMovement : MonoBehaviour
 {
 
@@ -26,6 +29,8 @@ public class EnemyMovement : MonoBehaviour
     public bool lockY = true;
 
     public Vector3 storedHandlePos;
+    
+    public GameInfo gameInfo;
 
     //Pathing
     /*******************************/
@@ -62,11 +67,17 @@ public class EnemyMovement : MonoBehaviour
     public GameObject PlayerLostObj = null;
     private Color LostBaseColor;
     /*******************************/
+    private void OnDestroy()
+    {
+        EventHandler.Instance.onPauseToggled -= OnPauseToggled;
+    }
 
 
     
     void Start()
     {
+        EventHandler.Instance.onPauseToggled += OnPauseToggled;
+        gameInfo = GameObject.Find("EventHandler").GetComponent<EventHandler>().gameInfo;
         //Targets = new List<Vector3>();
         //Targets.Add(To + transform.position);
         //Targets.Add(From + transform.position);
@@ -91,6 +102,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameInfo.paused) return;
         if (PlayerLastSeenPos != Vector3.zero)
         {
             NMA.enabled = true;
@@ -289,5 +301,10 @@ public class EnemyMovement : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void OnPauseToggled(bool obj)
+    {
+        NMA.isStopped = gameInfo.paused;
     }
 }

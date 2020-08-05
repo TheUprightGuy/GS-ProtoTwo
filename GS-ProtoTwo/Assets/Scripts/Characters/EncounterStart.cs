@@ -6,6 +6,7 @@ public class EncounterStart : MonoBehaviour
 {
     public string CombatSceneToLoad;
     public Encounter EncounterSO;
+    public GameObject transitionCanvas;
 
     private void Start()
     {
@@ -14,10 +15,7 @@ public class EncounterStart : MonoBehaviour
 
     public void GoToCombat()
     {
-        //Un-comment for scene loading :)
-        SceneManager.LoadScene(CombatSceneToLoad);
-
-        Debug.Log("Ping");
+        SceneTransition.instance.GoToCombat();
     }
 
     public void EncounterOnCollisionEnter(Collision collision)
@@ -29,6 +27,7 @@ public class EncounterStart : MonoBehaviour
                 EncounterSO.AddEnemy(item);
             }
 
+            Destroy(collision.gameObject);
             GoToCombat();
         }
     }
