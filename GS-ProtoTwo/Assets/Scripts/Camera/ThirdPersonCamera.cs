@@ -44,6 +44,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Start()
     {
+	    gameInfo = EventHandler.Instance.gameInfo;
         offset = target.transform.position - transform.position;
         storedXPos = PlayerObj.transform.eulerAngles.y;
         storeYPos = PlayerObj.transform.eulerAngles.x;

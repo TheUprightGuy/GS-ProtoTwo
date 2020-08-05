@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
+using TMPro;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Stats", menuName = "Player/Stats")]
@@ -22,6 +24,8 @@ public class Stats : ScriptableObject
     public int currentXP;
     public int nextLevelXP;
     public int pointsToSpend;
+    public GameObject levelUpMessagePrefab;
+    [SerializeField] private float levelUpMessageDisplayTime = 3f;
 
     [Header("Enemies Only")]
     public int xpReward;
@@ -149,8 +153,10 @@ public class Stats : ScriptableObject
             level++;
             pointsToSpend++;
             currentXP %= nextLevelXP;
-            //Play level up sfx
-            //Display levelUPOverlay
+            AudioManager.instance.PlaySound("levelUp");
+            levelUpMessagePrefab.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = level.ToString();
+            var levelUpMessage = Instantiate(levelUpMessagePrefab);
+            Destroy(levelUpMessage, levelUpMessageDisplayTime);
         }
 
         nextLevelXP = (int)(nextLevelXP * 1.5f);

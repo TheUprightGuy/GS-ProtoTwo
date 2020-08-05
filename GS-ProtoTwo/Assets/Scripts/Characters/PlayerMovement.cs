@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameInfo = EventHandler.Instance.gameInfo;
         playerAnims = GetComponentInChildren<Animator>();
 
         rb = GetComponent<Rigidbody>();

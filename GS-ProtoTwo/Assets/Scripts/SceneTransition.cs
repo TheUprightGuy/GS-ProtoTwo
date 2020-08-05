@@ -26,6 +26,7 @@ public class SceneTransition : MonoBehaviour
     [HideInInspector] public Transition transition;
     public void Start()
     {
+        gameInfo = EventHandler.Instance.gameInfo;
         gameInfo.activeScene = GameInfo.ActiveScene.WorldScene;
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
 
@@ -33,7 +34,7 @@ public class SceneTransition : MonoBehaviour
     }
     #endregion Setup
 
-    public GameInfo gameInfo;
+    [HideInInspector] public GameInfo gameInfo;
 
     // Switches Active Objects
     public void SwapScene()
