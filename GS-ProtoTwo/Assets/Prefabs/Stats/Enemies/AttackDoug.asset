@@ -34,10 +34,9 @@ MonoBehaviour:
   baseHealth: 100
   baseMana: 100
   mana: 100
-  health: -10
+  health: 60
   spells: []
-  abilities:
-  - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}
+  abilities: []
   weakness: 1
   resistance: 0
   linked: 0

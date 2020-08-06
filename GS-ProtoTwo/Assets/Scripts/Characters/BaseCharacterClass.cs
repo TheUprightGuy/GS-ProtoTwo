@@ -83,7 +83,6 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void FinishedTask()
     {
         inAction = false;
-        inMotion = false;
         NextTask();
     }
     public void EndTurn()
@@ -179,7 +178,6 @@ public abstract class BaseCharacterClass : MonoBehaviour
             if (inMotion && navAgent.remainingDistance <= navAgent.stoppingDistance)
             {
                 inAction = false;
-                inMotion = false;
 
                 navAgent.ResetPath();
 
@@ -212,6 +210,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
         turnIndicator.Toggle(activeTurn);
         if (activeTurn && stats.characterType == CharacterType.Enemy)
         {
+            inAction = false;
+            navAgent.isStopped = false;
             // temp
             CombatController.instance.ChangeState(CombatState.ENEMYTURN);
             turnIndicator.Toggle(false);
@@ -235,6 +235,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         }
         else if (activeTurn && stats.characterType == CharacterType.Player)
         {
+            inAction = false;
             navAgent.isStopped = false;
             CombatController.instance.ChangeState(CombatState.PLAYERTURN);
         }
