@@ -1121,7 +1121,7 @@ MonoBehaviour:
   abilityUiPrefab: {fileID: 4375038821334977765, guid: bcb1611658bff1d4ab31262ec48d4657,
     type: 3}
   playerStats:
-  - {fileID: 11400000, guid: 26a48013abea47a49bf7a3ce639dcf23, type: 2}
+  - {fileID: 11400000, guid: 8f4713e270ff8494cad37bd63c3893d1, type: 2}
   - {fileID: 11400000, guid: 5ab30f904ecad044a97878adc604eac1, type: 2}
   menuScreens:
   - {fileID: 9032148146120053902}

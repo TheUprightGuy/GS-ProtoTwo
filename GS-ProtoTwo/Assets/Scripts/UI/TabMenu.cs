@@ -8,6 +8,25 @@ using UnityEngine.UI;
 
 public class TabMenu : MonoBehaviour
 {
+    #region Singleton
+    public static TabMenu instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.Log("More than one TabMenu in scene!");
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+
+        LoadTabMenuScreenData();
+
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    #endregion
     public GameObject statsUiPrefab;
     public GameObject itemsUiPrefab;
     public GameObject itemUiPrefab;
@@ -19,9 +38,10 @@ public class TabMenu : MonoBehaviour
     public GameInfo gameInfo;
     public Inventory inventory;
     
-    private void Awake()
+    private void Start()
     {
-        LoadTabMenuScreenData();
+        EventHandler.Instance.onToggleTabMenu += ToggleTabMenu;
+        gameInfo = EventHandler.Instance.gameInfo;
     }
 
     public void LoadTabMenuScreenData()
@@ -88,12 +108,6 @@ public class TabMenu : MonoBehaviour
             Destroy(playerStatsUi.transform.GetChild(1).GetChild(1));
         playerStatsUi.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "Speed: " + player.speed;
         playerStatsUi.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "Damage: " + player.damage;
-    }
-
-    private void Start()
-    {
-        EventHandler.Instance.onToggleTabMenu += ToggleTabMenu;
-        gameInfo = EventHandler.Instance.gameInfo;
     }
 
     private void OnDestroy()

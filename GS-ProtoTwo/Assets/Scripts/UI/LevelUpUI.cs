@@ -10,6 +10,12 @@ public class LevelUpUI : MonoBehaviour
         EventHandler.Instance.onToggleTabMenu += OnToggleTabMenu;
         EventHandler.Instance.onLevelUp += OnLevelUp;
     }
+    
+    void OnDestroy()
+    {
+        EventHandler.Instance.onToggleTabMenu -= OnToggleTabMenu;
+        EventHandler.Instance.onLevelUp -= OnLevelUp;
+    }
 
     private void OnToggleTabMenu(bool obj)
     {

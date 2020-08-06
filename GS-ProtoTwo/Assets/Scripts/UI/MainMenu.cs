@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
         //Search for pause menu and destroy if it still exists from world/combat scene
         var pMenu = FindObjectOfType<PauseMenu>();
         if(pMenu != null) Destroy(pMenu.gameObject);
+        if (TabMenu.instance != null) Destroy(TabMenu.instance);
     }
 
     public void Start()
