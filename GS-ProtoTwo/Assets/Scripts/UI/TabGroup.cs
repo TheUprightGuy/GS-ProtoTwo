@@ -21,6 +21,12 @@ public class TabGroup : MonoBehaviour
         ResetTabs();
     }
 
+    public void Start()
+    {
+        //Add skill tree to menu Canvases
+        menuCanvases.Add(SkillTreeController.instance.skillTree);
+    }
+
     public void Subscribe(TabButton button)
     {
         if (tabButtons == null)
@@ -62,7 +68,7 @@ public class TabGroup : MonoBehaviour
             {
                 menuCanvases[i].SetActive(false);
             }
-        }     
+        }
     }
 
     private void ResetTabs()

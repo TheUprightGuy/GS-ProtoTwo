@@ -212,6 +212,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
         turnIndicator.Toggle(activeTurn);
         if (activeTurn && stats.characterType == CharacterType.Enemy)
         {
+            navAgent.isStopped = false;
             // temp
             CombatController.instance.ChangeState(CombatState.ENEMYTURN);
             turnIndicator.Toggle(false);

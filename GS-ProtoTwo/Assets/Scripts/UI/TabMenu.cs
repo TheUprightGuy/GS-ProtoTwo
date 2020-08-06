@@ -110,5 +110,6 @@ public class TabMenu : MonoBehaviour
     {
         AudioManager.instance.PlaySound("ui");
         transform.GetChild(0).gameObject.SetActive(enableTabMenu);
+        if(SkillTreeController.instance.skillTree.activeSelf) SkillTreeController.instance.skillTree.SetActive(false);
     }
 }

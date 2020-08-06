@@ -38,10 +38,10 @@ public class SkillTreeController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        /*if (Input.GetKeyDown(KeyCode.Tab))
         {
             Toggle(!skillTree.activeSelf);
             Cursor.lockState = (skillTree.activeSelf) ? CursorLockMode.None : CursorLockMode.Locked;
-        }
+        }*/
     }
 }
