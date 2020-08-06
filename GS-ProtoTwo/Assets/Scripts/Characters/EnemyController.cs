@@ -22,7 +22,8 @@ public class EnemyController : BaseCharacterClass
     public override void Attack(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
         target = _tar;
-        ActionsList(() => MoveToTarget(target), () => Punch(), () => MoveToStart());
+        //ActionsList(() => MoveToTarget(target), () => Punch(), () => MoveToStart());
+        ActionsList(() => Punch());
     }
     public override void Magic(BaseCharacterClass _user, BaseCharacterClass _tar)
     {
@@ -36,7 +37,7 @@ public class EnemyController : BaseCharacterClass
         //Debug.Log("used ability on " + _tar.name);
 
         target = _tar;
-        ActionsList(() => HoldPriority(this));
+        ActionsList();
     }
 
     public override void SpendMana(int _mana)

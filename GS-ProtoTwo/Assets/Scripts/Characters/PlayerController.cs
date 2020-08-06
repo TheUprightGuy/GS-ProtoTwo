@@ -18,7 +18,8 @@ public class PlayerController : BaseCharacterClass
         //Debug.Log(_user.name + " attacked " + _tar.name + " dealing " + stats.damage + " damage.");
 
         target = _tar;
-        ActionsList(()=>MoveToTarget(target), ()=>Punch(), ()=>MoveToStart());
+        //ActionsList(()=>MoveToTarget(target), ()=>Punch(), ()=>MoveToStart());
+        ActionsList(() => Punch());
     }
 
     public override void Magic(BaseCharacterClass _user, BaseCharacterClass _tar)
