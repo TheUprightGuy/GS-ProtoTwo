@@ -24,6 +24,8 @@ MonoBehaviour:
   currentXP: 0
   nextLevelXP: 100
   pointsToSpend: 3
+  levelUpMessagePrefab: {fileID: 0}
+  levelUpMessageDisplayTime: 3
   xpReward: 100
   maxHealth: 400
   maxMana: 100
