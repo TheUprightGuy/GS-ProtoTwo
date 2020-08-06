@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: -4524593587168409131}
   - component: {fileID: 4340916835608135358}
   m_Layer: 0
-  m_Name: AtkDoug
+  m_Name: MagDoug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16302fa9fe92650459a275f6df472076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: c1855e3b496947c43b1a885a55f2bef5, type: 2}
+  stats: {fileID: 11400000, guid: eb0fe52b7cce1d047a641d3d381777a7, type: 2}
   inventory: {fileID: 0}
   alive: 1
   id: 0
