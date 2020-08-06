@@ -3,7 +3,12 @@ guid: c6df1f12b794e7e409a0be75445e7d28
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pCube6Mat
+    second: {fileID: 2100000, guid: ab9638c15c8982b47b2d9f59df5ef53e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
