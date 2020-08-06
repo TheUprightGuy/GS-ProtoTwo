@@ -72,6 +72,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void NextTask()
     {
         inAction = false;
+        inMotion = false;
 
         if (myQueue.Count > 0)
         {
@@ -82,6 +83,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void FinishedTask()
     {
         inAction = false;
+        inMotion = false;
         NextTask();
     }
     public void EndTurn()
