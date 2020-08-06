@@ -2409,7 +2409,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4859585341873362531}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2419,7 +2419,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 370.721, y: 50}
+  m_SizeDelta: {x: 500.43677, y: 49.049927}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4859585341873362542
 CanvasRenderer:
@@ -2479,7 +2479,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 49.1
+  m_fontSize: 48.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7991,6 +7991,7 @@ MonoBehaviour:
   statsTable: {fileID: 4859585342018295602}
   tipsTable: {fileID: 4859585342367164999}
   tipsButton: {fileID: 4859585342340677336}
+  showAndHideText: {fileID: 0}
   tips:
   - {fileID: 4859585343564501092}
   - {fileID: 4859585343619614481}
