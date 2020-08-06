@@ -13,7 +13,8 @@ public class Transition : MonoBehaviour
 
     private static readonly int PlayTransition = Animator.StringToHash("PlayTransition");
     public string nextSceneToLoad;
-    public string transitionMessage = "FIGHT!";
+    public string combatMessage = "FIGHT!";
+    public string worldMessage = "";
     private GameObject logo;
     private TextMeshProUGUI logoText;
 
@@ -22,7 +23,7 @@ public class Transition : MonoBehaviour
         animator = GetComponent<Animator>();
         logo = transform.GetChild(2).gameObject;
         logoText = logo.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        logoText.text = transitionMessage;
+        UpdateText(worldMessage);
     }
 
     // Start is called before the first frame update
@@ -33,7 +34,7 @@ public class Transition : MonoBehaviour
 
     public IEnumerator TransitionToCombat()
     {
-        logo.SetActive(true);
+        UpdateText(combatMessage);
         animator.SetTrigger(PlayTransition);
 
         yield return new WaitForSeconds(1.5f);
@@ -43,11 +44,17 @@ public class Transition : MonoBehaviour
     
     public IEnumerator TransitionToWorld()
     {
-        logo.SetActive(false);
+        UpdateText(worldMessage);
         animator.SetTrigger(PlayTransition);
 
         yield return new WaitForSeconds(1.5f);
 
         SceneManager.LoadScene("JacksWorld");
+    }
+
+    public void UpdateText(string message)
+    {
+        logoText.text = message;
+        logo.SetActive(message != "");
     }
 }

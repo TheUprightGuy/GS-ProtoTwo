@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace Audio
         public static AudioManager instance;
         private void Awake()
         {
+            _audioSource = GetComponent<AudioSource>();
             if (instance != null)
             {
                 Debug.Log("More than one AudioManager in scene!");
@@ -40,16 +42,17 @@ namespace Audio
         public float masterVolume = 1.0f;
         public List<AudioClip> musicTracks;
 
-        private Dictionary<string, SoundInfo> _soundDictionary;
+        public Dictionary<string, SoundInfo> soundDictionary;
         private List<string> _soundsUnrestricted;    //Audio source will play this sound regardless of if it's already playing
         [SerializeField] private GameObject volumeSlider = null;
         private Slider _slider;
         private AudioSource _musicSource;
         private float _musicDefaultVolume;
+        private AudioSource _audioSource;
 
         private void InitialisePrivateVariables()
         {
-            _soundDictionary = new Dictionary<string, SoundInfo>();
+            soundDictionary = new Dictionary<string, SoundInfo>();
             if (volumeSlider != null) _slider = volumeSlider.GetComponent<Slider>();
             _musicSource = this.GetComponent<AudioSource>();
             _musicDefaultVolume = _musicSource.volume;
@@ -60,19 +63,32 @@ namespace Audio
             var soundName = audioSource.name;
             var soundInfo = new SoundInfo();
             soundInfo.InitialiseSound(soundName);
-            _soundDictionary.Add(soundName, soundInfo);
+            soundDictionary.Add(soundName, soundInfo);
         }
 
         public void PlaySound(string soundName)
         {
-            var sound = _soundDictionary[soundName];
+            var sound = soundDictionary[soundName];
             sound.Reset();
             PlaySound(sound.AudioSource);
         }
 
+        IEnumerator PlaySoundsInSequence(List<string> soundNamesInOrder)
+        {
+            foreach (var currentSound in soundNamesInOrder)
+            {
+                PlaySound(currentSound);
+                while (soundDictionary[currentSound].AudioSource.isPlaying)
+                {
+                    yield return new WaitForSeconds(0.05f);
+                }
+            }
+            yield return null;
+        }
+
         public void StopSound(string soundName)
         {
-            _soundDictionary[soundName].AudioSource.Stop();
+            soundDictionary[soundName].AudioSource.Stop();
         }
 
         public void OnVolumeAdjusted()
@@ -100,9 +116,19 @@ namespace Audio
         {
             foreach (var track in musicTracks.Where(track => track.name == trackName))
             {
-                GetComponent<AudioSource>().clip = track;
-                GetComponent<AudioSource>().Play();
+                _audioSource.clip = track;
+                _audioSource.Play();
             }
+        }
+
+        public bool IsSoundPlaying(string soundName)
+        {
+            return soundDictionary[soundName].AudioSource.isPlaying;
+        }
+
+        public void StopMusic()
+        {
+            _audioSource.Stop();
         }
     }
 }

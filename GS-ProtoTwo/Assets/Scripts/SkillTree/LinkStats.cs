@@ -28,5 +28,7 @@ public class LinkStats : MonoBehaviour
     public void UpdateStats()
     {
         SkillTreeManager.instance.stats.AddStats(statsProvided);
+        Debug.Log("Updating Stats");
+        TabMenu.instance.LoadTabMenuScreenData();
     }
 }

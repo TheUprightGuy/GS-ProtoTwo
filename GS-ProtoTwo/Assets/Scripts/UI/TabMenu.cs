@@ -21,6 +21,8 @@ public class TabMenu : MonoBehaviour
 
         instance = this;
 
+        //Singleton irrelevant awake functionality
+        _prefabInstances = new List<GameObject>();
         LoadTabMenuScreenData();
 
         DontDestroyOnLoad(this.gameObject);
@@ -37,6 +39,8 @@ public class TabMenu : MonoBehaviour
     public List<GameObject> menuScreens;
     public GameInfo gameInfo;
     public Inventory inventory;
+
+    private List<GameObject> _prefabInstances;
     
     private void Start()
     {
@@ -58,13 +62,11 @@ public class TabMenu : MonoBehaviour
 
     public void UnloadOldItems()
     {
-        foreach (var menuScreen in menuScreens)
+        foreach (var prefabInstance in _prefabInstances)
         {
-            for (int i = 0; i < menuScreen.transform.childCount; i++)
-            {
-                Destroy(menuScreen.transform.GetChild(i));
-            }
+            Destroy(prefabInstance);
         }
+        _prefabInstances.Clear();
     }
 
     private void SetUpAbilities(Stats player)
@@ -85,6 +87,9 @@ public class TabMenu : MonoBehaviour
             currentSpellUi.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = t.name.ToUpper();;
             currentSpellUi.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ("Damage: " + t.damage + " Cost: " + t.manaCost).ToUpper();
         }
+        
+        //Add to prefab instances so it can be cleared when stats change
+        _prefabInstances.Add(playerAbilitiesUi);
     }
 
     private void SetUpItems()
@@ -95,6 +100,8 @@ public class TabMenu : MonoBehaviour
             var itemUi = Instantiate(itemUiPrefab, itemsUi.transform, true);
             itemUi.GetComponent<TextMeshProUGUI>().text = (item.quantity + " " + item.name + "s" ).ToUpper();
         }
+        //Add to prefab instances so it can be cleared when stats change
+        _prefabInstances.Add(itemsUi);
     }
 
     private void SetUpPlayerStats(Stats player)
@@ -108,6 +115,9 @@ public class TabMenu : MonoBehaviour
             Destroy(playerStatsUi.transform.GetChild(1).GetChild(1));
         playerStatsUi.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "Speed: " + player.speed;
         playerStatsUi.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "Damage: " + player.damage;
+        
+        //Add to prefab instances so it can be cleared when stats change
+        _prefabInstances.Add(playerStatsUi);
     }
 
     private void OnDestroy()

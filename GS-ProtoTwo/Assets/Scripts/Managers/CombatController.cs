@@ -103,10 +103,20 @@ public class CombatController : MonoBehaviour
     public void DisplayVictory()
     {
         // Probably add action bars to this cleanup function.
-        AudioManager.instance.SwitchMusicTrack("victory");
+        StartCoroutine(PlayVictoryMusicAfterLevelUp());
         GameplayUIScript.instance.ToggleVictory(true);
         CleanUpUI();
         victoryScreenBlur.SetActive(true);
+    }
+
+    IEnumerator PlayVictoryMusicAfterLevelUp()
+    {
+        //Stop music to give level up sound room
+        AudioManager.instance.StopMusic();
+        yield return new WaitForSeconds(1f);    //To let the sound start playing
+        yield return new WaitUntil(() => !AudioManager.instance.IsSoundPlaying("levelUp"));
+        AudioManager.instance.SwitchMusicTrack("victory");
+        yield return null;
     }
 
     public void DisplayGameOver()

@@ -81,7 +81,7 @@ public class EventHandler : MonoBehaviour
         gameInfo.pauseMenuOpen = !gameInfo.pauseMenuOpen;
         onPauseToggled?.Invoke(gameInfo.paused);
         onTogglePauseMenu?.Invoke(gameInfo.pauseMenuOpen);
-        Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.lockState = (gameInfo.paused || gameInfo.activeScene == GameInfo.ActiveScene.CombatScene)? CursorLockMode.None : CursorLockMode.Locked;
     }
     
     public void ToggleTabMenu()
@@ -90,7 +90,7 @@ public class EventHandler : MonoBehaviour
         tabMenuOpen = !tabMenuOpen;
         onPauseToggled?.Invoke(gameInfo.paused);
         onToggleTabMenu?.Invoke(tabMenuOpen);
-        Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.lockState = (gameInfo.paused || gameInfo.activeScene == GameInfo.ActiveScene.CombatScene)? CursorLockMode.None : CursorLockMode.Locked;
     }
     
     public void LevelUp()

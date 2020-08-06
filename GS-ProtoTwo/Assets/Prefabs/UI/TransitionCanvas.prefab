@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1923, y: -3.5999756}
+  m_AnchoredPosition: {x: 1923, y: -3.6000977}
   m_SizeDelta: {x: -1279.9517, y: 10.363037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3003782634626235134
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 5
+  m_fontStyle: 21
   m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -414,7 +414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -640, y: -3.5999756}
+  m_AnchoredPosition: {x: -640, y: -3.6000977}
   m_SizeDelta: {x: -1280, y: 10.363037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2397695843091855732
@@ -591,7 +591,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 8339862775385068578}
   nextSceneToLoad: JacksWorld
-  transitionMessage: 
+  combatMessage: FIGHT!
+  worldMessage: 
 --- !u!114 &6830732389420509531
 MonoBehaviour:
   m_ObjectHideFlags: 0
