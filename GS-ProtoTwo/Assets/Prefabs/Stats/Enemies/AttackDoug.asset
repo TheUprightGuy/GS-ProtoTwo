@@ -22,16 +22,19 @@ MonoBehaviour:
   mp: 0
   level: 1
   currentXP: 0
-  nextLevelXP: 0
-  pointsToSpend: 0
+  nextLevelXP: 100
+  pointsToSpend: 3
+  levelUpMessagePrefab: {fileID: 7359730171079469629, guid: 8d668e728d6829e48b9e19d034821d03,
+    type: 3}
+  levelUpMessageDisplayTime: 3
   xpReward: 100
-  maxHealth: 20
-  maxMana: 50
-  damage: 10
+  maxHealth: 100
+  maxMana: 100
+  damage: 40
   baseHealth: 100
   baseMana: 100
-  mana: 50
-  health: 20
+  mana: 100
+  health: -10
   spells: []
   abilities:
   - {fileID: 11400000, guid: 77b9c8cc8f788524f8fdb6c124f4ffc1, type: 2}

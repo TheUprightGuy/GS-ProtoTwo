@@ -63,6 +63,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     #region ActionQueuing
     public List<Action> myQueue;
     public bool inAction = false;
+    public bool inMotion = false;
     public void DoWork()
     {
         myQueue[0]();
@@ -70,6 +71,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
 
     public void NextTask()
     {
+        inAction = false;
+
         if (myQueue.Count > 0)
         {
             myQueue.RemoveAt(0);
@@ -131,6 +134,7 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void MoveToStart()
     {
         inAction = true;
+        inMotion = true;
 
         navAgent.SetDestination(startPosition);
     }
@@ -138,6 +142,8 @@ public abstract class BaseCharacterClass : MonoBehaviour
     public void MoveToTarget(BaseCharacterClass _enemy)
     {
         inAction = true;
+        inMotion = true;
+
         // BADBADBADBABD
         navAgent.isStopped = false;
 
@@ -168,9 +174,10 @@ public abstract class BaseCharacterClass : MonoBehaviour
             }
 
             // Path Completed -> Move to Next Task
-            if (navAgent.hasPath && navAgent.remainingDistance <= navAgent.stoppingDistance)
+            if (inMotion && navAgent.remainingDistance <= navAgent.stoppingDistance)
             {
                 inAction = false;
+                inMotion = false;
 
                 navAgent.ResetPath();
 
