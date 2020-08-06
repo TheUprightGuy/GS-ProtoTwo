@@ -25,7 +25,6 @@ public class Stats : ScriptableObject
     public int nextLevelXP;
     public int pointsToSpend;
     public GameObject levelUpMessagePrefab;
-    [SerializeField] private float levelUpMessageDisplayTime = 3f;
 
     [Header("Enemies Only")]
     public int xpReward;
@@ -154,9 +153,10 @@ public class Stats : ScriptableObject
             pointsToSpend++;
             currentXP %= nextLevelXP;
             AudioManager.instance.PlaySound("levelUp");
+            //Call on level up to destroy previous level up message
+            EventHandler.Instance.LevelUp();
             levelUpMessagePrefab.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = level.ToString();
-            var levelUpMessage = Instantiate(levelUpMessagePrefab);
-            Destroy(levelUpMessage, levelUpMessageDisplayTime);
+            Instantiate(levelUpMessagePrefab);
         }
 
         nextLevelXP = (int)(nextLevelXP * 1.5f);

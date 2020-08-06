@@ -59,6 +59,8 @@ public class EventHandler : MonoBehaviour
     //Tab menu
     [HideInInspector] public bool tabMenuOpen;
     public Action<bool> onToggleTabMenu;
+    
+    public Action onLevelUp;
 
     private void Update()
     {
@@ -89,5 +91,10 @@ public class EventHandler : MonoBehaviour
         onPauseToggled?.Invoke(gameInfo.paused);
         onToggleTabMenu?.Invoke(tabMenuOpen);
         Cursor.lockState = (gameInfo.paused)? CursorLockMode.None : CursorLockMode.Locked;
+    }
+    
+    public void LevelUp()
+    {
+        onLevelUp?.Invoke();
     }
 }
